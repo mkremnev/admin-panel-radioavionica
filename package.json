@@ -1,7 +1,7 @@
 {
-	"name": "app-calc",
+	"name": "admin-panel-radioavionica",
 	"version": "1.0.0",
-	"description": "A project developed in the process of learning at the OTUS school",
+	"description": "Project admin panels for work Radioavionica",
 	"main": "index.js",
 	"scripts": {
 		"start": "npx webpack-dev-server --mode development --open --hot",
