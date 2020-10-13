@@ -1,0 +1,54 @@
+{
+	"extends": [
+		"plugin:@typescript-eslint/recommended",
+		"prettier/@typescript-eslint",
+		"plugin:prettier/recommended",
+		"plugin:react/recommended"
+	],
+	"settings": {
+		"react": {
+			"version": "detect"
+		}
+	},
+	"rules": {
+		"semi": "error",
+		"@typescript-eslint/no-non-null-assertion": "off",
+		"prettier/prettier": [
+			"error",
+			{
+				"endOfLine": "auto"
+			}
+		],
+		"no-restricted-syntax": [
+			"warn",
+			{
+				"selector": "ExportDefaultDeclaration",
+				"message": "Restricted default export, prefer named exports!"
+			}
+		],
+		"@typescript-eslint/explicit-function-return-type": 0,
+		"react/prop-types": 0,
+		"no-console": [
+			"error",
+			{
+				"allow": ["warn", "error"]
+			}
+		]
+	},
+	"parserOptions": {
+		"parser": "babel-eslint",
+		"ecmaVersion": 2018,
+		"sourceType": "module",
+		"ecmaFeatures": {
+			"jsx": true
+		}
+	},
+	"overrides": [
+		{
+			"files": ["webpack.config.js"],
+			"rules": {
+				"@typescript-eslint/no-var-requires": ["off"]
+			}
+		}
+	]
+}
