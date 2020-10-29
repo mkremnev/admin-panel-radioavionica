@@ -31,7 +31,7 @@
 	"dependencies": {
 		"@coreui/chartjs": "^2.0.0",
 		"@coreui/coreui": "^3.3.0",
-		"@coreui/icons": "2.0.0-beta.4",
+		"@coreui/icons": "^2.0.0-beta.4",
 		"@coreui/icons-react": "^1.0.1",
 		"@coreui/react": "^3.0.3",
 		"@coreui/react-chartjs": "^1.0.0",
