@@ -8,13 +8,13 @@ export default [
 	},
 	{
 		_tag: 'CSidebarNavTitle',
-		_children: ['Theme'],
+		_children: ['Командировка'],
 	},
 	{
 		_tag: 'CSidebarNavItem',
-		name: 'Colors',
-		to: '/theme/colors',
-		icon: 'cil-drop',
+		name: 'Отчетные документы',
+		to: '/trip/document',
+		icon: 'cil-description',
 	},
 	{
 		_tag: 'CSidebarNavItem',
