@@ -68,6 +68,9 @@ const Lists = React.lazy(() => import('./views/military_units/lists/Lists'));
 const Defects = React.lazy(() =>
 	import('./views/military_units/defects/Defects'),
 );
+const AcceptanceDocuments = React.lazy(() =>
+	import('./views/military_acceptance/documents/AcceptanceDocuments'),
+);
 
 const routes = [
 	{ path: '/', exact: true, name: 'Главная' },
@@ -153,6 +156,12 @@ const routes = [
 		exact: true,
 		name: 'Неисправности',
 		component: Defects,
+	},
+	{
+		path: '/military_acceptance/documents',
+		exact: true,
+		name: 'Документы для военной приемки',
+		component: AcceptanceDocuments,
 	},
 ];
 
