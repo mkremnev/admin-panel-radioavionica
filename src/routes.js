@@ -64,6 +64,7 @@ const User = React.lazy(() => import('./views/users/User'));
 const TripDocument = React.lazy(() =>
 	import('./views/trip/document/TripDocument'),
 );
+const Lists = React.lazy(() => import('./views/military_units/lists/Lists'));
 
 const routes = [
 	{ path: '/', exact: true, name: 'Главная' },
@@ -137,6 +138,12 @@ const routes = [
 		exact: true,
 		name: 'Отчетные документы',
 		component: TripDocument,
+	},
+	{
+		path: '/military_units/lists',
+		exact: true,
+		name: 'Список частей',
+		component: Lists,
 	},
 ];
 
