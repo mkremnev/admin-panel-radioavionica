@@ -27,6 +27,12 @@ export default [
 		icon: 'cil-home',
 	},
 	{
+		_tag: 'CSidebarNavItem',
+		name: 'Неисправности',
+		to: '/military_units/defects',
+		icon: 'cil-x-circle',
+	},
+	{
 		_tag: 'CSidebarNavDropdown',
 		name: 'Buttons',
 		route: '/buttons',
