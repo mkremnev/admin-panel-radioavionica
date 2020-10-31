@@ -65,6 +65,9 @@ const TripDocument = React.lazy(() =>
 	import('./views/trip/document/TripDocument'),
 );
 const Lists = React.lazy(() => import('./views/military_units/lists/Lists'));
+const Defects = React.lazy(() =>
+	import('./views/military_units/defects/Defects'),
+);
 
 const routes = [
 	{ path: '/', exact: true, name: 'Главная' },
@@ -144,6 +147,12 @@ const routes = [
 		exact: true,
 		name: 'Список частей',
 		component: Lists,
+	},
+	{
+		path: '/military_units/defects',
+		exact: true,
+		name: 'Неисправности',
+		component: Defects,
 	},
 ];
 
