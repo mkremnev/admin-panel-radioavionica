@@ -71,7 +71,9 @@ const Defects = React.lazy(() =>
 const AcceptanceDocuments = React.lazy(() =>
 	import('./views/military_acceptance/documents/AcceptanceDocuments'),
 );
-
+const TripCalc = React.lazy(() =>
+	import('./views/calculation/trip-calc/TripCalc'),
+);
 const routes = [
 	{ path: '/', exact: true, name: 'Главная' },
 	{ path: '/dashboard', name: 'Dashboard', component: Dashboard },
@@ -162,6 +164,12 @@ const routes = [
 		exact: true,
 		name: 'Документы для военной приемки',
 		component: AcceptanceDocuments,
+	},
+	{
+		path: '/calculation/trip-calc',
+		exact: true,
+		name: 'Расчет командировки',
+		component: TripCalc,
 	},
 ];
 
