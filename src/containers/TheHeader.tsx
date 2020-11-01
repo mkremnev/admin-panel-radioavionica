@@ -1,5 +1,4 @@
 import React from 'react';
-import { useSelector, useDispatch } from 'react-redux';
 import {
 	CHeader,
 	CToggler,
@@ -9,9 +8,11 @@ import {
 	CHeaderNavLink,
 	CSubheader,
 	CBreadcrumbRouter,
-	CLink,
 } from '@coreui/react';
 import CIcon from '@coreui/icons-react';
+import { connect } from 'react-redux';
+import { actions } from '@/rdx/reducer';
+import { StoreState } from '@/store';
 
 // routes config
 import routes from '../routes';
@@ -23,30 +24,30 @@ import {
 	TheHeaderDropdownTasks,
 } from './index';
 
-type StateHeader = {
-	sidebarShow?: boolean | undefined | string;
+function mapStateToProps(state: StoreState) {
+	return {
+		sidebarShow: state.sidebarShow.sidebarShow,
+	};
+}
+const mapDispatchToProps = {
+	SidebarShow: actions.set,
 };
+type TheHeaderProps = ReturnType<typeof mapStateToProps> &
+	typeof mapDispatchToProps;
 
-const TheHeader: React.FC<StateHeader> = () => {
-	const dispatch = useDispatch();
-	const sidebarShow = useSelector((state: StateHeader) => state.sidebarShow);
+const TheHeaderComponent: React.FC<TheHeaderProps> = (
+	props: TheHeaderProps,
+) => {
+	const show = props.sidebarShow;
 
 	const toggleSidebar = () => {
-		const val = [true, 'responsive'].includes(
-			sidebarShow as boolean | string,
-		)
-			? false
-			: 'responsive';
-		dispatch({ type: 'set', sidebarShow: val });
+		const val = [true, 'responsive'].includes(show) ? false : 'responsive';
+		props.SidebarShow(val);
 	};
 
 	const toggleSidebarMobile = () => {
-		const val = [false, 'responsive'].includes(
-			sidebarShow as boolean | string,
-		)
-			? true
-			: 'responsive';
-		dispatch({ type: 'set', sidebarShow: val });
+		const val = [false, 'responsive'].includes(show) ? true : 'responsive';
+		props.SidebarShow(val);
 	};
 
 	return (
@@ -94,4 +95,8 @@ const TheHeader: React.FC<StateHeader> = () => {
 	);
 };
 
+const TheHeader = connect(
+	mapStateToProps,
+	mapDispatchToProps,
+)(TheHeaderComponent);
 export default TheHeader;
