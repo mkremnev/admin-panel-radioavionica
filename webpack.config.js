@@ -1,5 +1,7 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const ManifestPlugin = require('webpack-manifest-plugin');
 
 module.exports = {
 	entry: './src/index.tsx',
@@ -62,9 +64,32 @@ module.exports = {
 		port: 5000,
 	},
 	plugins: [
+		new CleanWebpackPlugin(),
 		new HtmlWebpackPlugin({
 			template: './public/index.html',
 			favicon: './public/favicon.ico',
+		}),
+		new ManifestPlugin({
+			writeToFileEmit: true,
+			seed: {
+				// eslint-disable-next-line @typescript-eslint/camelcase
+				short_name: 'CoreUI-React Admin panel for Radioavionica',
+				name: 'CoreUI-React sample',
+				icons: [
+					{
+						src: './public/favicon.ico',
+						sizes: '100x100',
+						type: 'image/ico',
+					},
+				],
+				// eslint-disable-next-line @typescript-eslint/camelcase
+				start_url: '.',
+				display: 'standalone',
+				// eslint-disable-next-line @typescript-eslint/camelcase
+				theme_color: '#000000',
+				// eslint-disable-next-line @typescript-eslint/camelcase
+				background_color: '#ffffff',
+			},
 		}),
 	],
 };
