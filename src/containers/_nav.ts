@@ -42,6 +42,16 @@ export default [
 		to: '/military_acceptance/documents',
 		icon: 'cil-description',
 	},
+	{
+		_tag: 'CSidebarNavTitle',
+		_children: ['Калькулятор'],
+	},
+	{
+		_tag: 'CSidebarNavItem',
+		name: 'Расчет командировки',
+		to: '/calculation/trip-calc',
+		icon: 'cil-calculator',
+	},
 
 	// {
 	// 	_tag: 'CSidebarNavDropdown',
