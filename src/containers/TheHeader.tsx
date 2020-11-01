@@ -67,13 +67,10 @@ const TheHeader: React.FC<StateHeader> = () => {
 
 			<CHeaderNav className="d-md-down-none mr-auto">
 				<CHeaderNavItem className="px-3">
-					<CHeaderNavLink to="/dashboard">Dashboard</CHeaderNavLink>
+					<CHeaderNavLink to="/users">Сотрудники</CHeaderNavLink>
 				</CHeaderNavItem>
 				<CHeaderNavItem className="px-3">
-					<CHeaderNavLink to="/users">Users</CHeaderNavLink>
-				</CHeaderNavItem>
-				<CHeaderNavItem className="px-3">
-					<CHeaderNavLink>Settings</CHeaderNavLink>
+					<CHeaderNavLink>Настройки</CHeaderNavLink>
 				</CHeaderNavItem>
 			</CHeaderNav>
 
