@@ -1,11 +1,38 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-export const initialState = {};
+export type DefectsStore = {
+	data: [];
+	loading: boolean;
+	error: boolean;
+};
+
+export const initialState: DefectsStore = {
+	data: [],
+	loading: false,
+	error: false,
+};
 
 export const dataDefects = createSlice({
 	name: 'defects',
 	initialState,
-	reducers: {},
+	reducers: {
+		requestedDefects: (state: DefectsStore) => ({
+			...state,
+			loading: true,
+		}),
+		requestedDefectsSuccess: (
+			state: DefectsStore,
+			{ payload }: PayloadAction<[]>,
+		) => ({
+			...state,
+			data: payload,
+			loading: false,
+		}),
+		requestedDefectsFailure: (state: DefectsStore) => ({
+			...state,
+			error: true,
+		}),
+	},
 });
 
 export const { reducer, actions } = dataDefects;
