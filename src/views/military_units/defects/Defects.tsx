@@ -129,7 +129,16 @@ const TheDefectsComponent: React.FC<TheDefectsProps> = (props) => {
 
 	return (
 		<div className="card">
-			<div className="card-header">Список неисправностей по частям</div>
+			<div className="card-header d-flex justify-content-between align-items-center">
+				<h4>Список неисправностей по частям</h4>
+				<CButton
+					color="success"
+					className="m-2"
+					to="/modules/create-defects"
+				>
+					Добавить
+				</CButton>
+			</div>
 			<div className="card-body">
 				<CRow>
 					<CDataTable
