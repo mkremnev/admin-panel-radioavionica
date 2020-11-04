@@ -60,7 +60,10 @@ module.exports = {
 	devServer: {
 		historyApiFallback: true,
 		inline: true,
-		contentBase: './dist',
+		contentBase: [
+			path.join(__dirname, '/public'),
+			path.join(__dirname, '/dist'),
+		],
 		port: 5000,
 	},
 	plugins: [
