@@ -1,6 +1,6 @@
 export const radioavion = [
-  "608 134",
-  `
+	'608 134',
+	`
   <title>Radioavionica</title>
   <defs><text id="dayydQuHT" font-size="75" font-family="Open Sans Condensed" font-weight="700" font-style="normal" letter-spacing="0.36" alignment-baseline="before-edge" transform="matrix(1 0 0 1 0 0)" style="line-height:100%" xml:space="preserve" dominant-baseline="text-before-edge"><tspan x="50" y="10" alignment-baseline="before-edge" dominant-baseline="text-before-edge" text-anchor="start">РАДИО</tspan></text><style id="opensanscondensed700normal">
   @font-face {
