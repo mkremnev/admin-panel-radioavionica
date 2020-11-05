@@ -66,6 +66,7 @@ const TheListsComponent: React.FC<TheListProps> = (props) => {
 			key: 'file_lists_complects',
 			label: 'База комплектов',
 			_style: { width: '4%' },
+			filter: false,
 		},
 		{
 			key: 'notes',
