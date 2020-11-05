@@ -3,3 +3,9 @@ export const getDefects = () => {
 		res.json(),
 	);
 };
+
+export const getListsUnits = () => {
+	return fetch('http://localhost:5000/db/lists.json').then((res) =>
+		res.json(),
+	);
+};

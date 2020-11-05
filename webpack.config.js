@@ -63,6 +63,7 @@ module.exports = {
 		contentBase: [
 			path.join(__dirname, '/public'),
 			path.join(__dirname, '/dist'),
+			path.join(__dirname, '/public/avatars'),
 		],
 		port: 5000,
 	},
