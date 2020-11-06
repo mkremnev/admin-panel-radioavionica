@@ -11,6 +11,12 @@ module.exports = {
 		extensions: ['.js', '.jsx', '.ts', '.tsx', '.json'],
 		alias: {
 			types: path.resolve(__dirname, 'src/types'),
+			screens: path.resolve(__dirname, 'src/screens'),
+			common: path.resolve(__dirname, 'src/common'),
+			containers: path.resolve(__dirname, 'src/containers'),
+			views: path.resolve(__dirname, 'src/views'),
+			rdx: path.resolve(__dirname, 'src/rdx'),
+			api: path.resolve(__dirname, 'src/api'),
 			components: path.resolve(__dirname, 'src/components'),
 			'@': path.resolve(__dirname, 'src'),
 		},

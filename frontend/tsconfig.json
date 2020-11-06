@@ -2,10 +2,14 @@
 	"compilerOptions": {
 		"baseUrl": "./" /* Base directory to resolve non-absolute module names. */,
 		"paths": {
-			"@types/*": ["src/types/*"],
-			"@components/*": ["src/components/*"],
-			"@screens/*": ["src/screens/*"],
-			"@common/*": ["src/common/*"],
+			"@/types/*": ["src/types/*"],
+			"@/components/*": ["src/components/*"],
+			"@/screens/*": ["src/screens/*"],
+			"@/common/*": ["src/common/*"],
+			"@/containers/*": ["src/containers/*"],
+			"@/views/*": ["src/views/*"],
+			"@/rdx/*": ["src/rdx/*"],
+			"@/api/*": ["src/api/*"],
 			"@/*": ["src/*"]
 		},
 		"downlevelIteration": true,
