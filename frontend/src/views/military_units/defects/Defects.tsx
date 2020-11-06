@@ -261,4 +261,4 @@ const TheDefects = connect(
 	mapStateToProps,
 	mapDispatchToProps,
 )(TheDefectsComponent);
-export default TheDefects;
+export default React.memo(TheDefects);
