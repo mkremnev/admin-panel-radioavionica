@@ -1,59 +1,9 @@
-version: '3'
-
-networks:
-  backend:
-
+version: "3.7"
 services:
-
-  nginx:
-    image: nginx:stable-alpine
-    container_name: nginx
-    ports:
-      - "${NGINX_PORT}:80"
-    volumes:
-      - ./projects:/var/www
-      - ./nginx/conf.d:/etc/nginx/conf.d
-      - ./nginx/logs:/var/log/nginx/
-    depends_on:
-      - php-7.3
-      - mongo
-    environment:
-      TZ: ${WORKSPACE_TIMEZONE}
-    networks:
-      - backend
-
-  mongo:
-    image: mongo:4.2
-    ports:
-      - "${MONGO_PORT}:27017"
-    volumes:
-      - ./mongo/db:/data/db
-      - ./mongo/configdb:/data/configdb
-      - ./mongo/dump:/dump
-    environment:
-      TZ: ${WORKSPACE_TIMEZONE}
-    networks:
-      - backend
-    container_name: mongo
-
-  php-7.3:
+  frontend:
     build:
-      context: ./php-workspace
-      dockerfile: Dockerfile
-      args:
-        DOCKER_PHP_VERSION: '7.3'
-        DOCKER_PHP_ENABLE_XDEBUG: ${DOCKER_PHP_ENABLE_XDEBUG}
-        TZ: ${WORKSPACE_TIMEZONE}
-    working_dir: /var/www
-    container_name: php-7.3
-    volumes:
-      - ./.ssh:/home/www-data/.ssh
-      - ./projects:/var/www
-      - ./php-ini/7.3/php.ini:/usr/local/etc/php/php.ini
-      - ./php-workers/7.3/supervisor.d:/etc/supervisor.d
+      context: frontend/docker/development/nginx
     ports:
-      - "${PHP_7_3_PORT}:9000"
-    networks:
-      - backend
-    extra_hosts:
-      - 'radioavionica.localhost:192.168.1.121'
+      - "80:80"
+    volumes:
+      - "./frontend/public/dist:/app/public"
