@@ -3,3 +3,7 @@ root = true
 [{Makefile,**.mk}]
 indent_style = tab
 indent_size = 4
+
+[docker-compose.yml]
+indent_style = space
+indent_size = 2
