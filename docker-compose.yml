@@ -4,6 +4,22 @@ services:
     build:
       context: frontend/docker/development/nginx
     ports:
-      - "80:80"
+      - "8080:80"
     volumes:
       - "./frontend/public/dist:/app/public"
+
+  backend-nginx:
+    build:
+      context: ./backend/docker/development/nginx
+    ports:
+      - "8081:80"
+    volumes:
+      - ./backend/public:/app/public
+    depends_on:
+      - backend-php-fpm
+
+  backend-php-fpm:
+    build:
+      context: backend/docker/development/php-fpm
+    volumes:
+      - ./backend/public:/app/public
