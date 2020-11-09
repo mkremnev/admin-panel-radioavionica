@@ -1,6 +1,7 @@
 init: npm-build docker-down docker-pull docker-build docker-up
 up: docker-up
 down: docker-down
+clear: docker-down-clear
 build: docker-build
 restart: down build up
 
