@@ -3,7 +3,8 @@ services:
 
   gateway:
     build:
-      context: gateway/development/nginx
+      context: gateway
+      dockerfile: development/nginx/Dockerfile
     ports:
       - "8080:8080"
       - "8081:8081"
