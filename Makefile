@@ -4,9 +4,6 @@ down: docker-down
 clear: docker-down-clear
 restart: down up
 
-npm-build:
-	cd frontend/public && npm run build
-
 docker-up:
 	docker-compose up -d
 
@@ -33,6 +30,7 @@ build-frontend:
 build-backend:
 	docker --log-level=debug build --pull --file=backend/docker/production/nginx/Dockerfile --tag=${REGISTRY}/radioavionica-backend-nginx:${IMAGE_TAG} backend
 	docker --log-level=debug build --pull --file=backend/docker/production/php-fpm/Dockerfile --tag=${REGISTRY}/radioavionica-backend-php-fpm:${IMAGE_TAG} backend
+	docker --log-level=debug build --pull --file=backend/docker/production/php-cli/Dockerfile --tag=${REGISTRY}/radioavionica-backend-php-cli:${IMAGE_TAG} backend
 
 try-build:
 	REGISTRY=localhost IMAGE_TAG=0 make build
@@ -50,7 +48,7 @@ push-frontend:
 	docker push ${REGISTRY}/radioavionica-frontend:${IMAGE_TAG}
 
 deploy:
-	cd frontend/public && npm run build
+	npm-build
 	ssh -o StrictHostKeyChecking=no deploy@${HOST} -p ${PORT} 'rm -rf admin-panel_${BUILD_NUMBER}'
 	ssh -o StrictHostKeyChecking=no deploy@${HOST} -p ${PORT} 'mkdir admin-panel_${BUILD_NUMBER}'
 
@@ -66,3 +64,6 @@ deploy:
 
 rollback:
 	ssh -o StrictHostKeyChecking=no deploy@${HOST} -p ${PORT} 'cd admin-panel_${BUILD_NUMBER} && docker stack deploy --compose-file docker-compose.yml admin-panel --with-registry-auth --prune'
+
+npm-build:
+	cd frontend/public && npm run build

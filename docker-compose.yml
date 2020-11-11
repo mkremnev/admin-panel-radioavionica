@@ -33,3 +33,10 @@ services:
       dockerfile: development/php-fpm/Dockerfile
     volumes:
       - ./backend/public:/app/public
+
+  backend-php-cli:
+    build:
+      context: backend/docker
+      dockerfile: development/php-cli/Dockerfile
+    volumes:
+      - ./backend/public:/app

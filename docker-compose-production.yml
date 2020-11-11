@@ -24,3 +24,6 @@ services:
   backend-php-fpm:
     image: ${REGISTRY}/radioavionica-backend-php-fpm:${IMAGE_TAG}
     restart: always
+
+  backend-php-cli:
+    image: ${REGISTRY}/radioavionica-backend-php-cli:${IMAGE_TAG}
