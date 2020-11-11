@@ -1,0 +1,26 @@
+version: "3.7"
+services:
+  gateway:
+    image: ${REGISTRY}/radioavionica-gateway:${IMAGE_TAG}
+    restart: always
+    volumes:
+      - /var/www/html:/var/www/html:ro
+    ports:
+      - "80:80"
+    depends_on:
+      - frontend
+      - backend-nginx
+
+  frontend:
+    image: ${REGISTRY}/radioavionica-frontend:${IMAGE_TAG}
+    restart: always
+
+  backend-nginx:
+    image: ${REGISTRY}/radioavionica-backend-nginx:${IMAGE_TAG}
+    restart: always
+    depends_on:
+      - backend-php-fpm
+
+  backend-php-fpm:
+    image: ${REGISTRY}/radioavionica-backend-php-fpm:${IMAGE_TAG}
+    restart: always

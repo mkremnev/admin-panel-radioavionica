@@ -1,0 +1,8 @@
+---
+- name: Updated Server
+  hosts: all
+  remote_user: root
+  tasks:
+    - name: Update yum packages
+      yum:
+        update_cache: yes
