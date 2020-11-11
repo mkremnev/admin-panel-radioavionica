@@ -1,0 +1,21 @@
+{
+  "name": "radioavionica/admin-panel",
+  "description": "Project React+Slim",
+  "type": "project",
+  "config": {
+    "process-timeout": 0,
+    "sort-packages": true
+  },
+  "require": {
+    "php": "^7.4",
+    "slim/psr7": "^1.2",
+    "slim/slim": "^4.5"
+  },
+  "license": "GPL",
+  "authors": [
+    {
+      "name": "Maxim Kremnev",
+      "email": "m.kremnev@netlinux.ru"
+    }
+  ]
+}
