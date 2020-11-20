@@ -8,8 +8,16 @@
   },
   "require": {
     "php": "^7.4",
+    "ext-json": "^7.4",
+    "php-di/php-di": "^6.3",
     "slim/psr7": "^1.2",
-    "slim/slim": "^4.5"
+    "slim/slim": "^4.5",
+    "symfony/console": "^5.1"
+  },
+  "autoload": {
+    "psr-4": {
+      "App\\": "src/"
+    }
   },
   "license": "GPL",
   "authors": [
@@ -17,5 +25,8 @@
       "name": "Maxim Kremnev",
       "email": "m.kremnev@netlinux.ru"
     }
-  ]
+  ],
+  "scripts": {
+    "app": "php bin/app.php --ansi"
+  }
 }
