@@ -36,6 +36,8 @@ services:
       APP_ENV: dev
     volumes:
       - ./backend/public:/app/public
+    extra_hosts:
+      - "docker.localhost:${IP}"
 
   backend-php-cli:
     build:
@@ -43,3 +45,5 @@ services:
       dockerfile: development/php-cli/Dockerfile
     volumes:
       - ./backend/public:/app
+    extra_hosts:
+      - "docker.localhost:${IP}"
