@@ -1,23 +1,22 @@
 <?php
+/**
+ * @author Maxim Kremnev <m.kremnev@netlinux.ru>
+ * @var ContainerInterface $container
+ * @var App $app
+ */
 
 declare(strict_types=1);
 
-use Psr\Http\Message\ServerRequestInterface as Request;
-use Psr\Http\Message\ResponseInterface as Response;
-use Slim\Factory\AppFactory;
+namespace App;
+use Psr\Container\ContainerInterface;
+use Slim\App;
+
+http_response_code(500);
 
 require __DIR__ . '/vendor/autoload.php';
 
-$app = AppFactory::create();
+$container = require __DIR__ . '/config/container.php';
 
-$app->addRoutingMiddleware();
-
-$errorMiddleware = $app->addErrorMiddleware(true, true, true);
-
-$app->get('/', function (Request $request, Response $response, $args) {
-    $response->getBody()->write('{}');
-    return $response->withHeader('Content-Type', 'application/json');
-});
+$app = (require __DIR__ . '/config/app.php')($container);
 
 $app->run();
-
