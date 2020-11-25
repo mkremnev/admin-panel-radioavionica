@@ -68,4 +68,5 @@ rollback:
 npm-build:
 	cd frontend/public && npm run build
 
-prod-deploy:
+lint:
+	docker-compose run --rm backend-php-cli composer lint
