@@ -3,6 +3,7 @@ up: docker-up
 down: docker-down
 clear: docker-down-clear
 restart: down up
+analyze: php-analyze
 
 docker-up:
 	docker-compose up -d
@@ -68,5 +69,15 @@ rollback:
 npm-build:
 	cd frontend/public && npm run build
 
-lint:
+php-lint:
 	docker-compose run --rm backend-php-cli composer lint
+	docker-compose run --rm backend-php-cli composer check
+
+php-fix:
+	docker-compose run --rm backend-php-cli composer fix
+
+php-require:
+	docker-compose run --rm backend-php-cli composer require ${LIB} ${POS}
+
+php-analyze:
+	docker-compose run --rm backend-php-cli composer psalm

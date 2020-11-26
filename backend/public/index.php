@@ -1,15 +1,15 @@
 <?php
-/**
- * @author Maxim Kremnev <m.kremnev@netlinux.ru>
- * @var ContainerInterface $container
- * @var App $app
- */
-
 declare(strict_types=1);
 
 namespace App;
 use Psr\Container\ContainerInterface;
 use Slim\App;
+
+/**
+ * @author Maxim Kremnev <m.kremnev@netlinux.ru>
+ * @var ContainerInterface $container
+ * @var App $app
+ */
 
 http_response_code(500);
 
