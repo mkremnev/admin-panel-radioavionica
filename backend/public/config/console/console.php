@@ -5,7 +5,7 @@ declare(strict_types=1);
 use App\Console;
 
 return [
-    'config'=>[
+    'config' => [
         'console' => [
             'commands' => [
                 Console\HelloCommand::class,

@@ -1,11 +1,8 @@
 <?php
-/**
- * @author Maxim Kremnev <m.kremnev@netlinux.ru>
- * @return Array $files
- */
-
 declare(strict_types=1);
 
+
+/** @psalm-suppress PossiblyInvalidArgument */
 $files = array_merge(
     glob(__DIR__ . '/common/*.php') ?: [],
     glob(__DIR__ . '/console/*.php') ?: [],
@@ -13,8 +10,11 @@ $files = array_merge(
 );
 
 $configs = array_map(
-    static function($file)
-    {
+    static function (string $file): array {
+        /**
+         * @var array
+         * @psalm-suppress UnresolvableInclude
+         */
         return require $file;
     },
     $files

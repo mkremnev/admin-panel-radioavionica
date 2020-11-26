@@ -15,7 +15,9 @@
     "symfony/console": "^5.1"
   },
   "require-dev": {
-    "overtrue/phplint": "^2.2"
+    "overtrue/phplint": "^2.2",
+    "squizlabs/php_codesniffer": "*",
+    "vimeo/psalm": "^4.2"
   },
   "autoload": {
     "psr-4": {
@@ -30,7 +32,10 @@
     }
   ],
   "scripts": {
-    "lint": "phplint --no-cache",
+    "lint": "phplint",
+    "check": "phpcs",
+    "fix": "phpcbf",
+    "psalm": "psalm",
     "app": "php bin/app.php --ansi"
   }
 }
