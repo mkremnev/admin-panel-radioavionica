@@ -44,6 +44,9 @@ build-backend:
 try-build:
 	REGISTRY=localhost IMAGE_TAG=0 make build
 
+clear-var:
+	docker run --rm -v ${PWD}/backend/public:/app -w /app alpine sh -c 'rm -rf var/*'
+
 push: push-gateway push-frontend push-backend
 
 push-gateway:
