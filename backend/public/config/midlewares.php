@@ -9,5 +9,5 @@ return static function (App $app, ContainerInterface $continer): void {
     $app->addRoutingMiddleware();
     /** @psalm-var array{debug: bool} */
     $config = $continer->get('config');
-    $app->addErrorMiddleware($config['debug'], true, true);
+    $app->addErrorMiddleware($config['debug'], $config['env'] !== 'test', true);
 };

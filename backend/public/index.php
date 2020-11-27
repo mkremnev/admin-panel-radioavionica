@@ -7,16 +7,16 @@ use Slim\App;
 
 /**
  * @author Maxim Kremnev <m.kremnev@netlinux.ru>
- * @var ContainerInterface $container
- * @var App $app
  */
 
 http_response_code(500);
 
 require __DIR__ . '/vendor/autoload.php';
 
+/** @var ContainerInterface $container*/
 $container = require __DIR__ . '/config/container.php';
 
+/** @var App $app */
 $app = (require __DIR__ . '/config/app.php')($container);
 
 $app->run();
