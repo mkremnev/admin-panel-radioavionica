@@ -3,7 +3,15 @@ up: docker-up
 down: docker-down
 clear: docker-down-clear
 restart: down up
+check: lint analyze test
+lint: php-lint
 analyze: php-analyze
+test: php-test
+test-unit: php-test-unit
+test-functional: php-test-functional
+test-coverage: php-test-coverage
+test-unit-coverage: php-test-unit-coverage
+test-functional-coverage: php-test-functional-coverage
 
 docker-up:
 	docker-compose up -d
@@ -81,3 +89,21 @@ php-require:
 
 php-analyze:
 	docker-compose run --rm backend-php-cli composer psalm
+
+php-test:
+	docker-compose run --rm backend-php-cli composer test
+
+php-test-unit:
+	docker-compose run --rm backend-php-cli composer test -- --testsuite=unit
+
+php-test-unit-coverage:
+	docker-compose run --rm backend-php-cli composer test-coverage -- --testsuite=unit
+
+php-test-functional:
+	docker-compose run --rm backend-php-cli composer test -- --testsuite=functional
+
+php-test-functional-coverage:
+	docker-compose run --rm backend-php-cli composer test-coverage -- --testsuite=functional
+
+php-test-coverage:
+	docker-compose run --rm backend-php-cli composer test-coverage

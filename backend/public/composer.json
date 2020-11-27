@@ -16,12 +16,18 @@
   },
   "require-dev": {
     "overtrue/phplint": "^2.2",
+    "phpunit/phpunit": "^9.4",
     "squizlabs/php_codesniffer": "*",
     "vimeo/psalm": "^4.2"
   },
   "autoload": {
     "psr-4": {
       "App\\": "src/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Test\\": "tests/"
     }
   },
   "license": "GPL",
@@ -35,6 +41,8 @@
     "lint": "phplint",
     "check": "phpcs",
     "fix": "phpcbf",
+    "test": "phpunit --color=always",
+    "test-coverage": "phpunit --color=always --coverage-html var/coverage",
     "psalm": "psalm",
     "app": "php bin/app.php --ansi"
   }
