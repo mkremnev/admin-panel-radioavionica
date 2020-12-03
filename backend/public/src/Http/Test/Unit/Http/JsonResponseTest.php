@@ -24,7 +24,7 @@ class JsonResponseTest extends TestCase
      * @param mixed $source
      * @param mixed $expected
      */
-    public function testResponse($source, $expected)
+    public function testResponse($source, $expected): void
     {
         $response = new JsonResponse($source);
         self::assertEquals('application/json', $response->getHeaderLine('Content-Type'));
