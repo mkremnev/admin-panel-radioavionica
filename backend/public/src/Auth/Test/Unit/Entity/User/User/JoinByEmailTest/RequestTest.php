@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Auth\Test\Unit\Entity\User\User\JoinByEmailTest;
@@ -12,7 +13,7 @@ use PHPUnit\Framework\TestCase;
 use Ramsey\Uuid\Nonstandard\Uuid;
 
 /**
- * @covers User
+ * @covers \App\Auth\Entity\User\User
  */
 
 class RequestTest extends TestCase

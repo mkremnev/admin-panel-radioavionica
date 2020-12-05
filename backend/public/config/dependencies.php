@@ -2,8 +2,6 @@
 
 declare(strict_types=1);
 
-/** @psalm-suppress PossiblyInvalidArgument */
-
 $files = array_merge(
     glob(__DIR__ . '/common/*.php') ?: [],
     glob(__DIR__ . '/console/*.php') ?: [],

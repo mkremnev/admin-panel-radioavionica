@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <psalm
-  errorLevel="1"
+  errorLevel="4"
   resolveFromConfigFile="true"
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xmlns="https://getpsalm.org/schema/config"
@@ -20,6 +20,15 @@
 
   <issueHandlers>
     <LessSpecificReturnType errorLevel="info" />
+
+    <!-- PHPUnit -->
+    <PropertyNotSetInConstructor>
+        <errorLevel type="suppress">
+            <directory name="src/Auth/Test" />
+            <directory name="src/Http/Test" />
+            <directory name="tests" />
+        </errorLevel>
+    </PropertyNotSetInConstructor>
   </issueHandlers>
 
 </psalm>

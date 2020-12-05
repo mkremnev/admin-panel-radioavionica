@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Auth\Test\Unit\Entity\User;
@@ -30,7 +31,6 @@ class EmailtTest extends TestCase
     {
         $this->expectException(InvalidArgumentException::class);
         new Email('not-email');
-
     }
 
     public function testEmpty(): void

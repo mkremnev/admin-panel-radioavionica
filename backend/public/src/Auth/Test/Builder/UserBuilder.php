@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Auth\Test\Builder;
@@ -19,7 +20,8 @@ class UserBuilder
     private ?Token $joinConfirmToken;
     private bool $active = false;
 
-    public function __construct() {
+    public function __construct()
+    {
         $this->id = Id::generate();
         $this->date = new DateTimeImmutable();
         $this->email = new Email("test@test.ru");
@@ -54,11 +56,10 @@ class UserBuilder
         return $clone;
     }
 
-    public function withJoinConfirmToken(Token $token)
+    public function withJoinConfirmToken(Token $token): self
     {
         $clone = clone $this;
         $clone->joinConfirmToken = $token;
         return $clone;
     }
-
 }

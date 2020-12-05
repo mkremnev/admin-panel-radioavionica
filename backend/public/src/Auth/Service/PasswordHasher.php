@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Auth\Service;
@@ -10,7 +11,8 @@ class PasswordHasher
 {
     private int $memoryCost;
 
-    public function __construct(int $memoryCost = PASSWORD_ARGON2_DEFAULT_MEMORY_COST) {
+    public function __construct(int $memoryCost = PASSWORD_ARGON2_DEFAULT_MEMORY_COST)
+    {
         $this->memoryCost = $memoryCost;
     }
 
@@ -20,11 +22,11 @@ class PasswordHasher
 
         $hash = password_hash($password, PASSWORD_ARGON2I, ['memory_cost' => $this->memoryCost]);
 
-        if($hash === null) {
+        if ($hash === null) {
             throw new RuntimeException("Algoritm not found");
         }
 
-        if ($hash ===false) {
+        if ($hash === false) {
             throw new RuntimeException("Unable to generate hash");
         }
 

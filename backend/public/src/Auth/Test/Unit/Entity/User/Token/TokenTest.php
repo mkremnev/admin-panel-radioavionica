@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Auth\Test\Unit\Entity\User;
@@ -37,16 +38,15 @@ class TokenTest extends TestCase
         Assert::assertEquals($value, $token->getValue());
     }
 
-    public function testIncorrect()
+    public function testIncorrect(): void
     {
         $this->expectException(InvalidArgumentException::class);
         new Token('1234', new DateTimeImmutable());
     }
 
-    public function testEmpty()
+    public function testEmpty(): void
     {
         $this->expectException(InvalidArgumentException::class);
         new Token('', new DateTimeImmutable());
-
     }
 }

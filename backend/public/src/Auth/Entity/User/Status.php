@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Auth\Entity\User;
@@ -6,10 +7,11 @@ namespace App\Auth\Entity\User;
 class Status
 {
     private string $name;
-    private const WAIT='wait';
-    private const ACTIVE='active';
+    private const WAIT = 'wait';
+    private const ACTIVE = 'active';
 
-    private function __construct(string $name) {
+    private function __construct(string $name)
+    {
         $this->name = $name;
     }
 
