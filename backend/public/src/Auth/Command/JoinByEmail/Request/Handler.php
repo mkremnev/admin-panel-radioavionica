@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Auth\Command\JoinByEmail\Request;
@@ -22,7 +23,13 @@ class Handler
     private Flusher $flusher;
     private JoinConfirmationSender $sender;
 
-    public function __construct(UserRepository $users, PasswordHasher $hasher, Tokenizer $tokenizer, Flusher $flusher, JoinConfirmationSender $sender) {
+    public function __construct(
+        UserRepository $users,
+        PasswordHasher $hasher,
+        Tokenizer $tokenizer,
+        Flusher $flusher,
+        JoinConfirmationSender $sender
+    ) {
         $this->users = $users;
         $this->hasher = $hasher;
         $this->tokenizer = $tokenizer;
@@ -34,11 +41,11 @@ class Handler
     {
         $email = new Email($command->email);
 
-        if($this->users->hasByEmail($email)) {
+        if ($this->users->hasByEmail($email)) {
             throw new DomainException("User alredy exsist");
         }
 
-        $now = new DateTimeImmutable;
+        $now = new DateTimeImmutable();
 
         $user = new User(
             Id::generate(),
@@ -51,6 +58,5 @@ class Handler
         $this->users->add($user);
         $this->flusher->flush();
         $this->sender->send($email, $token);
-
     }
 }
