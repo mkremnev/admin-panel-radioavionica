@@ -24,17 +24,17 @@ class Token
             throw new DomainException("Token is invalid");
         };
 
-        if ($this->isEpiredTo($date)) {
+        if ($this->isExpiredTo($date)) {
             throw new DomainException("Token is expired");
         };
     }
 
-    public function isEqualTo(string $value): bool
+    private function isEqualTo(string $value): bool
     {
         return $this->value === $value;
     }
 
-    public function isEpiredTo(DateTimeImmutable $value): bool
+    public function isExpiredTo(DateTimeImmutable $value): bool
     {
         return $this->expires <= $value;
     }

@@ -9,6 +9,9 @@ use Ramsey\Uuid\Nonstandard\Uuid;
 use App\Auth\Test\Builder\UserBuilder;
 use DateTimeImmutable;
 
+/**
+ * @covers \App\Auth\Entity\User\User
+ */
 class ConfirmTest extends TestCase
 {
     public function testSucces(): void
