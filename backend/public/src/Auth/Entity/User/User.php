@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Auth\Entity\User;
@@ -20,7 +21,8 @@ class User
     private Status $status;
     private ?Token $passwordResetToken = null;
 
-    public function __construct(Id $id, DateTimeImmutable $date, Email $email, string $passwordHash, Token $token) {
+    public function __construct(Id $id, DateTimeImmutable $date, Email $email, string $passwordHash, Token $token)
+    {
         $this->id = $id;
         $this->date = $date;
         $this->email = $email;
@@ -29,7 +31,14 @@ class User
         $this->status = Status::wait();
     }
 
-    public function confirmJoin(string $token, $date): void
+    /**
+     * confirmJoin
+     *
+     * @param string $token
+     * @param DateTimeImmutable $date
+     * @return void
+     */
+    public function confirmJoin(string $token, DateTimeImmutable $date): void
     {
         if ($this->getJoinConfirmToken() === null) {
             throw new DomainException("Confirmation is not required");
@@ -50,7 +59,7 @@ class User
         $this->passwordResetToken = $token;
     }
 
-    public function resetPassword(string $token, DateTimeImmutable $date, string $hash)
+    public function resetPassword(string $token, DateTimeImmutable $date, string $hash): void
     {
         if ($this->passwordResetToken === null) {
             throw new DomainException("Resetting is not requested");

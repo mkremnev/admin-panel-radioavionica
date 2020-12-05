@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Auth\Entity\User;
@@ -10,7 +11,8 @@ class Email
 {
     private string $value;
 
-    public function __construct(string $value) {
+    public function __construct(string $value)
+    {
 
         Assert::notEmpty($value);
         Assert::email($value);
@@ -18,7 +20,7 @@ class Email
         $this->value = mb_strtolower($value);
     }
 
-    public function getValue()
+    public function getValue(): string
     {
         return $this->value;
     }

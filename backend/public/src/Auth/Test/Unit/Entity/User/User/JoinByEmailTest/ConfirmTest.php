@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Auth\Test\Unit\Entity\User\User\JoinByEmailTest;
@@ -60,7 +61,7 @@ class ConfirmTest extends TestCase
 
         $this->expectExceptionMessage("Confirmation is not required");
 
-        $user->confirmJoin($token->getValue(), $token->getExpires("-1 day"));
+        $user->confirmJoin($token->getValue(), $token->getExpires()->modify("-1 day"));
     }
 
     private function createToken(): Token

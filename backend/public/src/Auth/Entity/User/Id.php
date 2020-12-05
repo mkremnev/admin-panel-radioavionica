@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Auth\Entity\User;
@@ -10,7 +11,8 @@ class Id
 {
     private string $value;
 
-    public function __construct(string $value) {
+    public function __construct(string $value)
+    {
 
         Assert::uuid($value);
 
@@ -22,7 +24,7 @@ class Id
         return new self(Uuid::uuid4()->toString());
     }
 
-    public function getValue()
+    public function getValue(): string
     {
         return $this->value;
     }

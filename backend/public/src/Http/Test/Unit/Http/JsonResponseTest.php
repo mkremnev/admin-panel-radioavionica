@@ -40,16 +40,14 @@ class JsonResponseTest extends TestCase
         $object->int = 1;
         $object->none = null;
 
-        $array = ['str'=>'value', 'int'=> 1, "none" => null];
+        $array = ['str' => 'value', 'int' => 1, "none" => null];
 
         return [
-            'null'=>[null, "null"],
-            'empty'=>['', '""'],
-            'number'=>[12, '12'],
-            'object'=>[$object, '{"str":"value","int":1,"none":null}'],
-            'array'=>[$array, '{"str":"value","int":1,"none":null}']
+            'null' => [null, "null"],
+            'empty' => ['', '""'],
+            'number' => [12, '12'],
+            'object' => [$object, '{"str":"value","int":1,"none":null}'],
+            'array' => [$array, '{"str":"value","int":1,"none":null}']
         ];
     }
 }
-
-

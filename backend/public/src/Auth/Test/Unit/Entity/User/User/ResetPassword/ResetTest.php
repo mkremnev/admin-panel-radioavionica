@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Auth\Test\Unit\Entity\User\User\ResetPassword;
@@ -17,7 +18,7 @@ class ResetTest extends TestCase
 {
     public function testSucces(): void
     {
-        $user=(new UserBuilder())->active()->build();
+        $user = (new UserBuilder())->active()->build();
 
         $now = new DateTimeImmutable();
 
@@ -28,7 +29,7 @@ class ResetTest extends TestCase
         $user->resetPassword(
             $token->getValue(),
             $now,
-            $hash="hash"
+            $hash = "hash"
         );
 
         self::assertNull($user->getResetPasswordToken());
@@ -37,7 +38,7 @@ class ResetTest extends TestCase
 
     public function testInvalidToken(): void
     {
-        $user=(new UserBuilder())->active()->build();
+        $user = (new UserBuilder())->active()->build();
 
         $now = new DateTimeImmutable();
 
@@ -48,13 +49,13 @@ class ResetTest extends TestCase
         $user->resetPassword(
             Uuid::uuid4()->toString(),
             $now,
-            $hash="hash"
+            $hash = "hash"
         );
     }
 
     public function testExpiredToken(): void
     {
-        $user=(new UserBuilder())->active()->build();
+        $user = (new UserBuilder())->active()->build();
 
         $now = new DateTimeImmutable();
 
@@ -65,13 +66,13 @@ class ResetTest extends TestCase
         $user->resetPassword(
             $token->getValue(),
             $now->modify("+1 hour"),
-            $hash="hash"
+            $hash = "hash"
         );
     }
 
     public function testNotRequested(): void
     {
-        $user=(new UserBuilder())->active()->build();
+        $user = (new UserBuilder())->active()->build();
 
         $now = new DateTimeImmutable();
 
@@ -79,7 +80,7 @@ class ResetTest extends TestCase
         $user->resetPassword(
             Uuid::uuid4()->toString(),
             $now,
-            $hash="hash"
+            $hash = "hash"
         );
     }
 

@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Auth\Entity\User;
@@ -12,7 +13,8 @@ class Token
     private string $value;
     private DateTimeImmutable $expires;
 
-    public function __construct(string $value, DateTimeImmutable $expires) {
+    public function __construct(string $value, DateTimeImmutable $expires)
+    {
         Assert::uuid($value);
         $this->value = mb_strtolower($value);
         $this->expires = $expires;

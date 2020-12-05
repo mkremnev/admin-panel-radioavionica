@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Auth\Command\JoinByEmail\Confirm;
@@ -13,7 +14,8 @@ class Handler
     private UserRepository $users;
     private Flusher $flusher;
 
-    public function __construct(UserRepository $users, Flusher $flusher) {
+    public function __construct(UserRepository $users, Flusher $flusher)
+    {
         $this->users = $users;
         $this->flusher = $flusher;
     }

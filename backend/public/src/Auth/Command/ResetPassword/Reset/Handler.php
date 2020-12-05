@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Auth\Command\ResetPassword\Reset;
@@ -15,13 +16,14 @@ class Handler
     private PasswordHasher $hasher;
     private Flusher $flusher;
 
-    public function __construct(UserRepository $users, PasswordHasher $hasher, Flusher $flusher) {
+    public function __construct(UserRepository $users, PasswordHasher $hasher, Flusher $flusher)
+    {
         $this->users = $users;
         $this->hasher = $hasher;
         $this->flusher = $flusher;
     }
 
-    public function handle(Command $command)
+    public function handle(Command $command): void
     {
         if (!$user = $this->users->findByPasswordResetToken($command->token)) {
             throw new DomainException("Token is not found");

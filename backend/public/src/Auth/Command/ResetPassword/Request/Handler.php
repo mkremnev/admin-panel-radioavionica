@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Auth\Command\ResetPassword\Request;
@@ -18,7 +19,12 @@ class Handler
     private Tokenizer $tokenizer;
     private PasswordResetTokenSender $sender;
 
-    public function __construct(UserRepository $users, Flusher $flusher, Tokenizer $tokenizer, PasswordResetTokenSender $sender) {
+    public function __construct(
+        UserRepository $users,
+        Flusher $flusher,
+        Tokenizer $tokenizer,
+        PasswordResetTokenSender $sender
+    ) {
         $this->users = $users;
         $this->flusher = $flusher;
         $this->tokenizer = $tokenizer;

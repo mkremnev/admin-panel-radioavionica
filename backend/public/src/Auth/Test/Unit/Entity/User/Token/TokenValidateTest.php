@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Auth\Test\Unit\Entity\User\User\Token;
@@ -15,7 +16,8 @@ class TokenValidateTest extends TestCase
     {
         $token = new Token(
             $expect = Uuid::uuid4()->toString(),
-            $expires = new DateTimeImmutable());
+            $expires = new DateTimeImmutable()
+        );
 
         $token->validate($expect, $expires->modify("-1 sec"));
     }
@@ -24,7 +26,8 @@ class TokenValidateTest extends TestCase
     {
         $token = new Token(
             $expect = Uuid::uuid4()->toString(),
-            $expires = new DateTimeImmutable());
+            $expires = new DateTimeImmutable()
+        );
 
         $this->expectExceptionMessage("Token is invalid");
         $token->validate(Uuid::uuid4()->toString(), $expires->modify("-1 sec"));
@@ -34,7 +37,8 @@ class TokenValidateTest extends TestCase
     {
         $token = new Token(
             $expect = Uuid::uuid4()->toString(),
-            $expires = new DateTimeImmutable());
+            $expires = new DateTimeImmutable()
+        );
 
         $this->expectExceptionMessage("Token is expired");
         $token->validate($expect, $expires->modify("+1 sec"));
