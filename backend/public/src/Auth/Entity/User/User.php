@@ -22,8 +22,9 @@ class User
     private ?Token $passwordResetToken = null;
     private ?Email $newEmail = null;
     private ?Token $emailChangeToken = null;
+    private Role $role;
 
-    public function __construct(Id $id, DateTimeImmutable $date, Email $email, string $passwordHash, Token $token)
+    public function __construct(Id $id, DateTimeImmutable $date, Email $email, string $passwordHash, Token $token, Role $role)
     {
         $this->id = $id;
         $this->date = $date;
@@ -31,6 +32,7 @@ class User
         $this->passwordHash = $passwordHash;
         $this->joinConfirmToken = $token;
         $this->status = Status::wait();
+        $this->role = Role::user();
     }
 
     /**
@@ -129,6 +131,13 @@ class User
         $this->emailChangeToken = $token;
     }
 
+    /**
+     * confirmEmailChange function
+     *
+     * @param string $token
+     * @param DateTimeImmutable $date
+     * @return void
+     */
     public function confirmEmailChange(string $token, DateTimeImmutable $date)
     {
         if ($this->newEmail === null || $this->emailChangeToken === null) {
@@ -138,6 +147,16 @@ class User
         $this->email = $this->newEmail;
         $this->newEmail = null;
         $this->emailChangeToken = null;
+    }
+
+    public function changeRole(Role $role): void
+    {
+        $this->role = $role;
+    }
+
+    public function getRole(): Role
+    {
+        return $this->role;
     }
 
     public function isWait(): bool

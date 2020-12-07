@@ -8,6 +8,7 @@ use DateTimeImmutable;
 use App\Auth\Entity\User\Id;
 use App\Auth\Entity\User\User;
 use App\Auth\Entity\User\Email;
+use App\Auth\Entity\User\Role;
 use App\Auth\Entity\User\Token;
 use Ramsey\Uuid\Nonstandard\Uuid;
 
@@ -19,6 +20,7 @@ class UserBuilder
     private string $passwordHash;
     private ?Token $joinConfirmToken;
     private bool $active = false;
+    private Role $role;
 
     public function __construct()
     {
@@ -27,6 +29,7 @@ class UserBuilder
         $this->email = new Email("test@test.ru");
         $this->passwordHash = "hash";
         $this->joinConfirmToken = new Token(Uuid::uuid4()->toString(), new DateTimeImmutable());
+        $this->role = Role::user();
     }
 
     public function active(): self
@@ -57,7 +60,8 @@ class UserBuilder
             $this->date,
             $this->email,
             $this->passwordHash,
-            $this->joinConfirmToken
+            $this->joinConfirmToken,
+            $this->role
         );
 
         if ($this->active) {
