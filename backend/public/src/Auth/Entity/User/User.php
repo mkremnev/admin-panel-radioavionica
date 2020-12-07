@@ -69,6 +69,18 @@ class User
         $this->passwordHash = $hash;
     }
 
+    public function changePassword(string $current, string $new, PasswordHasher $hasher): void
+    {
+        if ($this->passwordHash === null) {
+            throw new DomainException("User does not an old password");
+        }
+
+        if (!$hasher->validate($current, $this->passwordHash)) {
+            throw new DomainException("Incorrect current password");
+        }
+        $this->passwordHash = $hasher->hash($new);
+    }
+
     public function isWait(): bool
     {
         return $this->status->isWait();
