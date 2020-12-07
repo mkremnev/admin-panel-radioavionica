@@ -29,6 +29,27 @@ class UserBuilder
         $this->joinConfirmToken = new Token(Uuid::uuid4()->toString(), new DateTimeImmutable());
     }
 
+    public function active(): self
+    {
+        $clone = clone $this;
+        $clone->active = true;
+        return $clone;
+    }
+
+    public function withJoinConfirmToken(Token $token): self
+    {
+        $clone = clone $this;
+        $clone->joinConfirmToken = $token;
+        return $clone;
+    }
+
+    public function withEmail(Email $email)
+    {
+        $clone = clone $this;
+        $clone->email = $email;
+        return $clone;
+    }
+
     public function build(): User
     {
         $user = new User(
@@ -47,19 +68,5 @@ class UserBuilder
         }
 
         return $user;
-    }
-
-    public function active(): self
-    {
-        $clone = clone $this;
-        $clone->active = true;
-        return $clone;
-    }
-
-    public function withJoinConfirmToken(Token $token): self
-    {
-        $clone = clone $this;
-        $clone->joinConfirmToken = $token;
-        return $clone;
     }
 }
