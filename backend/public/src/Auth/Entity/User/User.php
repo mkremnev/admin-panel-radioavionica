@@ -20,8 +20,11 @@ class User
     private ?Token $joinConfirmToken;
     private Status $status;
     private ?Token $passwordResetToken = null;
+    private ?Email $newEmail = null;
+    private ?Token $emailChangeToken = null;
+    private Role $role;
 
-    public function __construct(Id $id, DateTimeImmutable $date, Email $email, string $passwordHash, Token $token)
+    public function __construct(Id $id, DateTimeImmutable $date, Email $email, string $passwordHash, Token $token, Role $role)
     {
         $this->id = $id;
         $this->date = $date;
@@ -29,6 +32,7 @@ class User
         $this->passwordHash = $passwordHash;
         $this->joinConfirmToken = $token;
         $this->status = Status::wait();
+        $this->role = Role::user();
     }
 
     /**
@@ -48,6 +52,13 @@ class User
         $this->joinConfirmToken = null;
     }
 
+    /**
+     * requestResetPassword
+     *
+     * @param Token $token
+     * @param DateTimeImmutable $date
+     * @return void
+     */
     public function requestResetPassword(Token $token, DateTimeImmutable $date): void
     {
         if (!$this->isActive()) {
@@ -59,6 +70,14 @@ class User
         $this->passwordResetToken = $token;
     }
 
+    /**
+     * resetPassword
+     *
+     * @param string $token
+     * @param DateTimeImmutable $date
+     * @param string $hash
+     * @return void
+     */
     public function resetPassword(string $token, DateTimeImmutable $date, string $hash): void
     {
         if ($this->passwordResetToken === null) {
@@ -67,6 +86,77 @@ class User
         $this->passwordResetToken->validate($token, $date);
         $this->passwordResetToken = null;
         $this->passwordHash = $hash;
+    }
+
+    /**
+     * changePassword
+     *
+     * @param string $current
+     * @param string $new
+     * @param PasswordHasher $hasher
+     * @return void
+     */
+    public function changePassword(string $current, string $new, PasswordHasher $hasher): void
+    {
+        if ($this->passwordHash === null) {
+            throw new DomainException("User does not an old password");
+        }
+
+        if (!$hasher->validate($current, $this->passwordHash)) {
+            throw new DomainException("Incorrect current password");
+        }
+        $this->passwordHash = $hasher->hash($new);
+    }
+
+    /**
+     * changeEmailRequest
+     *
+     * @param Token $token
+     * @param DateTimeImmutable $date
+     * @param Email $email
+     * @return void
+     */
+    public function changeEmailRequest(Token $token, DateTimeImmutable $date, Email $email)
+    {
+        if (!$this->isActive()) {
+            throw new DomainException("User is not active");
+        }
+        if ($this->email->isEqualTo($email)) {
+            throw new DomainException("Email is already same");
+        }
+        if ($this->emailChangeToken !== null && !$this->emailChangeToken->isExpiredTo($date)) {
+            throw new DomainException("Changing is already requested");
+        }
+        $this->newEmail = $email;
+        $this->emailChangeToken = $token;
+    }
+
+    /**
+     * confirmEmailChange function
+     *
+     * @param string $token
+     * @param DateTimeImmutable $date
+     * @return void
+     */
+    public function confirmEmailChange(string $token, DateTimeImmutable $date)
+    {
+        if ($this->newEmail === null || $this->emailChangeToken === null) {
+            throw new DomainException("Changing is not required");
+        }
+        $this->emailChangeToken->validate($token, $date);
+        $this->email = $this->newEmail;
+        $this->newEmail = null;
+        $this->emailChangeToken = null;
+    }
+
+    public function changeRole(Role $role): void
+    {
+        $this->role = $role;
+    }
+
+    public function getRole(): Role
+    {
+        return $this->role;
     }
 
     public function isWait(): bool
@@ -94,6 +184,11 @@ class User
         return $this->email;
     }
 
+    public function getNewEmail(): Email
+    {
+        return $this->newEmail;
+    }
+
     public function getHashPassword(): ?string
     {
         return $this->passwordHash;
@@ -107,5 +202,10 @@ class User
     public function getResetPasswordToken(): ?Token
     {
         return $this->passwordResetToken;
+    }
+
+    public function getEmailChangeToken(): ?Token
+    {
+        return $this->emailChangeToken;
     }
 }

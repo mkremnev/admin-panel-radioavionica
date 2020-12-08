@@ -8,6 +8,7 @@ use DateTimeImmutable;
 use App\Auth\Entity\User\Id;
 use App\Auth\Entity\User\User;
 use App\Auth\Entity\User\Email;
+use App\Auth\Entity\User\Role;
 use App\Auth\Entity\User\Token;
 use PHPUnit\Framework\TestCase;
 use Ramsey\Uuid\Nonstandard\Uuid;
@@ -25,7 +26,8 @@ class RequestTest extends TestCase
             $date = new DateTimeImmutable(),
             $email = new Email('test@test.ru'),
             $hash = 'hash',
-            $token = new Token(Uuid::uuid4()->toString(), new DateTimeImmutable())
+            $token = new Token(Uuid::uuid4()->toString(), new DateTimeImmutable()),
+            $role = Role::user()
         );
 
         self::assertEquals($id, $user->getId());
@@ -36,5 +38,7 @@ class RequestTest extends TestCase
 
         self::assertTrue($user->isWait());
         self::assertFalse($user->isActive());
+
+        self::assertEquals(Role::USER, $user->getRole()->getName());
     }
 }
