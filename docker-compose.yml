@@ -34,6 +34,10 @@ services:
     environment:
       APP_DEBUG: 1
       APP_ENV: dev
+      DB_HOST: backend-postgres
+      DB_USER: app
+      DB_PASSWORD: secret
+      DB_NAME: app
     volumes:
       - ./backend/public:/app/public
     extra_hosts:
@@ -43,7 +47,28 @@ services:
     build:
       context: backend/docker
       dockerfile: development/php-cli/Dockerfile
+    environment:
+      APP_DEBUG: 1
+      APP_ENV: dev
+      DB_HOST: backend-postgres
+      DB_USER: app
+      DB_PASSWORD: secret
+      DB_NAME: app
     volumes:
       - ./backend/public:/app
     extra_hosts:
       - "docker.localhost:${IP}"
+
+  backend-postgres:
+    image: postgres:13.1-alpine
+    environment:
+      POSTGRES_USER: app
+      POSTGRES_PASSWORD: secret
+      POSTGRESS_DB: app
+    volumes:
+      - backend-postgres:/var/lib/postgresql/data
+    ports:
+      - "54321:5432"
+
+volumes:
+  backend-postgres:
