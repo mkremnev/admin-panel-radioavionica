@@ -40,8 +40,6 @@ services:
       DB_NAME: app
     volumes:
       - ./backend/public:/app/public
-    extra_hosts:
-      - "docker.localhost:${IP}"
 
   backend-php-cli:
     build:
@@ -56,8 +54,6 @@ services:
       DB_NAME: app
     volumes:
       - ./backend/public:/app
-    extra_hosts:
-      - "docker.localhost:${IP}"
 
   backend-postgres:
     image: postgres:13.1-alpine
