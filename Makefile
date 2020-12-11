@@ -1,4 +1,5 @@
-init: npm-build docker-down docker-pull docker-build docker-up
+init: docker-down docker-pull docker-build docker-up
+init-full: npm-build docker-down docker-pull docker-build docker-up
 up: docker-up
 down: docker-down
 clear: docker-down-clear

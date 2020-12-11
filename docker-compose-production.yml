@@ -27,6 +27,30 @@ services:
     environment:
       APP_DEBUG: 1
       APP_ENV: prod
+      DB_HOST: backend-postgres
+      DB_USER: app
+      DB_PASSWORD: $P{RADIOAVIONICA_DB_PASS}
+      DB_NAME: app
 
   backend-php-cli:
     image: ${REGISTRY}/radioavionica-backend-php-cli:${IMAGE_TAG}
+    environment:
+      APP_DEBUG: 1
+      APP_ENV: prod
+      DB_HOST: backend-postgres
+      DB_USER: app
+      DB_PASSWORD: $P{RADIOAVIONICA_DB_PASS}
+      DB_NAME: app
+
+  backend-postgres:
+    image: postgres:13.1-alpine
+    restart: always
+    environment:
+      POSTGRES_USER: app
+      POSTGRES_PASSWORD: $P{RADIOAVIONICA_DB_PASS}
+      POSTGRESS_DB: app
+    volumes:
+      - backend-postgres:/var/lib/postgresql/data
+
+volumes:
+  backend-postgres:
