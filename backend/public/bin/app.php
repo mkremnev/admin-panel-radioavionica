@@ -1,35 +1,1 @@
-#!/usr/bin/env php
-<?php
-
-declare(strict_types=1);
-
-use Doctrine\ORM\Tools\Console\ConsoleRunner;
-use Doctrine\ORM\EntityManagerInterface;
-use Doctrine\ORM\Tools\Console\Helper\EntityManagerHelper;
-use Symfony\Component\Console\Application;
-use Symfony\Component\Console\Command\Command;
-
-require __DIR__ . '/../vendor/autoload.php';
-
-$container = require __DIR__ . '/../config/container.php';
-
-$cli = new Application('Console');
-
-/**
- * @var string[] $commands
- * @psalm-suppress MixedArrayAccess
- */
-
-$commands = $container->get('config')['console']['commands'];
-
-/** @var EntityManagerInterface $entityManager */
-$entityManager = $container->get(EntityManagerInterface::class);
-$cli->getHelperSet()->set(new EntityManagerHelper($entityManager), 'em');
-
-foreach ($commands as $name) {
-    /** @var Command $command */
-    $command = $container->get($name);
-    $cli->add($command);
-}
-
-$cli->run();
+<?phpdeclare(strict_types=1);use Doctrine\Migrations\Configuration\Connection\ExistingConnection;use Doctrine\Migrations\Configuration\Migration\ExistingConfiguration;use Doctrine\Migrations\DependencyFactory;use Doctrine\Migrations\Metadata\Storage\TableMetadataStorageConfiguration;use Doctrine\ORM\EntityManagerInterface;use Doctrine\ORM\Tools\Console\Helper\EntityManagerHelper;use Symfony\Component\Console\Application;use Symfony\Component\Console\Command\Command;use Doctrine\Migrations\Configuration\Configuration;use Doctrine\DBAL\Tools\Console\Helper\ConnectionHelper;use Doctrine\Migrations;require __DIR__ . '/../vendor/autoload.php';$container = require __DIR__ . '/../config/container.php';$cli = new Application('Console');/** * @var string[] $commands * @psalm-suppress MixedArrayAccess */$commands = $container->get('config')['console']['commands'];/** @var EntityManagerInterface $entityManager */$entityManager = $container->get(EntityManagerInterface::class);$connection = $entityManager->getConnection();$configuration = new Configuration($connection);$configuration->addMigrationsDirectory("App\Data\Migration",__DIR__ . "/../src/Data/Migration");$configuration->setCheckDatabasePlatform(false);$configuration->setAllOrNothing(true);$storageConfiguration = new TableMetadataStorageConfiguration();$storageConfiguration->setTableName('doctrine_migration_versions');$configuration->setMetadataStorageConfiguration($storageConfiguration);$dependencyFactory = DependencyFactory::fromConnection(    new ExistingConfiguration($configuration),    new ExistingConnection($connection));$cli->getHelperSet()->set(new EntityManagerHelper($entityManager), 'em');$cli->getHelperSet()->set(new ConnectionHelper($connection, $configuration), 'configuration');foreach ($commands as $name) {    /** @var Command $command */    $command = $container->get($name);    $cli->add($command);}$cli->addCommands(array(    new Migrations\Tools\Console\Command\DumpSchemaCommand($dependencyFactory),    new Migrations\Tools\Console\Command\ExecuteCommand($dependencyFactory),    new Migrations\Tools\Console\Command\GenerateCommand($dependencyFactory),    new Migrations\Tools\Console\Command\LatestCommand($dependencyFactory),    new Migrations\Tools\Console\Command\ListCommand($dependencyFactory),    new Migrations\Tools\Console\Command\MigrateCommand($dependencyFactory),    new Migrations\Tools\Console\Command\RollupCommand($dependencyFactory),    new Migrations\Tools\Console\Command\StatusCommand($dependencyFactory),    new Migrations\Tools\Console\Command\SyncMetadataCommand($dependencyFactory),    new Migrations\Tools\Console\Command\VersionCommand($dependencyFactory),));$cli->run();
