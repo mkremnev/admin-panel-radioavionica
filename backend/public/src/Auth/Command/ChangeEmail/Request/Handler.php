@@ -21,14 +21,19 @@ class Handler
     private ChangeEmailSender $sender;
     private Flusher $flusher;
 
-    public function __construct(UserRepository $users, Tokenizer $tokenizer, Flusher $flusher, ChangeEmailSender $sender) {
+    public function __construct(
+        UserRepository $users,
+        Tokenizer $tokenizer,
+        Flusher $flusher,
+        ChangeEmailSender $sender
+    ) {
         $this->users = $users;
         $this->tokenizer = $tokenizer;
         $this->flusher = $flusher;
         $this->sender = $sender;
     }
 
-    public function handle(Command $command)
+    public function handle(Command $command): void
     {
         $user = $this->users->getId(new Id($command->id));
 

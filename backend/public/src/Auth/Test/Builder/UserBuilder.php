@@ -46,7 +46,10 @@ class UserBuilder
         return $clone;
     }
 
-    public function withEmail(Email $email)
+    /**
+     * @return static
+     */
+    public function withEmail(Email $email): self
     {
         $clone = clone $this;
         $clone->email = $email;

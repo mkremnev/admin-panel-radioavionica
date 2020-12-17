@@ -13,7 +13,7 @@ class ChangePasswordTest extends TestCase
 {
     public function testSuccess(): void
     {
-        $user =(new UserBuilder())->active()->build();
+        $user = (new UserBuilder())->active()->build();
 
         $hasher = $this->createHasher(true, $hash = 'new-hash');
 
@@ -28,7 +28,7 @@ class ChangePasswordTest extends TestCase
 
     public function testInvalidCurrentPassword(): void
     {
-        $user =(new UserBuilder())->active()->build();
+        $user = (new UserBuilder())->active()->build();
 
         $hasher = $this->createHasher(false, $hash = 'new-hash');
 

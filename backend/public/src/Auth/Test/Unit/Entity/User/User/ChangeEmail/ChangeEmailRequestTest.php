@@ -38,7 +38,7 @@ class ChangeEmailRequestTest extends TestCase
     public function testSame(): void
     {
         $user = (new UserBuilder())
-            ->withEmail($old =new Email('old@email.ru'))
+            ->withEmail($old = new Email('old@email.ru'))
             ->active()
             ->build();
 

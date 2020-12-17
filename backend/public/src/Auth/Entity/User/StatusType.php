@@ -13,12 +13,12 @@ class StatusType extends StringType
 
     public function convertToDatabaseValue($value, AbstractPlatform $platform)
     {
-        return $value instanceof Email ? $value->getValue() : $value;
+        return $value instanceof Status ? $value->getName() : $value;
     }
 
     public function convertToPHPValue($value, AbstractPlatform $platform)
     {
-        return !empty($value) ? new Email((string)$value) : null;
+        return !empty($value) ? new Status((string)$value) : null;
     }
 
     public function getName(): string
