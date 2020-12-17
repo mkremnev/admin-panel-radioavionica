@@ -6,22 +6,57 @@ namespace App\Auth\Entity\User;
 
 use DomainException;
 use DateTimeImmutable;
-use App\Auth\Entity\User\Id;
-use App\Auth\Entity\User\Email;
-use App\Auth\Entity\User\Token;
 use App\Auth\Service\PasswordHasher;
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * @ORM\Entity
+ * @ORM\HasLifecycleCallbacks()
+ * @ORM\Table(name="auth_users")
+ */
 
 class User
 {
+    /**
+     * @ORM\Column(type="auth_user_id")
+     * @ORM\Id
+     */
     private Id $id;
+    /**
+     * @ORM\Column(type="datetime_immutable")
+     */
     private DateTimeImmutable $date;
+    /**
+     * @ORM\Column(type="auth_user_email", unique=true)
+     */
     private Email $email;
+    /**
+     * @ORM\Column(type="string")
+     */
     private string $passwordHash;
+    /**
+     * @ORM\Embedded(class="Token")
+     */
     private ?Token $joinConfirmToken;
+    /**
+     * @ORM\Column(type="auth_user_status", length=16)
+     */
     private Status $status;
+    /**
+     * @ORM\Embedded(class="Token")
+     */
     private ?Token $passwordResetToken = null;
+    /**
+     * @ORM\Column(type="auth_user_email", nullable=true)
+     */
     private ?Email $newEmail = null;
+    /**
+     * @ORM\Embedded(class="Token")
+     */
     private ?Token $emailChangeToken = null;
+    /**
+     * @ORM\Column(type="auth_user_role", length=16)
+     */
     private Role $role;
 
     public function __construct(Id $id, DateTimeImmutable $date, Email $email, string $passwordHash, Token $token, Role $role)
@@ -207,5 +242,20 @@ class User
     public function getEmailChangeToken(): ?Token
     {
         return $this->emailChangeToken;
+    }
+    /**
+     * @ORM\PostLoad()
+     */
+    public function checkEmbeds(): void
+    {
+        if ($this->joinConfirmToken && $this->joinConfirmToken->isEmpty()) {
+            $this->joinConfirmToken = null;
+        }
+        if ($this->passwordResetToken && $this->passwordResetToken->isEmpty()) {
+            $this->passwordResetToken = null;
+        }
+        if ($this->emailChangeToken && $this->emailChangeToken->isEmpty()) {
+            $this->emailChangeToken = null;
+        }
     }
 }
