@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<ruleset name="App coding standart">
+<ruleset name="App coding standard">
   <arg value="p" />
   <arg name="colors" />
   <arg name="cache" value="var/.phpcs.json" />
@@ -10,6 +10,13 @@
     <properties>
       <property name="ignoreBlankLines" value="false" />
     </properties>
+  </rule>
+
+  <rule ref="Generic.Files.LineLength">
+    <exclude-pattern>src/Data/Migration</exclude-pattern>
+  </rule>
+  <rule ref="PSR12.Functions.ReturnTypeDeclaration.SpaceBeforeColon">
+    <exclude-pattern>src/Data/Migration</exclude-pattern>
   </rule>
 
   <file>bin</file>

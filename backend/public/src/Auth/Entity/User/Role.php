@@ -13,8 +13,9 @@ class Role
 
     private string $name;
 
-    public function __construct(string $name) {
-        Assert::oneOf($name,[
+    public function __construct(string $name)
+    {
+        Assert::oneOf($name, [
             self::USER,
             self::ADMIN
         ]);

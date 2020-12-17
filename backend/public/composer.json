@@ -50,7 +50,7 @@
     "fix": "phpcbf",
     "test": "phpunit --color=always",
     "test-coverage": "phpunit --color=always --coverage-html var/coverage",
-    "psalm": "psalm",
+    "psalm": "psalm --alter --issues=MissingReturnType,InvalidNullableReturnType",
     "app": "php bin/app.php --ansi"
   }
 }
