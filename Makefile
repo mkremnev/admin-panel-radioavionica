@@ -1,12 +1,12 @@
-init: docker-down docker-pull docker-build docker-up
+init: docker-down-clear api-clear docker-pull docker-build docker-up api-init
 init-full: npm-build docker-down docker-pull docker-build docker-up
 up: docker-up
 down: docker-down
-clear: docker-down-clear
 restart: down up
-check: lint analyze test
+check: lint analyze validate-schema test
 lint: php-lint
 analyze: php-analyze
+validate-schema: php-validate-schema
 test: php-test
 test-unit: php-test-unit
 test-functional: php-test-functional
@@ -28,6 +28,8 @@ docker-pull:
 
 docker-build:
 	docker-compose build
+
+# Production build
 
 build: build-gateway build-frontend build-backend
 
@@ -71,15 +73,43 @@ deploy:
 
 	ssh -o StrictHostKeyChecking=no deploy@${HOST} -p ${PORT} 'cd admin-panel_${BUILD_NUMBER} && docker-compose -f docker-compose.yml pull'
 	ssh -o StrictHostKeyChecking=no deploy@${HOST} -p ${PORT} 'cd admin-panel_${BUILD_NUMBER} && docker-compose -f docker-compose.yml down'
-	ssh -o StrictHostKeyChecking=no deploy@${HOST} -p ${PORT} 'cd admin-panel_${BUILD_NUMBER} && docker-compose -f docker-compose.yml up -d'
+	ssh -o StrictHostKeyChecking=no deploy@${HOST} -p ${PORT} 'cd admin-panel_${BUILD_NUMBER} && docker-compose -f docker-compose.yml up --build -d backend-postgres'
+	ssh -o StrictHostKeyChecking=no deploy@${HOST} -p ${PORT} 'cd admin-panel_${BUILD_NUMBER} && docker-compose run --rm backend-php-cli wait-for-it backend-postgres:5432 -t 60'
+	ssh -o StrictHostKeyChecking=no deploy@${HOST} -p ${PORT} 'cd admin-panel_${BUILD_NUMBER} && docker-compose run --rm backend-php-cli php bin/app.php migrations:migrate --no-interaction'
+	ssh -o StrictHostKeyChecking=no deploy@${HOST} -p ${PORT} 'cd admin-panel_${BUILD_NUMBER} && docker-compose -f docker-compose.yml up --build --remove-orphans -d'
 	ssh -o StrictHostKeyChecking=no deploy@${HOST} -p ${PORT} 'rm -f admin-panel'
 	ssh -o StrictHostKeyChecking=no deploy@${HOST} -p ${PORT} 'ln -sr admin-panel_${BUILD_NUMBER} admin-panel'
 
 rollback:
 	ssh -o StrictHostKeyChecking=no deploy@${HOST} -p ${PORT} 'cd admin-panel_${BUILD_NUMBER} && docker stack deploy --compose-file docker-compose.yml admin-panel --with-registry-auth --prune'
 
+# Local build
+
 npm-build:
 	cd frontend/public && npm run build
+
+api-clear:
+	docker run --rm -v ${PWD}/backend/public:/app -w /app alpine sh -c 'rm -rf var/*'
+
+api-init: api-permissions php-composer-install api-wait-db php-migrations php-fixtures
+
+api-permissions:
+	docker run --rm -v ${PWD}/backend/public:/app -w /app alpine chmod 777 var
+
+api-wait-db:
+	docker-compose run --rm backend-php-cli wait-for-it backend-postgres:5432 -t 30
+
+php-composer-install:
+	docker-compose run --rm backend-php-cli composer install
+
+php-migrations:
+	docker-compose run --rm backend-php-cli composer app migrations:migrate
+
+php-fixtures:
+	docker-compose run --rm backend-php-cli composer app fixtures:load
+
+php-validate-schema:
+	docker-compose run --rm backend-php-cli composer app orm:validate-schema
 
 php-lint:
 	docker-compose run --rm backend-php-cli composer lint

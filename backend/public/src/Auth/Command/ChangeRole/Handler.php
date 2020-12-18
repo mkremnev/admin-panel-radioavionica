@@ -14,12 +14,13 @@ class Handler
     private UserRepository $users;
     private Flusher $flusher;
 
-    public function __construct(UserRepository $users, Flusher $flusher) {
+    public function __construct(UserRepository $users, Flusher $flusher)
+    {
         $this->users = $users;
         $this->flusher = $flusher;
     }
 
-    public function handle(Command $command)
+    public function handle(Command $command): void
     {
         $user = $this->users->getId(new Id($command->id));
 

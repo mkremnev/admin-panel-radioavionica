@@ -40,4 +40,12 @@ class Status
     {
         return $this->name === self::ACTIVE;
     }
+
+    /**
+     * @return string
+     */
+    public function getName(): string
+    {
+        return $this->name;
+    }
 }

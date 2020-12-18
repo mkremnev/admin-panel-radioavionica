@@ -219,7 +219,7 @@ class User
         return $this->email;
     }
 
-    public function getNewEmail(): Email
+    public function getNewEmail(): ?Email
     {
         return $this->newEmail;
     }
