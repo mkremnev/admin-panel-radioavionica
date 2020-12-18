@@ -29,8 +29,14 @@ services:
       APP_ENV: prod
       DB_HOST: backend-postgres
       DB_USER: app
-      DB_PASSWORD: $P{RADIOAVIONICA_DB_PASS}
+      DB_PASSWORD: ${RADIOAVIONICA_DB_PASS}
       DB_NAME: app
+      MAILER_HOST: ${MAILER_HOST}
+      MAILER_PORT: ${MAILER_PORT}
+      MAILER_USER: ${MAILER_USER}
+      MAILER_PASS: ${MAILER_PASS}
+      MAILER_ENCRYPT: tls
+      MAILER_FROM_EMAIL: ${MAILER_FROM}
 
   backend-php-cli:
     image: ${REGISTRY}/radioavionica-backend-php-cli:${IMAGE_TAG}
@@ -39,8 +45,14 @@ services:
       APP_ENV: prod
       DB_HOST: backend-postgres
       DB_USER: app
-      DB_PASSWORD: $P{RADIOAVIONICA_DB_PASS}
+      DB_PASSWORD: ${RADIOAVIONICA_DB_PASS}
       DB_NAME: app
+      MAILER_HOST: ${MAILER_HOST}
+      MAILER_PORT: ${MAILER_PORT}
+      MAILER_USER: ${MAILER_USER}
+      MAILER_PASS: ${MAILER_PASS}
+      MAILER_ENCRYPT: tls
+      MAILER_FROM_EMAIL: ${MAILER_FROM}
 
   backend-postgres:
     image: postgres:13.1-alpine
