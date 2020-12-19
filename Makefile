@@ -1,5 +1,5 @@
 init: docker-down-clear api-clear docker-pull docker-build docker-up api-init
-init-full: npm-build docker-down docker-pull docker-build docker-up
+init-full: npm-build docker-down-clear api-clear docker-pull docker-build docker-up api-init
 up: docker-up
 down: docker-down
 restart: down up

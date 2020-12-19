@@ -25,6 +25,7 @@
     "phpunit/phpunit": "^9.4",
     "roave/security-advisories": "dev-master",
     "squizlabs/php_codesniffer": "*",
+    "swiftmailer/swiftmailer": "^6.0",
     "vimeo/psalm": "^4.2"
   },
   "autoload": {
@@ -51,6 +52,6 @@
     "test": "phpunit --color=always",
     "test-coverage": "phpunit --color=always --coverage-html var/coverage",
     "psalm": "psalm --alter --issues=MissingReturnType,InvalidNullableReturnType",
-    "app": "php bin/app.php --ansi"
+    "app": "php bin/app.php --ansi --no-interaction"
   }
 }
