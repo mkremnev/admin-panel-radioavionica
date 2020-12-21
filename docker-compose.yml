@@ -45,6 +45,7 @@ services:
       MAILER_PASS: secret
       MAILER_ENCRYPT: tcp
       MAILER_FROM_EMAIL: app@email.test
+      FRONTEND_URL: http://localhost:8080
     volumes:
       - ./backend/public:/app/public
 
@@ -65,6 +66,7 @@ services:
       MAILER_PASS: secret
       MAILER_ENCRYPT: tcp
       MAILER_FROM_EMAIL: app@email.test
+      FRONTEND_URL: http://localhost:8080
     volumes:
       - ./backend/public:/app
 
