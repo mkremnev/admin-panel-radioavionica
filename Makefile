@@ -73,9 +73,9 @@ deploy:
 
 	ssh -o StrictHostKeyChecking=no deploy@${HOST} -p ${PORT} 'cd admin-panel_${BUILD_NUMBER} && docker-compose -f docker-compose.yml pull'
 	ssh -o StrictHostKeyChecking=no deploy@${HOST} -p ${PORT} 'cd admin-panel_${BUILD_NUMBER} && docker-compose -f docker-compose.yml down'
-	ssh -o StrictHostKeyChecking=no deploy@${HOST} -p ${PORT} 'cd admin-panel_${BUILD_NUMBER} && docker-compose -f docker-compose.yml up --build -d backend-postgres'
-	ssh -o StrictHostKeyChecking=no deploy@${HOST} -p ${PORT} 'cd admin-panel_${BUILD_NUMBER} && docker-compose run --rm backend-php-cli wait-for-it backend-postgres:5432 -t 60'
-	ssh -o StrictHostKeyChecking=no deploy@${HOST} -p ${PORT} 'cd admin-panel_${BUILD_NUMBER} && docker-compose run --rm backend-php-cli php bin/app.php migrations:migrate --no-interaction'
+	ssh -o StrictHostKeyChecking=no deploy@${HOST} -p ${PORT} 'cd admin-panel_${BUILD_NUMBER} && docker-compose -f docker-compose.yml up --build -d backend-postgres backend-php-cli  '
+	ssh -o StrictHostKeyChecking=no deploy@${HOST} -p ${PORT} 'cd admin-panel_${BUILD_NUMBER} && docker-compose run backend-php-cli wait-for-it backend-postgres:5432 -t 60'
+	ssh -o StrictHostKeyChecking=no deploy@${HOST} -p ${PORT} 'cd admin-panel_${BUILD_NUMBER} && docker-compose run backend-php-cli php bin/app.php migrations:migrate --no-interaction'
 	ssh -o StrictHostKeyChecking=no deploy@${HOST} -p ${PORT} 'cd admin-panel_${BUILD_NUMBER} && docker-compose -f docker-compose.yml up --build --remove-orphans -d'
 	ssh -o StrictHostKeyChecking=no deploy@${HOST} -p ${PORT} 'rm -f admin-panel'
 	ssh -o StrictHostKeyChecking=no deploy@${HOST} -p ${PORT} 'ln -sr admin-panel_${BUILD_NUMBER} admin-panel'
@@ -89,12 +89,12 @@ npm-build:
 	cd frontend/public && npm run build
 
 api-clear:
-	docker run --rm -v ${PWD}/backend/public:/app -w /app alpine sh -c 'rm -rf var/*'
+	docker run --rm -v ${PWD}/backend/public:/app -w /app alpine sh -c 'rm -rf var/cache/* var/log/*'
 
 api-init: api-permissions php-composer-install api-wait-db php-migrations php-fixtures
 
 api-permissions:
-	docker run --rm -v ${PWD}/backend/public:/app -w /app alpine chmod 777 var
+	docker run --rm -v ${PWD}/backend/public:/app -w /app alpine chmod 777 var/cache var/log
 
 api-wait-db:
 	docker-compose run --rm backend-php-cli wait-for-it backend-postgres:5432 -t 30
