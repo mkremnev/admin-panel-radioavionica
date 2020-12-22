@@ -18,14 +18,14 @@ class FrontendUrlGeneratorTest extends TestCase
 
     public function testPath(): void
     {
-        $generate = new FrontendUrlGenerator('path');
+        $generate = new FrontendUrlGenerator('http://test');
 
         self::assertEquals('http://test/path', $generate->generate('path'));
     }
 
     public function testWithParams(): void
     {
-        $generate = new FrontendUrlGenerator('path');
+        $generate = new FrontendUrlGenerator('http://test');
 
         self::assertEquals('http://test/path?a=1&b=2', $generate->generate('path', [
             'a' => 1,
