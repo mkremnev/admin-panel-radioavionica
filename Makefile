@@ -7,12 +7,12 @@ check: lint analyze validate-schema test
 lint: php-lint
 analyze: php-analyze
 validate-schema: php-validate-schema
-test: php-test
+test: php-test php-fixtures
 test-unit: php-test-unit
-test-functional: php-test-functional
+test-functional: php-test-functional php-fixtures
 test-coverage: php-test-coverage
 test-unit-coverage: php-test-unit-coverage
-test-functional-coverage: php-test-functional-coverage
+test-functional-coverage: php-test-functional-coverage php-fixtures
 
 docker-up:
 	docker-compose up -d
