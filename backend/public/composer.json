@@ -25,6 +25,7 @@
   "require-dev": {
     "dms/phpunit-arraysubset-asserts": "^0.2.1",
     "doctrine/data-fixtures": "^1.4",
+    "guzzlehttp/guzzle": "^7.2",
     "overtrue/phplint": "^2.2",
     "phpunit/phpunit": "^9.4",
     "roave/security-advisories": "dev-master",
