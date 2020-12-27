@@ -11,7 +11,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity
- * @ORM\HasLifecycleCallbacks()
+ * @ORM\HasLifecycleCallbacks
  * @ORM\Table(name="auth_users")
  */
 
@@ -37,7 +37,7 @@ class User
     /**
      * @ORM\Embedded(class="Token")
      */
-    private ?Token $joinConfirmToken;
+    private ?Token $confirmToken = null;
     /**
      * @ORM\Column(type="auth_user_status", length=16)
      */
@@ -59,15 +59,26 @@ class User
      */
     private Role $role;
 
-    public function __construct(Id $id, DateTimeImmutable $date, Email $email, string $passwordHash, Token $token, Role $role)
+    public function __construct(Id $id, DateTimeImmutable $date, Email $email, Status $status)
     {
         $this->id = $id;
         $this->date = $date;
         $this->email = $email;
-        $this->passwordHash = $passwordHash;
-        $this->joinConfirmToken = $token;
-        $this->status = Status::wait();
+        $this->status = $status;
         $this->role = Role::user();
+    }
+
+    public static function requestJoinByEmail(
+        Id $id,
+        DateTimeImmutable $date,
+        Email $email,
+        string $passwordHash,
+        Token $token
+    ): self {
+        $user = new self($id, $date, $email, Status::wait());
+        $user->passwordHash = $passwordHash;
+        $user->confirmToken = $token;
+        return $user;
     }
 
     /**
@@ -79,12 +90,12 @@ class User
      */
     public function confirmJoin(string $token, DateTimeImmutable $date): void
     {
-        if ($this->getJoinConfirmToken() === null) {
+        if ($this->confirmToken === null) {
             throw new DomainException("Confirmation is not required");
         }
-        $this->joinConfirmToken->validate($token, $date);
+        $this->confirmToken->validate($token, $date);
         $this->status = Status::active();
-        $this->joinConfirmToken = null;
+        $this->confirmToken = null;
     }
 
     /**
@@ -229,9 +240,9 @@ class User
         return $this->passwordHash;
     }
 
-    public function getJoinConfirmToken(): ?Token
+    public function getconfirmToken(): ?Token
     {
-        return $this->joinConfirmToken;
+        return $this->confirmToken;
     }
 
     public function getResetPasswordToken(): ?Token
@@ -248,8 +259,8 @@ class User
      */
     public function checkEmbeds(): void
     {
-        if ($this->joinConfirmToken && $this->joinConfirmToken->isEmpty()) {
-            $this->joinConfirmToken = null;
+        if ($this->confirmToken && $this->confirmToken->isEmpty()) {
+            $this->confirmToken = null;
         }
         if ($this->passwordResetToken && $this->passwordResetToken->isEmpty()) {
             $this->passwordResetToken = null;
