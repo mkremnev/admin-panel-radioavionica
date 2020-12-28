@@ -240,7 +240,7 @@ class User
         return $this->passwordHash;
     }
 
-    public function getconfirmToken(): ?Token
+    public function getConfirmToken(): ?Token
     {
         return $this->confirmToken;
     }
