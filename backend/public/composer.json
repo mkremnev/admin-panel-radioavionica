@@ -9,6 +9,7 @@
   "require": {
     "php": "^7.4",
     "ext-json": "^7.4",
+    "doctrine/annotations": "^1.11",
     "doctrine/migrations": "^3.0",
     "doctrine/orm": "^2.8",
     "finesse/swiftmailer-defaults-plugin": "^2.0",
@@ -19,6 +20,7 @@
     "slim/psr7": "^1.2",
     "slim/slim": "^4.5",
     "symfony/console": "^5.1",
+    "symfony/validator": "^5.2",
     "twig/twig": "^3.1",
     "webmozart/assert": "^1.9"
   },
