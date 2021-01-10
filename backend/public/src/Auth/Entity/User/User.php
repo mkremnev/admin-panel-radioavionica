@@ -165,10 +165,10 @@ class User
     public function changeEmailRequest(Token $token, DateTimeImmutable $date, Email $email)
     {
         if (!$this->isActive()) {
-            throw new DomainException("User is not active");
+            throw new DomainException("User is not active.");
         }
         if ($this->email->isEqualTo($email)) {
-            throw new DomainException("Email is already same");
+            throw new DomainException("Email is already same.");
         }
         if ($this->emailChangeToken !== null && !$this->emailChangeToken->isExpiredTo($date)) {
             throw new DomainException("Changing is already requested");
@@ -187,7 +187,7 @@ class User
     public function confirmEmailChange(string $token, DateTimeImmutable $date)
     {
         if ($this->newEmail === null || $this->emailChangeToken === null) {
-            throw new DomainException("Changing is not required");
+            throw new DomainException("Changing is not required.");
         }
         $this->emailChangeToken->validate($token, $date);
         $this->email = $this->newEmail;

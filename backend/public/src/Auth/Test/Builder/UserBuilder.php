@@ -17,8 +17,8 @@ class UserBuilder
     private Id $id;
     private DateTimeImmutable $date;
     private Email $email;
-    private string $passwordHash;
-    private ?Token $joinConfirmToken;
+    private string $hash;
+    private ?Token $confirmToken;
     private bool $active = false;
     private Role $role;
 
@@ -28,30 +28,32 @@ class UserBuilder
         $this->email = new Email('mail@example.com');
         $this->hash = 'hash';
         $this->date = new DateTimeImmutable();
-        $this->joinConfirmToken = new Token(Uuid::uuid4()->toString(), $this->date->modify('+1 day'));
+        $this->confirmToken = new Token(Uuid::uuid4()->toString(), $this->date->modify('+1 day'));
     }
 
-    public function active(): self
-    {
-        $clone = clone $this;
-        $clone->active = true;
-        return $clone;
-    }
 
     public function withJoinConfirmToken(Token $token): self
     {
         $clone = clone $this;
-        $clone->joinConfirmToken = $token;
+        $clone->confirmToken = $token;
         return $clone;
     }
 
     /**
+     * @param Email $email
      * @return static
      */
     public function withEmail(Email $email): self
     {
         $clone = clone $this;
         $clone->email = $email;
+        return $clone;
+    }
+
+    public function active(): self
+    {
+        $clone = clone $this;
+        $clone->active = true;
         return $clone;
     }
 
@@ -62,13 +64,13 @@ class UserBuilder
                 $this->date,
                 $this->email,
                 $this->hash,
-                $this->joinConfirmToken
+                $this->confirmToken
             );
 
         if ($this->active) {
             $user->confirmJoin(
-                $this->joinConfirmToken->getValue(),
-                $this->joinConfirmToken->getExpires()->modify('-1 day')
+                $this->confirmToken->getValue(),
+                $this->confirmToken->getExpires()->modify('-1 day')
             );
         }
 
