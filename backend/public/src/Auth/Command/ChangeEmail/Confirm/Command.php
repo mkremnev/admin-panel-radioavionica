@@ -1,10 +1,1 @@
-<?php
-
-declare(strict_types=1);
-
-namespace App\Auth\Command\ChangeEmail\Confirm;
-
-class Command
-{
-    public string $token = '';
-}
+<?phpdeclare(strict_types=1);namespace App\Auth\Command\ChangeEmail\Confirm;use Symfony\Component\Validator\Constraints as Assert;class Command{    /** @var string     * @Assert\NotBlank()     */    public string $token = '';}
