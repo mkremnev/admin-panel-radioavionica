@@ -1,0 +1,1 @@
+<?phpdeclare(strict_types=1);namespace Test\Functional\V1\Auth\Reset\Password;use Doctrine\Persistence\ObjectManager;use Doctrine\Common\DataFixtures\AbstractFixture;class RequestFixtures extends AbstractFixture{    /**     * @inheritDoc     */    public function load(ObjectManager $manager)    {        // TODO: Implement load() method.    }}
