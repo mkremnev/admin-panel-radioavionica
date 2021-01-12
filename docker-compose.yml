@@ -16,8 +16,14 @@ services:
   frontend:
     build:
       context: frontend/docker/development/nginx
+
+  frontend-node:
+    build:
+      context: frontend/docker/development/node
     volumes:
-      - "./frontend/public/:/app"
+      - "./frontend/public:/app"
+    command: npm start
+    tty: true
 
   frontend-node-cli:
     build:

@@ -4,7 +4,7 @@
 	"description": "Project admin panels for work Radioavionica",
 	"main": "index.js",
 	"scripts": {
-		"start": "npx webpack-dev-server --mode development --open --hot",
+		"start": "npx webpack-dev-server",
 		"test": "npx jest",
 		"lint": "npx eslint --ext .js,.jsx,.ts,.tsx --fix ./",
 		"build": "npx webpack --mode production",
