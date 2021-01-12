@@ -17,7 +17,13 @@ services:
     build:
       context: frontend/docker/development/nginx
     volumes:
-      - "./frontend/public/dist:/app/public"
+      - "./frontend/public/:/app"
+
+  frontend-node-cli:
+    build:
+      context: frontend/docker/development/node
+    volumes:
+    - "./frontend/public:/app"
 
   backend-nginx:
     build:
