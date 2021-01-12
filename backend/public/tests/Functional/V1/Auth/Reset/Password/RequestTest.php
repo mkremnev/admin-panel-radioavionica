@@ -1,0 +1,1 @@
+<?phpdeclare(strict_types=1);namespace Test\Functional\V1\Auth\Reset\Password;class RequestTest extends \Test\Functional\WebTestCase{    //TODO написать тесты к action}
