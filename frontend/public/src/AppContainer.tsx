@@ -1,6 +1,7 @@
 import React, { FC } from 'react';
 import { Route, Switch } from 'react-router-dom';
 import './scss/style.scss';
+import { PrivateRoute } from './components/privateRouter';
 
 const loading = (
 	<div className="pt-3 text-center">
@@ -41,7 +42,8 @@ export const AppContainer: FC<{}> = () => {
 					path="/500"
 					render={(props) => <Page500 {...props} />}
 				/>
-				<Route path="/" render={(props) => <TheLayout {...props} />} />
+
+				<PrivateRoute path="/" component={TheLayout} />
 			</Switch>
 		</React.Suspense>
 	);
