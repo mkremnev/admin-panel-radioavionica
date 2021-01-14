@@ -2,7 +2,7 @@ import React from 'react';
 import { BrowserRouter as Router } from 'react-router-dom';
 import { AppContainer } from './AppContainer';
 import { Provider } from 'react-redux';
-import store from './store';
+import { store } from './store';
 
 import { icons } from './assets/icons';
 

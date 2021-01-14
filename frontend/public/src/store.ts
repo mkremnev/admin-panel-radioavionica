@@ -1,32 +1,22 @@
-import { configureStore, getDefaultMiddleware } from '@reduxjs/toolkit';
 import { combineReducers } from 'redux';
 import { CommonReducer } from '@/rdx/reducer';
-import createSagaMiddleware from 'redux-saga';
-import { fork } from 'redux-saga/effects';
-import { watchRequestedDefects } from '@/views/military_units/defects/saga';
-import { watchRequestedLists } from '@/views/military_units/lists/saga';
 import { dataDefects } from '@/views/military_units/defects/reducer';
 import { dataLists } from '@/views/military_units/lists/reducer';
+import { loginSlice } from '@/views/pages/login/reducer';
+import { createStore } from 'redux-dynamic-modules';
+import { getSagaExtension } from 'redux-dynamic-modules-saga';
+import { getLoginModule } from '@/views/pages/login/module';
 
 export const reducer = combineReducers({
 	sidebarShow: CommonReducer.reducer,
 	defects: dataDefects.reducer,
 	listsUnits: dataLists.reducer,
+	login: loginSlice.reducer,
 });
-
-const SagaMiddleware = createSagaMiddleware();
-
-function* rootSaga() {
-	yield fork(watchRequestedDefects);
-	yield fork(watchRequestedLists);
-}
-
-const store = configureStore({
-	reducer,
-	middleware: [SagaMiddleware],
-});
-
-SagaMiddleware.run(rootSaga);
 
 export type StoreState = ReturnType<typeof reducer>;
-export default store;
+
+export const store = createStore<StoreState>(
+	{ extensions: [getSagaExtension({})] },
+	getLoginModule(),
+);

@@ -26,10 +26,10 @@ const Login = () => {
 							<CCard className="p-4">
 								<CCardBody>
 									<CForm>
-										<h1>Аутентификация.</h1>
+										<h1>Авторизация.</h1>
 										<p className="text-muted">
-											Введите информацию от вашего
-											аккаунта
+											Введите данные для входа в ваш
+											аккаунт.
 										</p>
 										<CInputGroup className="mb-3">
 											<CInputGroupPrepend>
