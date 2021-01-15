@@ -22,7 +22,7 @@ export const register = async (email: string, password: string) => {
 	return (
 		axios
 			.post(
-				`/v1/auth/join/`,
+				`/v1/auth/join`,
 				JSON.stringify({ email: email, password: password }),
 			)
 			// eslint-disable-next-line @typescript-eslint/no-use-before-define

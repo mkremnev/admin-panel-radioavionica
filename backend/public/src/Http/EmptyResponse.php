@@ -1,22 +1,1 @@
-<?php
-
-declare(strict_types=1);
-
-namespace App\Http;
-
-use Fig\Http\Message\StatusCodeInterface;
-use Psr\Http\Message\StreamInterface;
-use Slim\Psr7\Factory\StreamFactory;
-use Slim\Psr7\Response;
-
-class EmptyResponse extends Response
-{
-    public function __construct(int $status = 204)
-    {
-        parent::__construct(
-            $status,
-            null,
-            (new StreamFactory())->createStreamFromResource(fopen('php://temp', 'rb'))
-        );
-    }
-}
+<?phpdeclare(strict_types=1);namespace App\Http;use Fig\Http\Message\StatusCodeInterface;use Psr\Http\Message\StreamInterface;use Slim\Psr7\Factory\StreamFactory;use Slim\Psr7\Headers;use Slim\Psr7\Response;use function header;class EmptyResponse extends Response{    public function __construct(int $status = 204)    {        parent::__construct(            $status,            new Headers([                'Content-Type' => 'application/json',                'Access-Control-Allow-Origin' => '*',                'Access-Control-Allow-Headers' => '*',                'Access-Control-Allow-Methods' => '*',            ]),            (new StreamFactory())->createStreamFromResource(fopen('php://temp', 'rb'))        );    }}

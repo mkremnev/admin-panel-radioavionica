@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FC, useCallback, useState } from 'react';
 import {
 	CButton,
 	CCard,
@@ -18,6 +18,7 @@ import CIcon from '@coreui/icons-react';
 import { StoreState } from '@/store';
 import { actions } from './reducer';
 import { connect } from 'react-redux';
+import { isEmpty } from 'ramda';
 
 const mapStateToProps = ({ register }: StoreState) => ({
 	...register,
@@ -30,7 +31,20 @@ const mapDispatchToProps = {
 export type Props = ReturnType<typeof mapStateToProps> &
 	typeof mapDispatchToProps;
 
-export const RegisterComponent = () => {
+const Register: FC<Props> = ({ email, password, register }) => {
+	const [useremail, setEmail] = useState(email);
+	const [userpassword, setPassword] = useState(password);
+	const onSubmit = useCallback(
+		async (ev) => {
+			ev.preventDefault();
+			console.log('onsubmit');
+			if (!isEmpty(useremail) && !isEmpty(userpassword)) {
+				console.log('test');
+				register({ email: useremail, password: userpassword });
+			}
+		},
+		[useremail, userpassword, register],
+	);
 	return (
 		<div className="c-app c-default-layout flex-row align-items-center">
 			<CContainer>
@@ -38,7 +52,7 @@ export const RegisterComponent = () => {
 					<CCol md="9" lg="7" xl="6">
 						<CCard className="mx-4">
 							<CCardBody className="p-4">
-								<CForm>
+								<CForm onSubmit={onSubmit}>
 									<h1>Register</h1>
 									<p className="text-muted">
 										Create your account
@@ -63,6 +77,13 @@ export const RegisterComponent = () => {
 											type="text"
 											placeholder="Email"
 											autoComplete="email"
+											onChange={(ev) =>
+												setEmail(
+													(ev.target as HTMLInputElement)
+														.value,
+												)
+											}
+											value={useremail}
 										/>
 									</CInputGroup>
 									<CInputGroup className="mb-3">
@@ -75,6 +96,13 @@ export const RegisterComponent = () => {
 											type="password"
 											placeholder="Password"
 											autoComplete="new-password"
+											onChange={(ev) =>
+												setPassword(
+													(ev.target as HTMLInputElement)
+														.value,
+												)
+											}
+											value={userpassword}
 										/>
 									</CInputGroup>
 									<CInputGroup className="mb-4">
@@ -89,7 +117,11 @@ export const RegisterComponent = () => {
 											autoComplete="new-password"
 										/>
 									</CInputGroup>
-									<CButton color="success" block>
+									<CButton
+										color="success"
+										onClick={onSubmit}
+										block
+									>
 										Create Account
 									</CButton>
 								</CForm>
@@ -122,7 +154,4 @@ export const RegisterComponent = () => {
 	);
 };
 
-export const Register = connect(
-	mapStateToProps,
-	mapDispatchToProps
-)(RegisterComponent);
+export default connect(mapStateToProps, mapDispatchToProps)(Register);

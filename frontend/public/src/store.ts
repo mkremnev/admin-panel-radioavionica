@@ -7,6 +7,7 @@ import { createStore } from 'redux-dynamic-modules';
 import { getSagaExtension } from 'redux-dynamic-modules-saga';
 import { getLoginModule } from '@/views/pages/login/module';
 import { registerSlice } from '@/views/pages/register/reducer';
+import { getRegisterModule } from '@/views/pages/register/module';
 
 export const reducer = combineReducers({
 	sidebarShow: CommonReducer.reducer,
@@ -21,4 +22,5 @@ export type StoreState = ReturnType<typeof reducer>;
 export const store = createStore<StoreState>(
 	{ extensions: [getSagaExtension({})] },
 	getLoginModule(),
+	getRegisterModule(),
 );

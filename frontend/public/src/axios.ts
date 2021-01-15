@@ -10,6 +10,9 @@ const ax: AxiosInstance = axios.create({
 	baseURL,
 	timeout,
 	headers: {
+		'Access-Control-Allow-Origin': '*',
+		'Access-Control-Allow-Headers': '*',
+		'Access-Control-Allow-Methods': '*',
 		'Content-Type': 'application/json',
 		'Local-Timezone-offset': -tzoffset,
 		'Accept-Language': 'ru',
