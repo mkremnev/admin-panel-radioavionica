@@ -14,7 +14,6 @@ export function* saveUserSession({
 	const email = String(payload.email);
 	const password = String(payload.password);
 	if (!isEmpty(email) && !isEmpty(password)) {
-		console.log('saga');
 		yield call(register, email, password);
 	}
 }

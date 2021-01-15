@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "2ca264a422146c0431a32448591eddd2",
+    "content-hash": "fc16cd0ad25adfac5daeabd96f284ce3",
     "packages": [
         {
             "name": "brick/math",
@@ -2215,54 +2215,6 @@
                 "source": "https://github.com/opis/closure/tree/3.6.1"
             },
             "time": "2020-11-07T02:01:34+00:00"
-        },
-        {
-            "name": "palanik/corsslim",
-            "version": "v1.0.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/palanik/CorsSlim.git",
-                "reference": "0f06ff5a9709ee1c831a25cda3028008d86a48eb"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/palanik/CorsSlim/zipball/0f06ff5a9709ee1c831a25cda3028008d86a48eb",
-                "reference": "0f06ff5a9709ee1c831a25cda3028008d86a48eb",
-                "shasum": ""
-            },
-            "require": {
-                "slim/slim": ">=2.4.0"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "CorsSlim\\": "."
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "palanik"
-                }
-            ],
-            "description": "Cross-origin resource sharing (CORS) middleware for PHP Slim.",
-            "homepage": "https://github.com/palanik/CorsSlim",
-            "keywords": [
-                "cors",
-                "corsslim",
-                "cross-origin",
-                "preflight",
-                "slim",
-                "slimphp"
-            ],
-            "support": {
-                "issues": "https://github.com/palanik/CorsSlim/issues",
-                "source": "https://github.com/palanik/CorsSlim/tree/v1.0.0"
-            },
-            "time": "2015-11-19T05:44:29+00:00"
         },
         {
             "name": "php-di/invoker",

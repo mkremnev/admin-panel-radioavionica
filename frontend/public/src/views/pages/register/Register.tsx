@@ -37,13 +37,11 @@ const Register: FC<Props> = ({ email, password, register }) => {
 	const onSubmit = useCallback(
 		async (ev) => {
 			ev.preventDefault();
-			console.log('onsubmit');
 			if (!isEmpty(useremail) && !isEmpty(userpassword)) {
-				console.log('test');
 				register({ email: useremail, password: userpassword });
 			}
 		},
-		[useremail, userpassword, register],
+		[useremail, userpassword],
 	);
 	return (
 		<div className="c-app c-default-layout flex-row align-items-center">
@@ -53,10 +51,7 @@ const Register: FC<Props> = ({ email, password, register }) => {
 						<CCard className="mx-4">
 							<CCardBody className="p-4">
 								<CForm onSubmit={onSubmit}>
-									<h1>Register</h1>
-									<p className="text-muted">
-										Create your account
-									</p>
+									<h1>Регистрация нового пользователя</h1>
 									<CInputGroup className="mb-3">
 										<CInputGroupPrepend>
 											<CInputGroupText>
@@ -122,30 +117,10 @@ const Register: FC<Props> = ({ email, password, register }) => {
 										onClick={onSubmit}
 										block
 									>
-										Create Account
+										Зарегистрировать
 									</CButton>
 								</CForm>
 							</CCardBody>
-							<CCardFooter className="p-4">
-								<CRow>
-									<CCol xs="12" sm="6">
-										<CButton
-											className="btn-facebook mb-1"
-											block
-										>
-											<span>facebook</span>
-										</CButton>
-									</CCol>
-									<CCol xs="12" sm="6">
-										<CButton
-											className="btn-twitter mb-1"
-											block
-										>
-											<span>twitter</span>
-										</CButton>
-									</CCol>
-								</CRow>
-							</CCardFooter>
 						</CCard>
 					</CCol>
 				</CRow>
