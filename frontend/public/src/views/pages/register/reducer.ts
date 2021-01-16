@@ -1,39 +1,64 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-export enum StatusState {
-	initiated,
-	succeed,
-	failed,
-}
-
 export const initialState: {
-	email: string;
-	password: string;
-	status?: StatusState;
+	email?: string;
+	password?: string;
+	requesting?: boolean;
+	successful?: boolean;
+	messages?: object[];
+	errors?: object[];
 } = {
 	email: '',
 	password: '',
-	status: StatusState.initiated,
+	requesting: false,
+	successful: false,
+	messages: [],
+	errors: [],
 };
 
 export const registerSlice = createSlice({
 	name: 'user',
 	initialState,
 	reducers: {
-		register: (
+		requesting: (
 			state,
 			{ payload }: PayloadAction<{ email: string; password: string }>,
 		) => {
-			if (payload) {
-				return { email: payload.email, password: payload.password };
-			}
-			return state;
+			return {
+				email: payload.email ?? '',
+				password: payload.password ?? '',
+				requesting: true,
+				successful: false,
+				errors: [],
+				messages: [{ body: 'Signing up...', time: new Date() }],
+			};
 		},
-		logout: () => ({
-			email: '',
-			password: '',
-			status: StatusState.failed,
-		}),
+		successful: (state, { payload }: PayloadAction<{ email: string }>) => {
+			return {
+				requesting: false,
+				successful: true,
+				errors: [],
+				messages: [
+					{
+						body: `Successfully created account for ${payload.email}`,
+						time: new Date(),
+					},
+				],
+			};
+		},
+		errors: (state, { payload }: PayloadAction<{ error: object[] }>) => {
+			return {
+				errors: payload.error.concat([
+					{
+						body: payload.error.toString(),
+						time: new Date(),
+					},
+				]),
+				messages: [],
+				requesting: false,
+				successful: false,
+			};
+		},
 	},
 });
 

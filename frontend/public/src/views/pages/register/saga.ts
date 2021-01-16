@@ -1,28 +1,23 @@
 import { isEmpty } from 'ramda';
-import { take, call } from 'redux-saga/effects';
+import { call, takeLatest, put } from 'redux-saga/effects';
 
 import { actions } from './reducer';
-import { register, logout } from '@/api/auth';
+import { register } from '@/api/auth';
 
-export function* clearUserSession() {
-	yield call(logout);
+function signupApi(email: string, password: string) {
+	return register(email, password);
 }
 
-export function* saveUserSession({
-	payload,
-}: ReturnType<typeof actions.register>) {
-	const email = String(payload.email);
-	const password = String(payload.password);
-	if (!isEmpty(email) && !isEmpty(password)) {
-		yield call(register, email, password);
+function* signupFlow({ payload }: ReturnType<typeof actions.requesting>) {
+	try {
+		const { email, password } = payload;
+		const response = yield call(signupApi, String(email), String(password));
+		yield put(actions.successful(response));
+	} catch (error) {
+		yield put(actions.errors(!isEmpty(error) ? error : 'Not error'));
 	}
 }
 
-export function* registerSaga() {
-	while (true) {
-		const action = yield take(actions.register.type);
-		yield* saveUserSession(action);
-		yield take(actions.logout.type);
-		yield* clearUserSession();
-	}
+export function* signupWatcher() {
+	yield takeLatest(actions.requesting.type, signupFlow);
 }

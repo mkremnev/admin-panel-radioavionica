@@ -20,28 +20,35 @@ import { actions } from './reducer';
 import { connect } from 'react-redux';
 import { isEmpty } from 'ramda';
 
-const mapStateToProps = ({ register }: StoreState) => ({
-	...register,
+const mapStateToProps = ({ requestProps }: StoreState) => ({
+	...requestProps,
 });
 
 const mapDispatchToProps = {
-	register: actions.register,
+	requesting: actions.requesting,
 };
 
 export type Props = ReturnType<typeof mapStateToProps> &
 	typeof mapDispatchToProps;
 
-const Register: FC<Props> = ({ email, password, register }) => {
+const Register: FC<Props> = ({
+	email,
+	password,
+	messages,
+	errors,
+	requesting,
+}) => {
 	const [useremail, setEmail] = useState(email);
 	const [userpassword, setPassword] = useState(password);
 	const onSubmit = useCallback(
 		async (ev) => {
+			console.log('click');
 			ev.preventDefault();
 			if (!isEmpty(useremail) && !isEmpty(userpassword)) {
-				register({ email: useremail, password: userpassword });
+				requesting({ email: useremail, password: userpassword });
 			}
 		},
-		[useremail, userpassword],
+		[messages, errors],
 	);
 	return (
 		<div className="c-app c-default-layout flex-row align-items-center">
@@ -114,7 +121,7 @@ const Register: FC<Props> = ({ email, password, register }) => {
 									</CInputGroup>
 									<CButton
 										color="success"
-										onClick={onSubmit}
+										onClick={requesting}
 										block
 									>
 										Зарегистрировать

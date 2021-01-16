@@ -1,4 +1,6 @@
 import { axios } from '@/axios';
+import { handleApiErrors } from '@/api/api-errors';
+import { AxiosResponse } from 'axios';
 
 export const login = async (name: string) => {
 	await localStorage.setItem('login', name);
@@ -24,6 +26,10 @@ export const register = async (email: string, password: string) => {
 			`/v1/auth/join`,
 			JSON.stringify({ email: email, password: password }),
 		)
-		.then((response) => response)
-		.catch((error) => error.response.data);
+		.then(handleApiErrors) // we'll make this in a second
+		.then((response: AxiosResponse) => response.data())
+		.then((json) => json)
+		.catch((error) => {
+			throw error;
+		});
 };
