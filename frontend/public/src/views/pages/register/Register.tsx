@@ -1,4 +1,4 @@
-import React, { FC, useCallback, useState } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import {
 	CButton,
 	CCard,
@@ -15,9 +15,9 @@ import {
 } from '@coreui/react';
 import CIcon from '@coreui/icons-react';
 
-import { StoreState } from '@/store';
+import { store, StoreState } from '@/store';
 import { actions } from './reducer';
-import { connect } from 'react-redux';
+import { connect, useSelector } from 'react-redux';
 import { isEmpty } from 'ramda';
 
 const mapStateToProps = ({ requestProps }: StoreState) => ({
@@ -25,31 +25,29 @@ const mapStateToProps = ({ requestProps }: StoreState) => ({
 });
 
 const mapDispatchToProps = {
-	requesting: actions.requesting,
+	request: actions.requesting,
 };
 
 export type Props = ReturnType<typeof mapStateToProps> &
 	typeof mapDispatchToProps;
 
-const Register: FC<Props> = ({
-	email,
-	password,
-	messages,
-	errors,
+export const Register: FC<Props> = ({
+	request,
 	requesting,
+	messages,
+	successful,
+	errors,
 }) => {
-	const [useremail, setEmail] = useState(email);
-	const [userpassword, setPassword] = useState(password);
-	const onSubmit = useCallback(
-		async (ev) => {
-			console.log('click');
-			ev.preventDefault();
-			if (!isEmpty(useremail) && !isEmpty(userpassword)) {
-				requesting({ email: useremail, password: userpassword });
-			}
-		},
-		[messages, errors],
-	);
+	const [email, setEmail] = useState('');
+	const [password, setPassword] = useState('');
+
+	const onSubmit = (ev: React.FormEvent) => {
+		ev.preventDefault();
+		if (!isEmpty(email) && !isEmpty(password)) {
+			request({ email: email, password: password });
+		}
+	};
+
 	return (
 		<div className="c-app c-default-layout flex-row align-items-center">
 			<CContainer>
@@ -79,13 +77,14 @@ const Register: FC<Props> = ({
 											type="text"
 											placeholder="Email"
 											autoComplete="email"
+											name="email"
+											value={email}
 											onChange={(ev) =>
 												setEmail(
 													(ev.target as HTMLInputElement)
 														.value,
 												)
 											}
-											value={useremail}
 										/>
 									</CInputGroup>
 									<CInputGroup className="mb-3">
@@ -98,13 +97,14 @@ const Register: FC<Props> = ({
 											type="password"
 											placeholder="Password"
 											autoComplete="new-password"
+											name="password"
+											value={password}
 											onChange={(ev) =>
 												setPassword(
 													(ev.target as HTMLInputElement)
 														.value,
 												)
 											}
-											value={userpassword}
 										/>
 									</CInputGroup>
 									<CInputGroup className="mb-4">
@@ -121,13 +121,18 @@ const Register: FC<Props> = ({
 									</CInputGroup>
 									<CButton
 										color="success"
-										onClick={requesting}
+										type="submit"
 										block
 									>
 										Зарегистрировать
 									</CButton>
 								</CForm>
 							</CCardBody>
+							<CCardFooter>
+								<div className="auth-messages">
+									{<div>{errors && <div>test</div>}</div>}
+								</div>
+							</CCardFooter>
 						</CCard>
 					</CCol>
 				</CRow>

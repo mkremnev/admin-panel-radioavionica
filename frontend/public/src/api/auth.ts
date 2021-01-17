@@ -20,16 +20,11 @@ export const isLoggedIn = async () => {
 	return Boolean(login);
 };
 
-export const register = async (email: string, password: string) => {
+export const register = (email: string, password: string) => {
 	return axios
 		.post(
 			`/v1/auth/join`,
 			JSON.stringify({ email: email, password: password }),
 		)
-		.then(handleApiErrors) // we'll make this in a second
-		.then((response: AxiosResponse) => response.data())
-		.then((json) => json)
-		.catch((error) => {
-			throw error;
-		});
+		.then((response: AxiosResponse) => handleApiErrors(response));
 };

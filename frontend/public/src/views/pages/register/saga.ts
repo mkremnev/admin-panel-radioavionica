@@ -14,7 +14,14 @@ function* signupFlow({ payload }: ReturnType<typeof actions.requesting>) {
 		const response = yield call(signupApi, String(email), String(password));
 		yield put(actions.successful(response));
 	} catch (error) {
-		yield put(actions.errors(!isEmpty(error) ? error : 'Not error'));
+		yield put(
+			actions.errors(
+				!isEmpty(error.response.data)
+					? error.response.data
+					: 'Not error',
+			),
+		);
+		console.log(error.response.data);
 	}
 }
 
