@@ -1,4 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { StoreState } from '@/store';
 
 export const initialState: {
 	requesting?: boolean;
@@ -10,6 +11,10 @@ export const initialState: {
 	successful: false,
 	messages: [],
 	errors: [],
+};
+
+export const selectors = {
+	state: ({ requestProps }: StoreState) => requestProps,
 };
 
 export const registerSlice = createSlice({
@@ -37,7 +42,7 @@ export const registerSlice = createSlice({
 		}),
 		errors: (state, { payload }: PayloadAction<object[]>) => ({
 			...state,
-			errors: payload,
+			errors: [payload],
 		}),
 	},
 });
