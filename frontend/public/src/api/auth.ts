@@ -2,6 +2,8 @@ import { axios } from '@/axios';
 import { handleApiErrors } from '@/api/api-errors';
 import { AxiosResponse } from 'axios';
 
+const sleep = (x: number) => new Promise((r) => setTimeout(r, x));
+
 export const login = async (name: string) => {
 	await localStorage.setItem('login', name);
 };
@@ -20,7 +22,8 @@ export const isLoggedIn = async () => {
 	return Boolean(login);
 };
 
-export const register = (email: string, password: string) => {
+export const register = async (email: string, password: string) => {
+	await sleep(1000);
 	return axios
 		.post(
 			`/v1/auth/join`,

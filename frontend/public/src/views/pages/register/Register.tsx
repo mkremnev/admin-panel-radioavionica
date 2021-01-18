@@ -1,5 +1,6 @@
-import React, { FC, useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import {
+	CAlert,
 	CButton,
 	CCard,
 	CCardBody,
@@ -12,27 +13,32 @@ import {
 	CInputGroupPrepend,
 	CInputGroupText,
 	CRow,
+	CSpinner,
 } from '@coreui/react';
 import CIcon from '@coreui/icons-react';
+import { Link } from 'react-router-dom';
 
 import { actions } from './reducer';
 import { useDispatch, useSelector } from 'react-redux';
-import { isEmpty } from 'ramda';
 import { StoreState } from '@/store';
+import { isEmptyData } from '@/helpers/helpers';
 
-export const Register = () => {
+const Register = () => {
+	//TODO реализовать валидацию полей ввода и провести оптимизацию
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
 	const dispatch = useDispatch();
-	const { requesting, messages, successful, errors } = useSelector(
+	const { requesting, successful, errors } = useSelector(
 		(state: StoreState) => state.register,
 	);
 
 	const onSubmit = (ev: React.FormEvent) => {
 		ev.preventDefault();
 		const { requesting } = actions;
-		if (!isEmpty(email) && !isEmpty(password)) {
+		if (!isEmptyData(email, password)) {
 			dispatch(requesting({ email: email, password: password }));
+			setEmail('');
+			setPassword('');
 		}
 	};
 
@@ -57,6 +63,11 @@ export const Register = () => {
 											autoComplete="username"
 										/>
 									</CInputGroup>
+									{errors!.length > 0 && errors![0].email && (
+										<CAlert color="danger">
+											{JSON.stringify(errors![0].email)}
+										</CAlert>
+									)}
 									<CInputGroup className="mb-3">
 										<CInputGroupPrepend>
 											<CInputGroupText>@</CInputGroupText>
@@ -65,6 +76,7 @@ export const Register = () => {
 											type="text"
 											placeholder="Email"
 											autoComplete="email"
+											required
 											name="email"
 											value={email}
 											onChange={(ev) =>
@@ -75,6 +87,14 @@ export const Register = () => {
 											}
 										/>
 									</CInputGroup>
+									{errors!.length > 0 &&
+										errors![0].password && (
+											<CAlert color="danger">
+												{JSON.stringify(
+													errors![0].password,
+												)}
+											</CAlert>
+										)}
 									<CInputGroup className="mb-3">
 										<CInputGroupPrepend>
 											<CInputGroupText>
@@ -85,6 +105,8 @@ export const Register = () => {
 											type="password"
 											placeholder="Password"
 											autoComplete="new-password"
+											required
+											min={10}
 											name="password"
 											value={password}
 											onChange={(ev) =>
@@ -110,22 +132,34 @@ export const Register = () => {
 									<CButton
 										color="success"
 										type="submit"
+										disabled={isEmptyData(email, password)}
 										block
 									>
-										Зарегистрировать
+										{requesting ? (
+											<>
+												Отправка данных...&nbsp;
+												<CSpinner
+													color="info"
+													size="sm"
+												/>
+											</>
+										) : (
+											<>Зарегистрировать</>
+										)}
 									</CButton>
 								</CForm>
 							</CCardBody>
 							<CCardFooter>
-								<div className="auth-messages">
-									{
-										<div>
-											{errors!.length > 0 && (
-												<div>test</div>
-											)}
-										</div>
-									}
-								</div>
+								<CAlert
+									show={successful}
+									color="success"
+									fade
+									closeButton
+								>
+									Регистрация прошла успешна! Спасибо за
+									регистацию.{' '}
+									<Link to="/login">Залогиниться</Link>
+								</CAlert>
 							</CCardFooter>
 						</CCard>
 					</CCol>
