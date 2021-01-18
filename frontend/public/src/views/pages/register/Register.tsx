@@ -15,36 +15,24 @@ import {
 } from '@coreui/react';
 import CIcon from '@coreui/icons-react';
 
-import { store, StoreState } from '@/store';
 import { actions } from './reducer';
-import { connect, useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { isEmpty } from 'ramda';
+import { StoreState } from '@/store';
 
-const mapStateToProps = ({ requestProps }: StoreState) => ({
-	...requestProps,
-});
-
-const mapDispatchToProps = {
-	request: actions.requesting,
-};
-
-export type Props = ReturnType<typeof mapStateToProps> &
-	typeof mapDispatchToProps;
-
-export const Register: FC<Props> = ({
-	request,
-	requesting,
-	messages,
-	successful,
-	errors,
-}) => {
+export const Register = () => {
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
+	const dispatch = useDispatch();
+	const { requesting, messages, successful, errors } = useSelector(
+		(state: StoreState) => state.register,
+	);
 
 	const onSubmit = (ev: React.FormEvent) => {
 		ev.preventDefault();
+		const { requesting } = actions;
 		if (!isEmpty(email) && !isEmpty(password)) {
-			request({ email: email, password: password });
+			dispatch(requesting({ email: email, password: password }));
 		}
 	};
 
@@ -130,7 +118,13 @@ export const Register: FC<Props> = ({
 							</CCardBody>
 							<CCardFooter>
 								<div className="auth-messages">
-									{<div>{errors && <div>test</div>}</div>}
+									{
+										<div>
+											{errors!.length > 0 && (
+												<div>test</div>
+											)}
+										</div>
+									}
 								</div>
 							</CCardFooter>
 						</CCard>
@@ -141,4 +135,4 @@ export const Register: FC<Props> = ({
 	);
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Register);
+export default Register;

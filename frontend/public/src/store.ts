@@ -14,7 +14,7 @@ export const reducer = combineReducers({
 	defects: dataDefects.reducer,
 	listsUnits: dataLists.reducer,
 	login: loginSlice.reducer,
-	requestProps: registerSlice.reducer,
+	register: registerSlice.reducer,
 });
 
 export type StoreState = ReturnType<typeof reducer>;

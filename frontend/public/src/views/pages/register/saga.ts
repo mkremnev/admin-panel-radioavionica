@@ -16,12 +16,15 @@ function* signupFlow({ payload }: ReturnType<typeof actions.requesting>) {
 	} catch (error) {
 		yield put(
 			actions.errors(
-				!isEmpty(error.response.data)
-					? error.response.data
+				!isEmpty(
+					error.response.data['errors'] ||
+						!isEmpty(error.response.data['message']),
+				)
+					? error.response.data['errors'] ||
+							error.response.data['message']
 					: 'Not error',
 			),
 		);
-		console.log(error.response.data);
 	}
 }
 
