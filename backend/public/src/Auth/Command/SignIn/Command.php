@@ -1,0 +1,1 @@
+<?phpdeclare(strict_types=1);namespace App\Auth\Command\SignIn;use Symfony\Component\Validator\Constraints as Assert;class Command{    /**     * @Assert\Email()     * @Assert\NotBlank     */    private string $email;    /**     * @Assert\NotBlank     */    private string $password;}

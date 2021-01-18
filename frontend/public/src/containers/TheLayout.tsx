@@ -1,18 +1,28 @@
 import React from 'react';
+import { DynamicModuleLoader } from 'redux-dynamic-modules';
 import { TheContent, TheSidebar, TheFooter, TheHeader } from './index';
+import { AccessChecker } from '@/modules/AccessChecker/AccessChecker';
+import { ErrorBoundary } from '@/components/ErrorBoundary/ErrorBoundary';
+import { getCommonModule } from '@/rdx/reducer/module';
 
 const TheLayout = () => {
 	return (
-		<div className="c-app c-default-layout">
-			<TheSidebar />
-			<div className="c-wrapper">
-				<TheHeader />
-				<div className="c-body">
-					<TheContent />
-				</div>
-				<TheFooter />
-			</div>
-		</div>
+		<ErrorBoundary>
+			<DynamicModuleLoader modules={[getCommonModule()]}>
+				<AccessChecker>
+					<div className="c-app c-default-layout">
+						<TheSidebar />
+						<div className="c-wrapper">
+							<TheHeader />
+							<div className="c-body">
+								<TheContent />
+							</div>
+							<TheFooter />
+						</div>
+					</div>
+				</AccessChecker>
+			</DynamicModuleLoader>
+		</ErrorBoundary>
 	);
 };
 

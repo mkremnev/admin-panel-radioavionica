@@ -1,4 +1,7 @@
-init: docker-down-clear api-clear docker-pull docker-build docker-up api-init
+init: docker-down-clear \
+ 	  api-clear frontend-clear \
+ 	  docker-pull docker-build docker-up \
+ 	  api-init frontend-init
 init-full: npm-build docker-down-clear api-clear docker-pull docker-build docker-up api-init
 up: docker-up
 down: docker-down
@@ -141,3 +144,11 @@ php-test-functional-coverage:
 
 php-test-coverage:
 	docker-compose run --rm backend-php-cli composer test-coverage
+
+frontend-clear:
+	docker run --rm -v ${PWD}/frontend/public:/app -w /app alpine sh -c 'rm -rf dist'
+
+frontend-init: frontend-npm-install
+
+frontend-npm-install:
+	docker-compose run --rm frontend-node-cli npm install

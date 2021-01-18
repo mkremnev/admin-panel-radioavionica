@@ -41,7 +41,8 @@ export const AppContainer: FC<{}> = () => {
 					path="/500"
 					render={(props) => <Page500 {...props} />}
 				/>
-				<Route path="/" render={(props) => <TheLayout {...props} />} />
+
+				<Route path="/" render={(props) => <TheLayout {...props} /> } />
 			</Switch>
 		</React.Suspense>
 	);

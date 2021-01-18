@@ -1,7 +1,18 @@
 const path = require('path');
+const fs = require('fs');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const ManifestPlugin = require('webpack-manifest-plugin');
+const getPublicUrlOrPath = require('react-dev-utils/getPublicUrlOrPath');
+
+const appDirectory = fs.realpathSync(process.cwd());
+const resolveApp = (relativePath) => path.resolve(appDirectory, relativePath);
+
+const publicUrlOrPath = getPublicUrlOrPath(
+	process.env.NODE_ENV === 'development',
+	require(resolveApp('package.json')).homepage,
+	process.env.PUBLIC_URL,
+);
 
 module.exports = {
 	entry: './src/index.tsx',
@@ -65,13 +76,24 @@ module.exports = {
 	},
 	devServer: {
 		historyApiFallback: true,
-		inline: true,
+		hot: true,
 		contentBase: [
 			path.join(__dirname, '/public'),
 			path.join(__dirname, '/dist'),
 			path.join(__dirname, '/public/avatars'),
 		],
 		port: 5000,
+		host: process.env.HOST || '0.0.0.0',
+		transportMode: 'ws',
+		// sockHost: '0.0.0.0',
+		// sockPath: '/sockjs-node',
+		// sockPort: '5000',
+		watchContentBase: true,
+		injectClient: false,
+		// contentBasePublicPath: publicUrlOrPath,
+		// publicPath: publicUrlOrPath.slice(0, -1),
+		disableHostCheck: true,
+		public: '0.0.0.0:5000',
 	},
 	plugins: [
 		new CleanWebpackPlugin(),
