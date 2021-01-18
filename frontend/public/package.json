@@ -4,7 +4,7 @@
 	"description": "Project admin panels for work Radioavionica",
 	"main": "index.js",
 	"scripts": {
-		"start": "npx webpack-dev-server --mode development --open --hot",
+		"start": "npx webpack-dev-server",
 		"test": "npx jest",
 		"lint": "npx eslint --ext .js,.jsx,.ts,.tsx --fix ./",
 		"build": "npx webpack --mode production",
@@ -52,6 +52,8 @@
 		"react-redux": "^7.2.1",
 		"react-router-dom": "^5.2.0",
 		"redux": "^4.0.5",
+		"redux-dynamic-modules": "^5.2.3",
+		"redux-dynamic-modules-saga": "^5.2.3",
 		"redux-saga": "^1.1.3"
 	},
 	"devDependencies": {
