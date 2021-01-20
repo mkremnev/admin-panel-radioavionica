@@ -1,0 +1,1 @@
+<?phpdeclare(strict_types=1);namespace Test\Functional\V1\Auth\SignIn;use Test\Functional\WebTestCase;/** * @requires Need test * Class SignInTest * @package Test\Functional\V1\Auth\SignIn */class SignInTest extends WebTestCase{}
