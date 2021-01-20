@@ -104,7 +104,7 @@ const Register = () => {
 										<CInput
 											type="password"
 											placeholder="Password"
-											autoComplete="new-password"
+											autoComplete="password"
 											required
 											min={10}
 											name="password"

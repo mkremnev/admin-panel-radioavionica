@@ -1,22 +1,1 @@
-<?php
-declare(strict_types=1);
-
-namespace App;
-use Psr\Container\ContainerInterface;
-use Slim\App;
-
-/**
- * @author Maxim Kremnev <m.kremnev@netlinux.ru>
- */
-
-http_response_code(500);
-
-require __DIR__ . '/vendor/autoload.php';
-
-/** @var ContainerInterface $container*/
-$container = require __DIR__ . '/config/container.php';
-
-/** @var App $app */
-$app = (require __DIR__ . '/config/app.php')($container);
-
-$app->run();
+<?phpdeclare(strict_types=1);namespace App;use Psr\Container\ContainerInterface;use Slim\App;/** * @author Maxim Kremnev <m.kremnev@netlinux.ru> */header('Access-Control-Allow-Origin: *');header('Access-Control-Allow-Headers: *');header('Access-Control-Allow-Methods: *');http_response_code(500);require __DIR__ . '/vendor/autoload.php';/** @var ContainerInterface $container*/$container = require __DIR__ . '/config/container.php';/** @var App $app */$app = (require __DIR__ . '/config/app.php')($container);$app->run();
