@@ -1,34 +1,24 @@
 import React, { ReactNode, FC } from 'react';
-import { connect } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import { Spinner } from '@/components/Spinner/Spinner';
 
 import { StoreState } from '@/store';
-import { CheckState } from '@/views/pages/login/reducer';
 
-const mapStateToProps = ({ login }: StoreState) => ({
-	...login,
-});
-
-export interface Props extends ReturnType<typeof mapStateToProps> {
+type Props = {
 	children: ReactNode;
 	redirectPath?: string;
-}
+};
 
-export const AccessCheckerComponent: FC<Props> = ({
+export const AccessChecker: FC<Props> = ({
 	children,
-	status,
 	redirectPath = '/login',
 }) => {
-	if (status === CheckState.initiated) {
-		return <Spinner />;
-	}
+	const { successful } = useSelector((state: StoreState) => state.login);
 
-	if (status === CheckState.failed) {
+	if (!successful) {
 		return <Redirect to={redirectPath} />;
 	}
 
 	return <>{children}</>;
 };
-
-export const AccessChecker = connect(mapStateToProps)(AccessCheckerComponent);

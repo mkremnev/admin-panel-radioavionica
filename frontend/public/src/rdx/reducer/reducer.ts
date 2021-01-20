@@ -12,6 +12,7 @@ export const CommonReducer = createSlice({
 	name: 'common',
 	initialState,
 	reducers: {
+		//TODO разобраться с type
 		set: (state, { payload }: PayloadAction<State>) => {
 			return {
 				...state,
