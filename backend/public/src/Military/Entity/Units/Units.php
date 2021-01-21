@@ -1,0 +1,1 @@
+<?phpdeclare(strict_types=1);namespace App\Military\Entity\Units;use Doctrine\ORM\Mapping as ORM;/** * @ORM\Entity * @ORM\Table(name="military_units") */class Units{    /**     * @ORM\Column(type="military_units_id")     * @ORM\Id     */    private Id $id;}
