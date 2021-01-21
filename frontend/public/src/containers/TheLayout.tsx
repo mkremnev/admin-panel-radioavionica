@@ -4,14 +4,11 @@ import { TheContent, TheSidebar, TheFooter, TheHeader } from './index';
 import { AccessChecker } from '@/modules/AccessChecker/AccessChecker';
 import { ErrorBoundary } from '@/components/ErrorBoundary/ErrorBoundary';
 import { getCommonModule } from '@/rdx/reducer/module';
-import { getLoginModule } from '@/views/pages/login/module';
 
 const TheLayout = () => {
 	return (
 		<ErrorBoundary>
-			<DynamicModuleLoader
-				modules={[getCommonModule(), getLoginModule()]}
-			>
+			<DynamicModuleLoader modules={[getCommonModule()]}>
 				<AccessChecker>
 					<div className="c-app c-default-layout">
 						<TheSidebar />

@@ -23,13 +23,13 @@ export default [
 	{
 		_tag: 'CSidebarNavItem',
 		name: 'Список частей',
-		to: '/military_units/lists',
+		to: '/military/lists',
 		icon: 'cil-home',
 	},
 	{
 		_tag: 'CSidebarNavItem',
 		name: 'Неисправности',
-		to: '/military_units/defects',
+		to: '/military/defects',
 		icon: 'cil-x-circle',
 	},
 	{

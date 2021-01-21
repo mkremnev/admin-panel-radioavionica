@@ -64,12 +64,12 @@ const User = React.lazy(() => import('./views/users/User'));
 const TripDocument = React.lazy(() =>
 	import('./views/trip/document/TripDocument'),
 );
-const Lists = React.lazy(() => import('./views/military_units/lists/Lists'));
+const Lists = React.lazy(() => import('./views/military/units/lists/Lists'));
 const Defects = React.lazy(() =>
-	import('./views/military_units/defects/Defects'),
+	import('./views/military/units/defects/Defects'),
 );
 const AcceptanceDocuments = React.lazy(() =>
-	import('./views/military_acceptance/documents/AcceptanceDocuments'),
+	import('./views/military/acceptance/documents/AcceptanceDocuments'),
 );
 const TripCalc = React.lazy(() =>
 	import('./views/calculation/trip-calc/TripCalc'),
@@ -152,19 +152,19 @@ const routes = [
 		component: TripDocument,
 	},
 	{
-		path: '/military_units/lists',
+		path: '/military/lists',
 		exact: true,
 		name: 'Список частей',
 		component: Lists,
 	},
 	{
-		path: '/military_units/defects',
+		path: '/military/defects',
 		exact: true,
 		name: 'Неисправности',
 		component: Defects,
 	},
 	{
-		path: '/military_acceptance/documents',
+		path: '/military/acceptance/documents',
 		exact: true,
 		name: 'Документы для военной приемки',
 		component: AcceptanceDocuments,
