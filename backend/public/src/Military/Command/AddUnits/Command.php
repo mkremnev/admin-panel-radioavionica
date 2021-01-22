@@ -1,0 +1,1 @@
+<?phpdeclare(strict_types=1);namespace App\Military\Command\AddUnits;class Command{    public string $name;    public string $address;    public string $lastname;    public string $firstname;    public string $surname;    public int $amount;    public ?array $officials;}
