@@ -37,7 +37,7 @@ const TheListsComponent: React.FC<TheListProps> = (props) => {
 	}, [props.request]);
 
 	const fields = [
-		{ key: 'id', label: '№ п/п', _style: { width: '3%' }, filter: false },
+		{ key: 'id', label: '#', _style: { width: '3%' }, filter: false },
 		{ key: 'name', label: 'Наименование части', _style: { width: '4%' } },
 		{
 			key: 'address',
@@ -85,31 +85,25 @@ const TheListsComponent: React.FC<TheListProps> = (props) => {
 
 	const officialsField = [
 		{
-			key: 'item',
-			label: '№ п/п',
-			_style: { width: '10%' },
-			filter: false,
-		},
-		{
-			key: 'unit',
+			key: 'official_subunit',
 			label: 'Подразделение',
 			_style: { width: '10%' },
 			filter: false,
 		},
 		{
-			key: 'rank',
+			key: 'official_rank',
 			label: 'В.звание',
 			_style: { width: '10%' },
 			filter: false,
 		},
 		{
-			key: 'fio',
+			key: 'official_fio',
 			label: 'ФИО должносного лица',
 			_style: { width: '10%' },
 			filter: false,
 		},
 		{
-			key: 'telefone',
+			key: 'official_telephone',
 			label: 'Телефон',
 			_style: { width: '10%' },
 			filter: false,
@@ -151,41 +145,6 @@ const TheListsComponent: React.FC<TheListProps> = (props) => {
 						columnFilter
 						hover
 						scopedSlots={{
-							// eslint-disable-next-line react/display-name
-							notes: (
-								items: {
-									notes: {
-										[key: string]: string;
-									};
-								},
-								index: number,
-							) => {
-								return (
-									<td>
-										<div
-											className={
-												!details.includes(index)
-													? 'visible'
-													: 'hide'
-											}
-										>
-											{items.notes['item1']}
-										</div>
-										<CCollapse
-											show={details.includes(index)}
-										>
-											{Object.keys(items.notes).map(
-												(keys, i) => (
-													<span key={i}>
-														{items.notes[keys]}
-														<br />
-													</span>
-												),
-											)}
-										</CCollapse>
-									</td>
-								);
-							},
 							// eslint-disable-next-line react/display-name
 							showDetails: (item: DataType, index: number) => {
 								return (

@@ -4,7 +4,7 @@ import { reducer } from './reducer';
 import { watchRequestedLists } from './saga';
 
 export const getUnitsModule = (): ISagaModule<typeof reducer> => ({
-	id: 'defects',
+	id: 'units_list',
 	reducerMap: {
 		listsUnits: reducer,
 	},
