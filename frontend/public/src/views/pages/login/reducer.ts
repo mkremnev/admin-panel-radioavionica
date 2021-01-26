@@ -1,35 +1,62 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-export enum CheckState {
-	initiated,
-	succeed,
-	failed,
-}
-
-export const usernameMinLength = 3;
+type User = {
+	id: string;
+	email: string;
+	role: string;
+	status: string;
+	date: {
+		date: string;
+		timezone_type: number;
+		timezone: string;
+	};
+};
 
 export const initialState: {
-	username: string;
-	status?: CheckState;
+	requesting?: boolean;
+	successful?: boolean;
+	errors?: Array<{ email?: string; password?: string }>;
+	user?: User;
 } = {
-	username: '',
-	status: CheckState.initiated,
+	requesting: false,
+	successful: false,
+	errors: [],
 };
 
 export const loginSlice = createSlice({
-	name: 'user',
+	name: 'login',
 	initialState,
 	reducers: {
-		login: (state, { payload }: PayloadAction<string>) => {
-			if (payload.length > usernameMinLength) {
-				return { status: CheckState.succeed, username: payload };
-			}
-			return state;
-		},
-		logout: () => ({
-			username: '',
-			status: CheckState.failed,
+		requesting: (
+			state,
+			{
+				payload,
+			}: PayloadAction<{
+				email: string;
+				password: string;
+			}>,
+		) => ({
+			...state,
+			requesting: true,
 		}),
+		successful: (state, { payload }: PayloadAction<User>) => ({
+			...state,
+			requesting: false,
+			successful: true,
+			errors: [],
+			user: payload,
+		}),
+		errors: (state, { payload }: PayloadAction<{}>) => ({
+			...state,
+			requesting: false,
+			errors: [payload],
+		}),
+		//TODO перенести в общий редьюсер
+		check: (state, { payload }: PayloadAction<{}>) => {
+			if (payload) {
+				return { ...state, successful: true };
+			}
+		},
 	},
 });
 

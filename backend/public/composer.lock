@@ -4,8 +4,58 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "fc16cd0ad25adfac5daeabd96f284ce3",
+    "content-hash": "30ca402481218ad8e10bd6f29e52e4f9",
     "packages": [
+        {
+            "name": "akrabat/rka-slim-session-middleware",
+            "version": "2.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/akrabat/rka-slim-session-middleware.git",
+                "reference": "e4f8f485f6d52fd4c0a2254d0b12240245629e6a"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/akrabat/rka-slim-session-middleware/zipball/e4f8f485f6d52fd4c0a2254d0b12240245629e6a",
+                "reference": "e4f8f485f6d52fd4c0a2254d0b12240245629e6a",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.5"
+            },
+            "require-dev": {
+                "slim/slim": "^3.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "RKA\\": "RKA"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Rob Allen",
+                    "email": "rob@akrabat.com",
+                    "homepage": "http://akrabat.com"
+                }
+            ],
+            "description": "Simple session middleware for Slim Framework",
+            "homepage": "http://github.com/akrabat/rka-slim-session-middleware",
+            "keywords": [
+                "middleware",
+                "session",
+                "slim"
+            ],
+            "support": {
+                "issues": "https://github.com/akrabat/rka-slim-session-middleware/issues",
+                "source": "https://github.com/akrabat/rka-slim-session-middleware/tree/master"
+            },
+            "time": "2016-04-18T07:52:43+00:00"
+        },
         {
             "name": "brick/math",
             "version": "0.9.1",

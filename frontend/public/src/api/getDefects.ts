@@ -5,7 +5,7 @@ export const getDefects = () => {
 };
 
 export const getListsUnits = () => {
-	return fetch('http://localhost:5000/db/lists.json').then((res) =>
+	return fetch('http://localhost:8081/v1/units/all').then((res) =>
 		res.json(),
 	);
 };

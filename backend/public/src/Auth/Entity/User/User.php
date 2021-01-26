@@ -195,6 +195,13 @@ class User
         $this->emailChangeToken = null;
     }
 
+    public function passwordValidate(string $password, PasswordHasher $hasher): void
+    {
+        if (!$hasher->validate($password, $this->passwordHash)) {
+            throw new DomainException("Incorrect current password.");
+        }
+    }
+
     public function changeRole(Role $role): void
     {
         $this->role = $role;

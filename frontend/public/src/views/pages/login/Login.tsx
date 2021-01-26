@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import {
 	CButton,
@@ -13,11 +13,48 @@ import {
 	CInputGroupPrepend,
 	CInputGroupText,
 	CRow,
+	CSpinner,
 } from '@coreui/react';
 import CIcon from '@coreui/icons-react';
 
+import { actions } from './reducer';
+import { useDispatch, useSelector } from 'react-redux';
+import { StoreState } from '@/store';
+import { isEmptyData } from '@/helpers/helpers';
+import { useHistory, Redirect } from 'react-router';
+
 const Login = () => {
-	return (
+	const [email, setEmail] = useState('');
+	const [password, setPassword] = useState('');
+	const dispatch = useDispatch();
+	const history = useHistory();
+	const { requesting, successful, errors, user } = useSelector(
+		(state: StoreState) => state.login,
+	);
+
+	useEffect(() => {
+		if (successful) {
+			history.push('/');
+		}
+	}, [successful]);
+
+	const onSubmit = (ev: React.FormEvent) => {
+		ev.preventDefault();
+		const { requesting } = actions;
+		if (!isEmptyData(email, password)) {
+			dispatch(
+				requesting({
+					email: email,
+					password: password,
+				}),
+			);
+			setEmail('');
+			setPassword('');
+		}
+	};
+	return successful ? (
+		<Redirect to="/" />
+	) : (
 		<div className="c-app c-default-layout flex-row align-items-center">
 			<CContainer>
 				<CRow className="justify-content-center">
@@ -25,7 +62,7 @@ const Login = () => {
 						<CCardGroup>
 							<CCard className="p-4">
 								<CCardBody>
-									<CForm>
+									<CForm onSubmit={onSubmit}>
 										<h1>Авторизация.</h1>
 										<p className="text-muted">
 											Введите данные для входа в ваш
@@ -39,8 +76,15 @@ const Login = () => {
 											</CInputGroupPrepend>
 											<CInput
 												type="text"
-												placeholder="Имя"
-												autoComplete="username"
+												placeholder="Email"
+												autoComplete="email"
+												value={email}
+												onChange={(ev) =>
+													setEmail(
+														(ev.target as HTMLInputElement)
+															.value,
+													)
+												}
 											/>
 										</CInputGroup>
 										<CInputGroup className="mb-4">
@@ -52,7 +96,17 @@ const Login = () => {
 											<CInput
 												type="password"
 												placeholder="Пароль"
-												autoComplete="current-password"
+												autoComplete="password"
+												required
+												min={10}
+												name="password"
+												value={password}
+												onChange={(ev) =>
+													setPassword(
+														(ev.target as HTMLInputElement)
+															.value,
+													)
+												}
 											/>
 										</CInputGroup>
 										<CRow>
@@ -60,8 +114,24 @@ const Login = () => {
 												<CButton
 													color="primary"
 													className="px-4"
+													type="submit"
+													disabled={isEmptyData(
+														email,
+														password,
+													)}
 												>
-													Войти
+													<>
+														Войти
+														{requesting && (
+															<>
+																{' '}
+																<CSpinner
+																	color="info"
+																	size="sm"
+																/>
+															</>
+														)}
+													</>
 												</CButton>
 											</CCol>
 											<CCol xs="6" className="text-right">

@@ -1,6 +1,6 @@
 import { actions } from './reducer';
 import { call, put, takeEvery } from 'redux-saga/effects';
-import { getListsUnits } from '../../../api/getDefects';
+import { getListsUnits } from '@/api/getDefects';
 
 function* fetchDefectsAsync() {
 	try {
