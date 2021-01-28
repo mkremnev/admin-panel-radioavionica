@@ -5,6 +5,7 @@ import { actions } from './reducer';
 import { StoreState } from '@/store';
 import { DynamicModuleLoader } from 'redux-dynamic-modules';
 import { getDefectsModule } from '@/views/military/units/defects/module';
+import { element } from 'prop-types';
 
 function mapStateToProps(state: StoreState) {
 	return {
@@ -29,7 +30,7 @@ const TheDefectsComponent: React.FC<TheDefectsProps> = ({ request, data }) => {
 
 	const fields = [
 		{ key: 'id', label: '№ п/п', _style: { width: '3%' }, filter: false },
-		{ key: 'units', label: 'в/ч', _style: { width: '4%' } },
+		{ key: 'unit', label: 'в/ч', _style: { width: '4%' } },
 		{
 			key: 'responsible',
 			label: 'Ответсвенные',
@@ -55,13 +56,13 @@ const TheDefectsComponent: React.FC<TheDefectsProps> = ({ request, data }) => {
 			filter: false,
 		},
 		{
-			key: 'number_of_warranty',
+			key: 'warranty',
 			label: 'Гарантийные',
 			_style: { width: '3%' },
 			filter: false,
 		},
 		{
-			key: 'number_of_non_warranty',
+			key: 'non_warranty',
 			label: 'Негарантийные',
 			_style: { width: '3%' },
 			filter: false,
@@ -96,25 +97,44 @@ const TheDefectsComponent: React.FC<TheDefectsProps> = ({ request, data }) => {
 	const componentsName: {
 		[keys: string]: string;
 	} = {
-		ak1: 'АК1',
-		pkk: 'ПКК',
-		kpe1: 'КПЭ1',
-		kab004: 'Кабель004',
-		kab136: 'Кабель136',
-		kab137: 'Кабель137',
-		zu: 'ЗУ',
-		zupkk: 'ЗУПКК',
-		mfp: 'МФП',
-		pou: 'ПОУ',
-		mirs: 'МИРС',
-		msns: 'МСНС',
-		kab152: 'Кабель152',
-		kab153: 'Кабель153',
-		tmg36: 'ТМГ36',
-		gvsh: 'ГВШ',
-		pdu: 'ПДУ4',
-		r168: 'Р168',
-		r438: 'Р438',
+		// eslint-disable-next-line @typescript-eslint/camelcase
+		components_ak1: 'АК1',
+		// eslint-disable-next-line @typescript-eslint/camelcase
+		components_pkk: 'ПКК',
+		// eslint-disable-next-line @typescript-eslint/camelcase
+		components_kpe1: 'КПЭ1',
+		// eslint-disable-next-line @typescript-eslint/camelcase
+		components_kab004: 'Кабель004',
+		// eslint-disable-next-line @typescript-eslint/camelcase
+		components_kab136: 'Кабель136',
+		// eslint-disable-next-line @typescript-eslint/camelcase
+		components_kab137: 'Кабель137',
+		// eslint-disable-next-line @typescript-eslint/camelcase
+		components_zu: 'ЗУ',
+		// eslint-disable-next-line @typescript-eslint/camelcase
+		components_zupkk: 'ЗУПКК',
+		// eslint-disable-next-line @typescript-eslint/camelcase
+		components_mfp: 'МФП',
+		// eslint-disable-next-line @typescript-eslint/camelcase
+		components_pou: 'ПОУ',
+		// eslint-disable-next-line @typescript-eslint/camelcase
+		components_mirs: 'МИРС',
+		// eslint-disable-next-line @typescript-eslint/camelcase
+		components_msns: 'МСНС',
+		// eslint-disable-next-line @typescript-eslint/camelcase
+		components_kab152: 'Кабель152',
+		// eslint-disable-next-line @typescript-eslint/camelcase
+		components_kab153: 'Кабель153',
+		// eslint-disable-next-line @typescript-eslint/camelcase
+		components_tmg36: 'ТМГ36',
+		// eslint-disable-next-line @typescript-eslint/camelcase
+		components_gvsh: 'ГВШ',
+		// eslint-disable-next-line @typescript-eslint/camelcase
+		components_pdu: 'ПДУ4',
+		// eslint-disable-next-line @typescript-eslint/camelcase
+		components_r168: 'Р168',
+		// eslint-disable-next-line @typescript-eslint/camelcase
+		components_r438: 'Р438',
 	};
 
 	const toggleDetails = (index: number) => {
@@ -151,13 +171,14 @@ const TheDefectsComponent: React.FC<TheDefectsProps> = ({ request, data }) => {
 							scopedSlots={{
 								// eslint-disable-next-line react/display-name
 								defects: (item: {
-									defects: { periphery: number; mik: number };
+									fault_component: number;
+									fault_mik: number;
 								}) => {
 									return (
 										<td>
-											Периферия: {item.defects.periphery}
+											Периферия: {item.fault_component}
 											<br />
-											МИК: {item.defects.mik}
+											МИК: {item.fault_mik}
 										</td>
 									);
 								},
@@ -179,15 +200,22 @@ const TheDefectsComponent: React.FC<TheDefectsProps> = ({ request, data }) => {
 														: 'hide'
 												}
 											>
-												{items.notes['item1']}
+												{items.notes[0]['note_notice']}
 											</div>
 											<CCollapse
 												show={details.includes(index)}
 											>
 												{Object.keys(items.notes).map(
-													(keys, i) => (
+													(
+														keys: number,
+														i: number,
+													) => (
 														<span key={i}>
-															{items.notes[keys]}
+															{
+																items.notes[
+																	keys
+																]['note_notice']
+															}
 															<br />
 														</span>
 													),
@@ -219,34 +247,31 @@ const TheDefectsComponent: React.FC<TheDefectsProps> = ({ request, data }) => {
 								// eslint-disable-next-line react/display-name
 								components: (
 									items: {
-										components: {
-											[key: string]: string;
-										};
+										[key: string]: string;
 									},
 									index: number,
 								) => {
 									return (
 										<td>
-											<div
-												className={
-													!details.includes(index)
-														? 'visible'
-														: 'hide'
-												}
-											>
-												{`АК1: ${items.components['ak1']}`}
-											</div>
 											<CCollapse
 												show={details.includes(index)}
 											>
-												{Object.keys(
-													items.components,
-												).map((keys, i) => (
-													<span key={i}>
-														{`${componentsName[keys]}: ${items.components[keys]}`}
-														<br />
-													</span>
-												))}
+												{Object.keys(items)
+													.filter((el) => {
+														if (
+															/components_/.test(
+																el,
+															)
+														) {
+															return el;
+														}
+													})
+													.map((keys, i) => (
+														<span key={i}>
+															{`${componentsName[keys]}: ${items[keys]}`}
+															<br />
+														</span>
+													))}
 											</CCollapse>
 										</td>
 									);
