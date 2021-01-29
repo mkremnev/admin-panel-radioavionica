@@ -27,7 +27,7 @@ const TheDefectsComponent: React.FC<TheDefectsProps> = ({ request, data }) => {
 	}, [request]);
 
 	const fields = [
-		{ key: 'id', label: '№ п/п', _style: { width: '3%' }, filter: false },
+		{ key: 'id', label: '#', _style: { width: '3%' }, filter: false },
 		{ key: 'unit', label: 'в/ч', _style: { width: '4%' } },
 		{
 			key: 'responsible',
