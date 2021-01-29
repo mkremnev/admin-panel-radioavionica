@@ -16,8 +16,7 @@ const mapDispatchToProps = {
 	response: actions.requestedListsSuccess,
 	failure: actions.requestedListsFailure,
 };
-type TheListProps = ReturnType<typeof mapStateToProps> &
-	typeof mapDispatchToProps;
+type TheListProps = ReturnType<typeof mapStateToProps> & typeof mapDispatchToProps;
 
 type DataType = {
 	id: number;
@@ -129,11 +128,7 @@ const TheListsComponent: React.FC<TheListProps> = (props) => {
 		<div className="card">
 			<div className="card-header d-flex justify-content-between align-items-center">
 				<h4>Список воинских частей</h4>
-				<CButton
-					color="success"
-					className="m-2"
-					to="/modules/create-units"
-				>
+				<CButton color="success" className="m-2" to="/modules/create-units">
 					Добавить
 				</CButton>
 			</div>
@@ -145,6 +140,10 @@ const TheListsComponent: React.FC<TheListProps> = (props) => {
 						columnFilter
 						hover
 						scopedSlots={{
+							// eslint-disable-next-line @typescript-eslint/camelcase,react/display-name
+							fio_commander: (item: { commander_firstname: string; commander_lastname: string; commander_surname: string }) => {
+								return <td key={item.commander_firstname}>{item.commander_lastname + ' ' + item.commander_firstname + ' ' + item.commander_surname}</td>;
+							},
 							// eslint-disable-next-line react/display-name
 							showDetails: (item: DataType, index: number) => {
 								return (
@@ -158,9 +157,7 @@ const TheListsComponent: React.FC<TheListProps> = (props) => {
 												toggleDetails(index);
 											}}
 										>
-											{details.includes(index)
-												? 'Закрыть'
-												: 'Открыть'}
+											{details.includes(index) ? 'Закрыть' : 'Открыть'}
 										</CButton>
 									</td>
 								);
@@ -171,10 +168,7 @@ const TheListsComponent: React.FC<TheListProps> = (props) => {
 									<CCollapse show={details.includes(index)}>
 										<CCardBody>
 											<h5>Должностные лица</h5>
-											<CDataTable
-												items={officialsData[index]}
-												fields={officialsField}
-											/>
+											<CDataTable items={officialsData[index]} fields={officialsField} />
 										</CCardBody>
 									</CCollapse>
 								);
@@ -187,9 +181,6 @@ const TheListsComponent: React.FC<TheListProps> = (props) => {
 	);
 };
 
-const TheLists = connect(
-	mapStateToProps,
-	mapDispatchToProps,
-)(TheListsComponent);
+const TheLists = connect(mapStateToProps, mapDispatchToProps)(TheListsComponent);
 
 export default React.memo(TheLists);

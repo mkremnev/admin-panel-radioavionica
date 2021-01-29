@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { CRow, CDataTable, CButton, CCollapse } from '@coreui/react';
+import { CRow, CDataTable, CButton, CCollapse, CCardBody } from '@coreui/react';
 import { connect } from 'react-redux';
 import { actions } from './reducer';
 import { StoreState } from '@/store';
@@ -18,8 +18,7 @@ const mapDispatchToProps = {
 	response: actions.requestedDefectsSuccess,
 	failure: actions.requestedDefectsFailure,
 };
-type TheDefectsProps = ReturnType<typeof mapStateToProps> &
-	typeof mapDispatchToProps;
+type TheDefectsProps = ReturnType<typeof mapStateToProps> & typeof mapDispatchToProps;
 
 const TheDefectsComponent: React.FC<TheDefectsProps> = ({ request, data }) => {
 	const [details, setDetails] = useState<number[]>([]);
@@ -28,8 +27,8 @@ const TheDefectsComponent: React.FC<TheDefectsProps> = ({ request, data }) => {
 	}, [request]);
 
 	const fields = [
-		{ key: 'id', label: '№ п/п', _style: { width: '3%' }, filter: false },
-		{ key: 'units', label: 'в/ч', _style: { width: '4%' } },
+		{ key: 'id', label: '#', _style: { width: '3%' }, filter: false },
+		{ key: 'unit', label: 'в/ч', _style: { width: '4%' } },
 		{
 			key: 'responsible',
 			label: 'Ответсвенные',
@@ -55,13 +54,13 @@ const TheDefectsComponent: React.FC<TheDefectsProps> = ({ request, data }) => {
 			filter: false,
 		},
 		{
-			key: 'number_of_warranty',
+			key: 'warranty',
 			label: 'Гарантийные',
 			_style: { width: '3%' },
 			filter: false,
 		},
 		{
-			key: 'number_of_non_warranty',
+			key: 'non_warranty',
 			label: 'Негарантийные',
 			_style: { width: '3%' },
 			filter: false,
@@ -73,18 +72,6 @@ const TheDefectsComponent: React.FC<TheDefectsProps> = ({ request, data }) => {
 			filter: false,
 		},
 		{
-			key: 'notes',
-			label: 'Примечание',
-			_style: { width: '40%' },
-			filter: false,
-		},
-		{
-			key: 'components',
-			label: 'Компоненты',
-			_style: { width: '10%' },
-			filter: false,
-		},
-		{
 			key: 'showDetails',
 			label: '',
 			_style: { width: '1%' },
@@ -93,28 +80,62 @@ const TheDefectsComponent: React.FC<TheDefectsProps> = ({ request, data }) => {
 		},
 	];
 
+	const description = [
+		{
+			key: 'notes',
+			label: 'Описание',
+			_style: { width: '50%' },
+			filter: false,
+		},
+		{
+			key: 'components',
+			label: 'Компоненты',
+			_style: { width: '10%' },
+			filter: false,
+		},
+	];
+
 	const componentsName: {
 		[keys: string]: string;
 	} = {
-		ak1: 'АК1',
-		pkk: 'ПКК',
-		kpe1: 'КПЭ1',
-		kab004: 'Кабель004',
-		kab136: 'Кабель136',
-		kab137: 'Кабель137',
-		zu: 'ЗУ',
-		zupkk: 'ЗУПКК',
-		mfp: 'МФП',
-		pou: 'ПОУ',
-		mirs: 'МИРС',
-		msns: 'МСНС',
-		kab152: 'Кабель152',
-		kab153: 'Кабель153',
-		tmg36: 'ТМГ36',
-		gvsh: 'ГВШ',
-		pdu: 'ПДУ4',
-		r168: 'Р168',
-		r438: 'Р438',
+		// eslint-disable-next-line @typescript-eslint/camelcase
+		components_ak1: 'АК1',
+		// eslint-disable-next-line @typescript-eslint/camelcase
+		components_pkk: 'ПКК',
+		// eslint-disable-next-line @typescript-eslint/camelcase
+		components_kpe1: 'КПЭ1',
+		// eslint-disable-next-line @typescript-eslint/camelcase
+		components_kab004: 'Кабель004',
+		// eslint-disable-next-line @typescript-eslint/camelcase
+		components_kab136: 'Кабель136',
+		// eslint-disable-next-line @typescript-eslint/camelcase
+		components_kab137: 'Кабель137',
+		// eslint-disable-next-line @typescript-eslint/camelcase
+		components_zu: 'ЗУ',
+		// eslint-disable-next-line @typescript-eslint/camelcase
+		components_zupkk: 'ЗУПКК',
+		// eslint-disable-next-line @typescript-eslint/camelcase
+		components_mfp: 'МФП',
+		// eslint-disable-next-line @typescript-eslint/camelcase
+		components_pou: 'ПОУ',
+		// eslint-disable-next-line @typescript-eslint/camelcase
+		components_mirs: 'МИРС',
+		// eslint-disable-next-line @typescript-eslint/camelcase
+		components_msns: 'МСНС',
+		// eslint-disable-next-line @typescript-eslint/camelcase
+		components_kab152: 'Кабель152',
+		// eslint-disable-next-line @typescript-eslint/camelcase
+		components_kab153: 'Кабель153',
+		// eslint-disable-next-line @typescript-eslint/camelcase
+		components_tmg36: 'ТМГ36',
+		// eslint-disable-next-line @typescript-eslint/camelcase
+		components_gvsh: 'ГВШ',
+		// eslint-disable-next-line @typescript-eslint/camelcase
+		components_pdu: 'ПДУ4',
+		// eslint-disable-next-line @typescript-eslint/camelcase
+		components_r168: 'Р168',
+		// eslint-disable-next-line @typescript-eslint/camelcase
+		components_r438: 'Р438',
 	};
 
 	const toggleDetails = (index: number) => {
@@ -128,16 +149,21 @@ const TheDefectsComponent: React.FC<TheDefectsProps> = ({ request, data }) => {
 		setDetails(newDetails as []);
 	};
 
+	const descriptionData = data.map((el: { notes: string }) => {
+		return [
+			{
+				notes: el.notes,
+				components: Object.entries(el).reduce((acc, [key, value]) => (/components_/.test(key) ? { ...acc, [key]: value } : acc), {}),
+			},
+		];
+	});
+
 	return (
 		<DynamicModuleLoader modules={[getDefectsModule()]}>
 			<div className="card">
 				<div className="card-header d-flex justify-content-between align-items-center">
 					<h4>Список неисправностей по частям</h4>
-					<CButton
-						color="success"
-						className="m-2"
-						to="/modules/create-defects"
-					>
+					<CButton color="success" className="m-2" to="/modules/create-defects">
 						Добавить
 					</CButton>
 				</div>
@@ -150,49 +176,12 @@ const TheDefectsComponent: React.FC<TheDefectsProps> = ({ request, data }) => {
 							hover
 							scopedSlots={{
 								// eslint-disable-next-line react/display-name
-								defects: (item: {
-									defects: { periphery: number; mik: number };
-								}) => {
+								defects: (item: { fault_component: number; fault_mik: number }) => {
 									return (
 										<td>
-											Периферия: {item.defects.periphery}
+											Периферия: {item.fault_component}
 											<br />
-											МИК: {item.defects.mik}
-										</td>
-									);
-								},
-								// eslint-disable-next-line react/display-name
-								notes: (
-									items: {
-										notes: {
-											[key: string]: string;
-										};
-									},
-									index: number,
-								) => {
-									return (
-										<td>
-											<div
-												className={
-													!details.includes(index)
-														? 'visible'
-														: 'hide'
-												}
-											>
-												{items.notes['item1']}
-											</div>
-											<CCollapse
-												show={details.includes(index)}
-											>
-												{Object.keys(items.notes).map(
-													(keys, i) => (
-														<span key={i}>
-															{items.notes[keys]}
-															<br />
-														</span>
-													),
-												)}
-											</CCollapse>
+											МИК: {item.fault_mik}
 										</td>
 									);
 								},
@@ -209,46 +198,51 @@ const TheDefectsComponent: React.FC<TheDefectsProps> = ({ request, data }) => {
 													toggleDetails(index);
 												}}
 											>
-												{details.includes(index)
-													? 'Закрыть'
-													: 'Открыть'}
+												{details.includes(index) ? 'Закрыть' : 'Открыть'}
 											</CButton>
 										</td>
 									);
 								},
 								// eslint-disable-next-line react/display-name
-								components: (
-									items: {
-										components: {
-											[key: string]: string;
-										};
-									},
-									index: number,
-								) => {
+								details: (items: [], index: number) => {
 									return (
-										<td>
-											<div
-												className={
-													!details.includes(index)
-														? 'visible'
-														: 'hide'
-												}
-											>
-												{`АК1: ${items.components['ak1']}`}
-											</div>
-											<CCollapse
-												show={details.includes(index)}
-											>
-												{Object.keys(
-													items.components,
-												).map((keys, i) => (
-													<span key={i}>
-														{`${componentsName[keys]}: ${items.components[keys]}`}
-														<br />
-													</span>
-												))}
-											</CCollapse>
-										</td>
+										<CCollapse show={details.includes(index)}>
+											<CCardBody>
+												<h5>Подробное описание</h5>
+												<CDataTable
+													items={descriptionData[index]}
+													fields={description}
+													scopedSlots={{
+														// eslint-disable-next-line react/display-name
+														notes: (item: { notes: Array<{}>; components: { [index: string]: string } }) => {
+															return (
+																<td>
+																	{item['notes'].map((el: { [index: string]: string }, i: number) => (
+																		<span key={i}>
+																			{el['note_notice']}
+																			<br />
+																		</span>
+																	))}
+																</td>
+															);
+														},
+														// eslint-disable-next-line react/display-name
+														components: (item: { notes: Array<{}>; components: { [index: string]: string } }) => {
+															return (
+																<td>
+																	{Object.keys(item.components).map((el: string, i: number) => (
+																		<span key={i}>
+																			{`${componentsName[el]}: ${item.components[el]}`}
+																			<br />
+																		</span>
+																	))}
+																</td>
+															);
+														},
+													}}
+												/>
+											</CCardBody>
+										</CCollapse>
 									);
 								},
 							}}
@@ -260,8 +254,5 @@ const TheDefectsComponent: React.FC<TheDefectsProps> = ({ request, data }) => {
 	);
 };
 
-const TheDefects = connect(
-	mapStateToProps,
-	mapDispatchToProps,
-)(TheDefectsComponent);
+const TheDefects = connect(mapStateToProps, mapDispatchToProps)(TheDefectsComponent);
 export default React.memo(TheDefects);
