@@ -1,5 +1,5 @@
 export const getDefects = () => {
-	return fetch('http://localhost:5000/db/defects.json').then((res) =>
+	return fetch('http://localhost:8081/v1/defects/all').then((res) =>
 		res.json(),
 	);
 };
