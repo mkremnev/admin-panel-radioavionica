@@ -11,7 +11,6 @@ const ax: AxiosInstance = axios.create({
 		'Content-Type': 'application/json',
 		'Accept-Language': 'ru',
 	},
-	withCredentials: true,
 });
 
 export { ax as axios };
