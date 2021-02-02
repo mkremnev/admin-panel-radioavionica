@@ -8,7 +8,6 @@ const ax: AxiosInstance = axios.create({
 	baseURL,
 	timeout,
 	headers: {
-		'Content-Type': 'application/json',
 		'Accept-Language': 'ru',
 	},
 });
