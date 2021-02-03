@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import {
-	CContainer,
 	CRow,
 	CCard,
 	CCardHeader,
@@ -21,6 +20,7 @@ import {
 	CToast,
 	CToastHeader,
 	CToastBody,
+	CAlert,
 } from '@coreui/react';
 import CIcon from '@coreui/icons-react';
 
@@ -81,7 +81,7 @@ const AddUnit = () => {
 
 	return (
 		<>
-			<CToaster position={'top-center'}>
+			<CToaster position="top-center">
 				<CToast show={successful} autohide={3000} fade={true}>
 					<CToastHeader closeButton={true}>Успешно.</CToastHeader>
 					<CToastBody>Новая воинская часть добавлена.</CToastBody>
@@ -95,11 +95,23 @@ const AddUnit = () => {
 					<CRow>
 						<CForm className="container-fluid" onSubmit={onSubmit}>
 							<CFormGroup>
-								<CLabel htmlFor="name">№ воинской части</CLabel>
+								<CLabel htmlFor="name">
+									<b>№ воинской части</b>
+								</CLabel>
+								{errors!.length > 0 && errors![0].name && (
+									<CAlert closeButton color="danger">
+										{JSON.stringify(errors![0].name)}
+									</CAlert>
+								)}
+								{errors!.length > 0 && typeof errors[0] === 'string' && (
+									<CAlert closeButton color="danger">
+										{JSON.stringify(errors[0])}
+									</CAlert>
+								)}
 								<CInputGroup className="lg-5">
 									<CInputGroupPrepend>
-										<CInputGroupText className={'bg-info text-white'}>
-											<CIcon name={'cilUser'} />
+										<CInputGroupText className="bg-primary text-white">
+											<CIcon name={'cilHome'} />
 										</CInputGroupText>
 									</CInputGroupPrepend>
 									<CInput
@@ -115,11 +127,18 @@ const AddUnit = () => {
 							</CFormGroup>
 
 							<CFormGroup>
-								<CLabel htmlFor="address">Адрес воинской части</CLabel>
+								<CLabel htmlFor="address">
+									<b>Адрес воинской части</b>
+								</CLabel>
+								{errors!.length > 0 && errors![0].address && (
+									<CAlert closeButton color="danger">
+										{JSON.stringify(errors![0].address)}
+									</CAlert>
+								)}
 								<CInputGroup className="lg-5">
 									<CInputGroupPrepend>
-										<CInputGroupText className={'bg-info text-white'}>
-											<CIcon name={'cilUser'} />
+										<CInputGroupText className={'bg-primary text-white'}>
+											<CIcon name={'cilAddressBook'} />
 										</CInputGroupText>
 									</CInputGroupPrepend>
 									<CInput
@@ -135,11 +154,28 @@ const AddUnit = () => {
 							</CFormGroup>
 
 							<CFormGroup>
-								<CLabel>ФИО командира</CLabel>
+								<CLabel>
+									<b>ФИО командира</b>
+								</CLabel>
+								{errors!.length > 0 && errors![0].lastname && (
+									<CAlert closeButton color="danger">
+										{JSON.stringify(errors![0].lastname)}
+									</CAlert>
+								)}
+								{errors!.length > 0 && errors![0].firstname && (
+									<CAlert closeButton color="danger">
+										{JSON.stringify(errors![0].firstname)}
+									</CAlert>
+								)}
+								{errors!.length > 0 && errors![0].surname && (
+									<CAlert closeButton color="danger">
+										{JSON.stringify(errors![0].surname)}
+									</CAlert>
+								)}
 								<CInputGroup className="lg-5">
 									<CInputGroupPrepend>
-										<CInputGroupText className={'bg-info text-white'}>
-											<CIcon name={'cilUser'} />
+										<CInputGroupText className={'bg-primary text-white'}>
+											<CIcon name={'cilContact'} />
 										</CInputGroupText>
 									</CInputGroupPrepend>
 									<CInput
@@ -152,8 +188,8 @@ const AddUnit = () => {
 									/>
 									&nbsp;
 									<CInputGroupPrepend>
-										<CInputGroupText className={'bg-info text-white'}>
-											<CIcon name={'cilUser'} />
+										<CInputGroupText className={'bg-primary text-white'}>
+											<CIcon name={'cilContact'} />
 										</CInputGroupText>
 									</CInputGroupPrepend>
 									<CInput
@@ -166,8 +202,8 @@ const AddUnit = () => {
 									/>
 									&nbsp;
 									<CInputGroupPrepend>
-										<CInputGroupText className={'bg-info text-white'}>
-											<CIcon name={'cilUser'} />
+										<CInputGroupText className={'bg-primary text-white'}>
+											<CIcon name={'cilContact'} />
 										</CInputGroupText>
 									</CInputGroupPrepend>
 									<CInput
@@ -183,11 +219,18 @@ const AddUnit = () => {
 							</CFormGroup>
 
 							<CFormGroup>
-								<CLabel htmlFor="address">Количество комплектов</CLabel>
+								<CLabel htmlFor="address">
+									<b>Количество комплектов</b>
+								</CLabel>
+								{errors!.length > 0 && errors![0].amount && (
+									<CAlert closeButton color="danger">
+										{JSON.stringify(errors![0].amount)}
+									</CAlert>
+								)}
 								<CInputGroup className="lg-5">
 									<CInputGroupPrepend>
-										<CInputGroupText className={'bg-info text-white'}>
-											<CIcon name={'cilUser'} />
+										<CInputGroupText className={'bg-primary text-white'}>
+											<CIcon name={'cilInfo'} />
 										</CInputGroupText>
 									</CInputGroupPrepend>
 									<CInput
@@ -203,7 +246,9 @@ const AddUnit = () => {
 							</CFormGroup>
 
 							<CFormGroup>
-								<CLabel htmlFor="procuration">Доверенность на командира</CLabel>
+								<CLabel htmlFor="procuration">
+									<b>Доверенность на командира</b>
+								</CLabel>
 								<CInputFile onChange={(e: any) => setUploadFiles(e.target.files[0])} id="procuration" name="procuration" />
 								<CFormText className="help-block">Отсканированная копия доверенности на командира части</CFormText>
 							</CFormGroup>
@@ -212,7 +257,7 @@ const AddUnit = () => {
 									<>
 										<CCard key={i + 'card'}>
 											<CCardHeader className="flex-column" key={i + 'header'}>
-												<CRow className="justify-content-between" key={i + 'row'}>
+												<CRow className="no-gutters justify-content-between" key={i + 'row'}>
 													<h5 key={i + 'h5_officials'}>Должностное лицо</h5>
 													<div className="btn-box" key={i + 'btn_box'}>
 														<CButtonGroup key={i + 'button_gr'}>
@@ -234,12 +279,12 @@ const AddUnit = () => {
 											<CCardBody key={i + 'body'}>
 												<CFormGroup key={i + 'form_subunit'}>
 													<CLabel htmlFor="subunit" key={i + 'label_subunit'}>
-														Подразделение
+														<b>Подразделение</b>
 													</CLabel>
 													<CInputGroup className="lg-5" key={i + 'CInputGroup_subunit'}>
 														<CInputGroupPrepend key={i + 'CInputGroupPrepend_subunit'}>
-															<CInputGroupText className={'bg-info text-white'} key={i + 'CInputGroupText_subunit'}>
-																<CIcon name={'cilUser'} key={i + 'CIcon_subunit'} />
+															<CInputGroupText className={'bg-primary text-white'} key={i + 'CInputGroupText_subunit'}>
+																<CIcon name={'cilHome'} key={i + 'CIcon_subunit'} />
 															</CInputGroupText>
 														</CInputGroupPrepend>
 														<CInput
@@ -259,12 +304,12 @@ const AddUnit = () => {
 
 												<CFormGroup key={i + 'CFormGroup_rank'}>
 													<CLabel htmlFor="rank" key={i + 'CLabel_rank'}>
-														Воинское звание
+														<b>Воинское звание</b>
 													</CLabel>
 													<CInputGroup className="lg-5" key={i + 'CInputGroup_rank'}>
 														<CInputGroupPrepend key={i + 'CInputGroupPrepend_rank'}>
-															<CInputGroupText className={'bg-info text-white'} key={i + 'CInputGroupText_rank'}>
-																<CIcon name={'cilUser'} key={i + 'CIcon_rank'} />
+															<CInputGroupText className={'bg-primary text-white'} key={i + 'CInputGroupText_rank'}>
+																<CIcon name={'cilStar'} key={i + 'CIcon_rank'} />
 															</CInputGroupText>
 														</CInputGroupPrepend>
 														<CInput
@@ -284,12 +329,12 @@ const AddUnit = () => {
 
 												<CFormGroup key={i + 'CFormGroup_fio'}>
 													<CLabel htmlFor="fio" key={i + 'CLabel_fio'}>
-														Фамилия должностного лица
+														<b>Фамилия должностного лица</b>
 													</CLabel>
 													<CInputGroup className="lg-5" key={i + 'CInputGroup_fio'}>
 														<CInputGroupPrepend key={i + 'CInputGroupText_fio'}>
-															<CInputGroupText className={'bg-info text-white'} key={i + 'CInputGroupText_fio'}>
-																<CIcon name={'cilUser'} key={i + 'CInputGroupText_fio'} />
+															<CInputGroupText className={'bg-primary text-white'} key={i + 'CInputGroupText_fio'}>
+																<CIcon name={'cilContact'} key={i + 'CInputGroupText_fio'} />
 															</CInputGroupText>
 														</CInputGroupPrepend>
 														<CInput
@@ -307,12 +352,12 @@ const AddUnit = () => {
 
 												<CFormGroup key={i + 'CFormGroup_telephone'}>
 													<CLabel htmlFor="telephone" key={i + 'CLabel_telephone'}>
-														Телефон
+														<b>Телефон</b>
 													</CLabel>
 													<CInputGroup className="lg-5" key={i + 'CInputGroup_telephone'}>
 														<CInputGroupPrepend key={i + 'CInputGroupPrepend_telephone'}>
-															<CInputGroupText className={'bg-info text-white'} key={i + 'CInputGroupText_telephone'}>
-																<CIcon name={'cilUser'} key={i + 'CIcon_telephone'} />
+															<CInputGroupText className={'bg-primary text-white'} key={i + 'CInputGroupText_telephone'}>
+																<CIcon name={'cilPhone'} key={i + 'CIcon_telephone'} />
 															</CInputGroupText>
 														</CInputGroupPrepend>
 														<CInput
@@ -334,15 +379,15 @@ const AddUnit = () => {
 									</>
 								);
 							})}
-							<CRow className={'no-gutters'} alignHorizontal={'end'}>
-								<CButton color="info" type="submit" disabled={isEmpty(unitData.name)}>
+							<CRow className="no-gutters" alignHorizontal={'end'}>
+								<CButton color="primary" type="submit" disabled={isEmpty(unitData.name)}>
 									{requesting ? (
 										<>
 											Отправка данных...&nbsp;
 											<CSpinner color="info" size="sm" />
 										</>
 									) : (
-										<>Добавить</>
+										<>Загрузить</>
 									)}
 								</CButton>
 							</CRow>
@@ -354,4 +399,4 @@ const AddUnit = () => {
 	);
 };
 
-export default AddUnit;
+export default React.memo(AddUnit);

@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 type State = {
-	sidebarShow: '' | true | false | 'responsive';
+	sidebarShow: boolean | 'responsive';
 };
 
 export const initialState: State = {
@@ -12,13 +12,10 @@ export const CommonReducer = createSlice({
 	name: 'common',
 	initialState,
 	reducers: {
-		//TODO разобраться с type
-		set: (state, { payload }: PayloadAction<State>) => {
-			return {
-				...state,
-				sidebarShow: payload,
-			};
-		},
+		set: (state, { payload }: PayloadAction<'responsive' | boolean>) => ({
+			...state,
+			sidebarShow: payload,
+		}),
 	},
 });
 

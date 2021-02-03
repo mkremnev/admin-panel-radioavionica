@@ -3,7 +3,14 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 type initialType = {
 	requesting: boolean;
 	successful: boolean;
-	errors: Array<{}>;
+	errors: Array<{
+		name: string;
+		address: string;
+		amount: string;
+		lastname: string;
+		firstname: string;
+		surname: string;
+	}>;
 };
 
 const initialState: initialType = {
@@ -25,10 +32,27 @@ export const addUnitSlice = createSlice({
 			requesting: false,
 			successful: true,
 		}),
-		errors: (state, { payload }: PayloadAction<{}>) => ({
+		errors: (
+			state,
+			{
+				payload,
+			}: PayloadAction<{
+				name: '';
+				address: '';
+				amount: '';
+				lastname: '';
+				firstname: '';
+				surname: '';
+			}>,
+		) => ({
 			...state,
 			requesting: false,
 			errors: [payload],
+		}),
+		reset: () => ({
+			requesting: false,
+			successful: false,
+			errors: [],
 		}),
 	},
 });
