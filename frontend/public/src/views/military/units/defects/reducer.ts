@@ -20,12 +20,9 @@ export const dataDefects = createSlice({
 			...state,
 			loading: true,
 		}),
-		requestedDefectsSuccess: (
-			state: DefectsStore,
-			{ payload }: PayloadAction<[]>,
-		) => ({
+		requestedDefectsSuccess: (state: DefectsStore, { payload }: PayloadAction<{ data: [] }>) => ({
 			...state,
-			data: payload,
+			data: payload.data,
 			loading: false,
 		}),
 		requestedDefectsFailure: (state: DefectsStore) => ({
