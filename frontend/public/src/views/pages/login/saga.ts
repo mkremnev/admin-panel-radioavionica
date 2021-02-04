@@ -3,7 +3,7 @@ import { call, takeLatest, put, fork } from 'redux-saga/effects';
 import {} from 'react-router-dom';
 
 import { actions } from './reducer';
-import { login, getUserSession, logout } from '@/api/auth';
+import { login, getUserSession, logout } from '@/api/api-auth';
 
 function signApi(email: string, password: string) {
 	return login(email, password);
@@ -16,17 +16,7 @@ function* signFlow({ payload }: ReturnType<typeof actions.requesting>) {
 		localStorage.setItem('user', JSON.stringify(response.data.id));
 		yield put(actions.successful(response.data));
 	} catch (error) {
-		yield put(
-			actions.errors(
-				!isEmpty(
-					error.response.data['errors'] ||
-						!isEmpty(error.response.data['message']),
-				)
-					? error.response.data['errors'] ||
-							error.response.data['message']
-					: 'Not error',
-			),
-		);
+		yield put(actions.errors(!isEmpty(error.response.data['errors'] || !isEmpty(error.response.data['message'])) ? error.response.data['errors'] || error.response.data['message'] : 'Not error'));
 	}
 }
 export function* clearUserSession() {

@@ -10,6 +10,8 @@ import { registerSlice } from '@/views/pages/register/reducer';
 import { getRegisterModule } from '@/views/pages/register/module';
 import { getDefectsModule } from '@/views/military/units/defects/module';
 import { getUnitsModule } from '@/views/military/units/lists/module';
+import { addUnitModule } from '@/views/military/add/unit/module';
+import { addUnitSlice } from '@/views/military/add/unit/reducer';
 
 export const reducer = combineReducers({
 	sidebarShow: CommonReducer.reducer,
@@ -17,14 +19,9 @@ export const reducer = combineReducers({
 	listsUnits: dataLists.reducer,
 	login: loginSlice.reducer,
 	register: registerSlice.reducer,
+	addunit: addUnitSlice.reducer,
 });
 
 export type StoreState = ReturnType<typeof reducer>;
 
-export const store = createStore<StoreState>(
-	{ extensions: [getSagaExtension({})] },
-	getLoginModule(),
-	getRegisterModule(),
-	getDefectsModule(),
-	getUnitsModule(),
-);
+export const store = createStore<StoreState>({ extensions: [getSagaExtension({})] }, getLoginModule(), getRegisterModule(), getDefectsModule(), getUnitsModule(), addUnitModule());

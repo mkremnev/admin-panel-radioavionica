@@ -29,9 +29,12 @@ import {
 	cibGooglePay,
 	cibCcAmex,
 	cilDescription,
-} from '@coreui/icons';
-import { cifUs, cifBr, cifIn, cifFr, cifEs, cifPl } from '@coreui/icons';
-import {
+	cifUs,
+	cifBr,
+	cifIn,
+	cifFr,
+	cifEs,
+	cifPl,
 	cilAlignCenter,
 	cilAlignLeft,
 	cilAlignRight,
@@ -123,6 +126,13 @@ import {
 	cilX,
 	cilXCircle,
 	cilWarning,
+	cilMobile,
+	cilContact,
+	cilStarHalf,
+	cilHouse,
+	cilAddressBook,
+	cilInfo,
+	cilImage,
 } from '@coreui/icons';
 
 export const icons = Object.assign(
@@ -260,5 +270,12 @@ export const icons = Object.assign(
 		cibPaypal,
 		cibGooglePay,
 		cibCcAmex,
+		cilMobile,
+		cilContact,
+		cilStarHalf,
+		cilHouse,
+		cilAddressBook,
+		cilInfo,
+		cilImage,
 	},
 );
