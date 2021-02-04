@@ -58,8 +58,7 @@ class Unit
         Commander $commander,
         string $amount,
         string $procuration = null
-    )
-    {
+    ) {
         $this->id = $id;
         $this->name = $name;
         $this->address = $address;

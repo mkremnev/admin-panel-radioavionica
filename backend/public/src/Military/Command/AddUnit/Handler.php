@@ -52,9 +52,15 @@ class Handler
             $command->amount
         );
 
-        if ($command->officials){
-            foreach ($command->officials as $official){
-                $attachOfficial = new Official($official['subunit'], $official['rank'], $official['fio'], $official['telephone']);
+        if ($command->officials) {
+            foreach ($command->officials as $official) {
+                $attachOfficial = new Official(
+                    $official['subunit'],
+                    $official['rank'],
+                    $official['fio'],
+                    $official['telephone']
+                );
+
                 $unit->attachOfficials($attachOfficial);
             }
         }

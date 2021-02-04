@@ -16,9 +16,9 @@ return static function (App $app): void {
             $group->post('/join/confirm', Action\v1\Auth\Join\ConfirmAction::class);
         });
         $group->group('/change', function (RouteCollectorProxy $group): void {
-            $group->group('/email', function (RouteCollectorProxy $group): void{
-               $group->post('', Action\v1\Auth\Change\Email\RequestAction::class);
-               $group->post('/confirm', Action\v1\Auth\Change\Email\ConfirmAction::class);
+            $group->group('/email', function (RouteCollectorProxy $group): void {
+                $group->post('', Action\v1\Auth\Change\Email\RequestAction::class);
+                $group->post('/confirm', Action\v1\Auth\Change\Email\ConfirmAction::class);
             });
             $group->post('/password', Action\v1\Auth\Change\Password\ChangePasswordAction::class);
         });

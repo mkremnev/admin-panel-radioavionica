@@ -11,6 +11,7 @@ use App\Military\Command\AddUnit\Handler;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\RequestHandlerInterface;
+
 use function array_key_exists;
 use function json_decode;
 use function json_encode;
@@ -43,7 +44,7 @@ class AddUnitsAction implements RequestHandlerInterface
 
         $command = new Command();
 
-        foreach ($data as $keys => $item){
+        foreach ($data as $keys => $item) {
             $command->$keys = $data[$keys] ?? '';
         }
 

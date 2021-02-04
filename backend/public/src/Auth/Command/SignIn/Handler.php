@@ -35,7 +35,7 @@ class Handler
 
         return [
             'id' => $user->getId()->getValue(),
-            'email'=> $user->getEmail()->getValue(),
+            'email' => $user->getEmail()->getValue(),
             'role' => $user->getRole()->getName(),
             'status' => $user->isActive(),
             'date' => $user->getDate()
