@@ -20,12 +20,9 @@ export const dataLists = createSlice({
 			...state,
 			loading: true,
 		}),
-		requestedListsSuccess: (
-			state: ListsStore,
-			{ payload }: PayloadAction<[]>,
-		) => ({
+		requestedListsSuccess: (state: ListsStore, { payload }: PayloadAction<{ data: [] }>) => ({
 			...state,
-			data: payload,
+			data: payload.data,
 			loading: false,
 		}),
 		requestedListsFailure: (state: ListsStore) => ({
