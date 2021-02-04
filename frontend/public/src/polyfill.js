@@ -40,12 +40,7 @@ import 'core-js/features/map';
 			detail: undefined,
 		};
 		const evt = document.createEvent('CustomEvent');
-		evt.initCustomEvent(
-			event,
-			params.bubbles,
-			params.cancelable,
-			params.detail,
-		);
+		evt.initCustomEvent(event, params.bubbles, params.cancelable, params.detail);
 		return evt;
 	}
 

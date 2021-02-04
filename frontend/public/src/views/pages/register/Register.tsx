@@ -1,20 +1,5 @@
 import React, { useState } from 'react';
-import {
-	CAlert,
-	CButton,
-	CCard,
-	CCardBody,
-	CCardFooter,
-	CCol,
-	CContainer,
-	CForm,
-	CInput,
-	CInputGroup,
-	CInputGroupPrepend,
-	CInputGroupText,
-	CRow,
-	CSpinner,
-} from '@coreui/react';
+import { CAlert, CButton, CCard, CCardBody, CCardFooter, CCol, CContainer, CForm, CInput, CInputGroup, CInputGroupPrepend, CInputGroupText, CRow, CSpinner } from '@coreui/react';
 import CIcon from '@coreui/icons-react';
 import { Link } from 'react-router-dom';
 
@@ -28,9 +13,7 @@ const Register = () => {
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
 	const dispatch = useDispatch();
-	const { requesting, successful, errors } = useSelector(
-		(state: StoreState) => state.register,
-	);
+	const { requesting, successful, errors } = useSelector((state: StoreState) => state.register);
 
 	const onSubmit = (ev: React.FormEvent) => {
 		ev.preventDefault();
@@ -57,17 +40,9 @@ const Register = () => {
 												<CIcon name="cil-user" />
 											</CInputGroupText>
 										</CInputGroupPrepend>
-										<CInput
-											type="text"
-											placeholder="Username"
-											autoComplete="username"
-										/>
+										<CInput type="text" placeholder="Username" autoComplete="username" />
 									</CInputGroup>
-									{errors!.length > 0 && errors![0].email && (
-										<CAlert color="danger">
-											{JSON.stringify(errors![0].email)}
-										</CAlert>
-									)}
+									{errors!.length > 0 && errors![0].email && <CAlert color="danger">{JSON.stringify(errors![0].email)}</CAlert>}
 									<CInputGroup className="mb-3">
 										<CInputGroupPrepend>
 											<CInputGroupText>@</CInputGroupText>
@@ -79,22 +54,10 @@ const Register = () => {
 											required
 											name="email"
 											value={email}
-											onChange={(ev) =>
-												setEmail(
-													(ev.target as HTMLInputElement)
-														.value,
-												)
-											}
+											onChange={(ev) => setEmail((ev.target as HTMLInputElement).value)}
 										/>
 									</CInputGroup>
-									{errors!.length > 0 &&
-										errors![0].password && (
-											<CAlert color="danger">
-												{JSON.stringify(
-													errors![0].password,
-												)}
-											</CAlert>
-										)}
+									{errors!.length > 0 && errors![0].password && <CAlert color="danger">{JSON.stringify(errors![0].password)}</CAlert>}
 									<CInputGroup className="mb-3">
 										<CInputGroupPrepend>
 											<CInputGroupText>
@@ -109,12 +72,7 @@ const Register = () => {
 											min={10}
 											name="password"
 											value={password}
-											onChange={(ev) =>
-												setPassword(
-													(ev.target as HTMLInputElement)
-														.value,
-												)
-											}
+											onChange={(ev) => setPassword((ev.target as HTMLInputElement).value)}
 										/>
 									</CInputGroup>
 									<CInputGroup className="mb-4">
@@ -123,25 +81,13 @@ const Register = () => {
 												<CIcon name="cil-lock-locked" />
 											</CInputGroupText>
 										</CInputGroupPrepend>
-										<CInput
-											type="password"
-											placeholder="Repeat password"
-											autoComplete="new-password"
-										/>
+										<CInput type="password" placeholder="Repeat password" autoComplete="new-password" />
 									</CInputGroup>
-									<CButton
-										color="success"
-										type="submit"
-										disabled={isEmptyData(email, password)}
-										block
-									>
+									<CButton color="success" type="submit" disabled={isEmptyData(email, password)} block>
 										{requesting ? (
 											<>
 												Отправка данных...&nbsp;
-												<CSpinner
-													color="info"
-													size="sm"
-												/>
+												<CSpinner color="info" size="sm" />
 											</>
 										) : (
 											<>Зарегистрировать</>
@@ -150,15 +96,8 @@ const Register = () => {
 								</CForm>
 							</CCardBody>
 							<CCardFooter>
-								<CAlert
-									show={successful}
-									color="success"
-									fade
-									closeButton
-								>
-									Регистрация прошла успешна! Спасибо за
-									регистацию.{' '}
-									<Link to="/login">Залогиниться</Link>
+								<CAlert show={successful} color="success" fade closeButton>
+									Регистрация прошла успешна! Спасибо за регистацию. <Link to="/login">Залогиниться</Link>
 								</CAlert>
 							</CCardFooter>
 						</CCard>

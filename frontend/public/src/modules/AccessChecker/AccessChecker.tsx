@@ -10,10 +10,7 @@ type Props = {
 	redirectPath?: string;
 };
 
-export const AccessChecker: FC<Props> = ({
-	children,
-	redirectPath = '/login',
-}) => {
+export const AccessChecker: FC<Props> = ({ children, redirectPath = '/login' }) => {
 	const { successful } = useSelector((state: StoreState) => state.login);
 
 	if (!successful) {

@@ -95,36 +95,7 @@ const MainChartExample = (attributes) => {
 			{...attributes}
 			datasets={defaultDatasets}
 			options={defaultOptions}
-			labels={[
-				'Mo',
-				'Tu',
-				'We',
-				'Th',
-				'Fr',
-				'Sa',
-				'Su',
-				'Mo',
-				'Tu',
-				'We',
-				'Th',
-				'Fr',
-				'Sa',
-				'Su',
-				'Mo',
-				'Tu',
-				'We',
-				'Th',
-				'Fr',
-				'Sa',
-				'Su',
-				'Mo',
-				'Tu',
-				'We',
-				'Th',
-				'Fr',
-				'Sa',
-				'Su',
-			]}
+			labels={['Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa', 'Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa', 'Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa', 'Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa', 'Su']}
 		/>
 	);
 };
