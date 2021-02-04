@@ -1,12 +1,5 @@
 import React from 'react';
-import {
-	CBadge,
-	CDropdown,
-	CDropdownItem,
-	CDropdownMenu,
-	CDropdownToggle,
-	CProgress,
-} from '@coreui/react';
+import { CBadge, CDropdown, CDropdownItem, CDropdownMenu, CDropdownToggle, CProgress } from '@coreui/react';
 import CIcon from '@coreui/icons-react';
 
 const TheHeaderDropdownTasks = () => {
@@ -20,12 +13,7 @@ const TheHeaderDropdownTasks = () => {
 				</CBadge>
 			</CDropdownToggle>
 			<CDropdownMenu placement="bottom-end" className="pt-0">
-				<CDropdownItem
-					header
-					tag="div"
-					className="text-center"
-					color="light"
-				>
+				<CDropdownItem header tag="div" className="text-center" color="light">
 					<strong>You have {itemsCount} pending tasks</strong>
 				</CDropdownItem>
 				<CDropdownItem className="d-block">

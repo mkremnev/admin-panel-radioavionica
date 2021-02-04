@@ -21,28 +21,12 @@ export const AppContainer: FC<{}> = () => {
 	return (
 		<React.Suspense fallback={loading}>
 			<Switch>
-				<Route
-					exact
-					path="/login"
-					render={(props) => <Login {...props} />}
-				/>
-				<Route
-					exact
-					path="/register"
-					render={(props) => <Register {...props} />}
-				/>
-				<Route
-					exact
-					path="/404"
-					render={(props) => <Page404 {...props} />}
-				/>
-				<Route
-					exact
-					path="/500"
-					render={(props) => <Page500 {...props} />}
-				/>
+				<Route exact path="/login" render={(props) => <Login {...props} />} />
+				<Route exact path="/register" render={(props) => <Register {...props} />} />
+				<Route exact path="/404" render={(props) => <Page404 {...props} />} />
+				<Route exact path="/500" render={(props) => <Page500 {...props} />} />
 
-				<Route path="/" render={(props) => <TheLayout {...props} /> } />
+				<Route path="/" render={(props) => <TheLayout {...props} />} />
 			</Switch>
 		</React.Suspense>
 	);

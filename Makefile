@@ -7,7 +7,7 @@ up: docker-up
 down: docker-down
 restart: down up
 check: lint analyze validate-schema test
-lint: php-lint
+lint: php-lint frontend-lint
 analyze: php-analyze
 validate-schema: php-validate-schema
 test: php-test php-fixtures
@@ -66,7 +66,6 @@ push-frontend:
 	docker push ${REGISTRY}/radioavionica-frontend:${IMAGE_TAG}
 
 deploy:
-	npm-build
 	ssh -o StrictHostKeyChecking=no deploy@${HOST} -p ${PORT} 'rm -rf admin-panel_${BUILD_NUMBER}'
 	ssh -o StrictHostKeyChecking=no deploy@${HOST} -p ${PORT} 'mkdir admin-panel_${BUILD_NUMBER}'
 
@@ -152,3 +151,9 @@ frontend-init: frontend-npm-install
 
 frontend-npm-install:
 	docker-compose run --rm frontend-node-cli npm install
+
+frontend-test:
+	docker-compose run --rm frontend-node-cli npm run test
+
+frontend-lint:
+	docker-compose run --rm frontend-node-cli npm run lint

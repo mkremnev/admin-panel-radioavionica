@@ -1,14 +1,5 @@
 import React from 'react';
-import {
-	CHeader,
-	CToggler,
-	CHeaderBrand,
-	CHeaderNav,
-	CHeaderNavItem,
-	CHeaderNavLink,
-	CSubheader,
-	CBreadcrumbRouter,
-} from '@coreui/react';
+import { CHeader, CToggler, CHeaderBrand, CHeaderNav, CHeaderNavItem, CHeaderNavLink, CSubheader, CBreadcrumbRouter } from '@coreui/react';
 import CIcon from '@coreui/icons-react';
 import { connect } from 'react-redux';
 import { actions } from '@/rdx/reducer';
@@ -17,12 +8,7 @@ import { StoreState } from '@/store';
 // routes config
 import routes from '../routes';
 
-import {
-	TheHeaderDropdown,
-	TheHeaderDropdownMssg,
-	TheHeaderDropdownNotif,
-	TheHeaderDropdownTasks,
-} from './index';
+import { TheHeaderDropdown, TheHeaderDropdownMssg, TheHeaderDropdownNotif, TheHeaderDropdownTasks } from './index';
 
 function mapStateToProps(state: StoreState) {
 	return {
@@ -32,12 +18,9 @@ function mapStateToProps(state: StoreState) {
 const mapDispatchToProps = {
 	SidebarShow: actions.set,
 };
-type TheHeaderProps = ReturnType<typeof mapStateToProps> &
-	typeof mapDispatchToProps;
+type TheHeaderProps = ReturnType<typeof mapStateToProps> & typeof mapDispatchToProps;
 
-const TheHeaderComponent: React.FC<TheHeaderProps> = (
-	props: TheHeaderProps,
-) => {
+const TheHeaderComponent: React.FC<TheHeaderProps> = (props: TheHeaderProps) => {
 	const show = props.sidebarShow;
 
 	const toggleSidebar = () => {
@@ -52,16 +35,8 @@ const TheHeaderComponent: React.FC<TheHeaderProps> = (
 
 	return (
 		<CHeader withSubheader>
-			<CToggler
-				inHeader
-				className="ml-md-3 d-lg-none"
-				onClick={toggleSidebarMobile}
-			/>
-			<CToggler
-				inHeader
-				className="ml-3 d-md-down-none"
-				onClick={toggleSidebar}
-			/>
+			<CToggler inHeader className="ml-md-3 d-lg-none" onClick={toggleSidebarMobile} />
+			<CToggler inHeader className="ml-3 d-md-down-none" onClick={toggleSidebar} />
 			<CHeaderBrand className="mx-auto d-lg-none" to="/">
 				<CIcon name="logo" height="48" alt="Logo" />
 			</CHeaderBrand>
@@ -83,10 +58,7 @@ const TheHeaderComponent: React.FC<TheHeaderProps> = (
 			</CHeaderNav>
 
 			<CSubheader className="px-3 justify-content-between">
-				<CBreadcrumbRouter
-					className="border-0 c-subheader-nav m-0 px-0 px-md-3"
-					routes={routes}
-				/>
+				<CBreadcrumbRouter className="border-0 c-subheader-nav m-0 px-0 px-md-3" routes={routes} />
 
 				{/*//TODO Здесь будет статус пользователя: командировка | офис |
 				отпуск | больничный */}
@@ -95,8 +67,5 @@ const TheHeaderComponent: React.FC<TheHeaderProps> = (
 	);
 };
 
-const TheHeader = connect(
-	mapStateToProps,
-	mapDispatchToProps,
-)(TheHeaderComponent);
+const TheHeader = connect(mapStateToProps, mapDispatchToProps)(TheHeaderComponent);
 export default TheHeader;
