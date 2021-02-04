@@ -7,7 +7,7 @@ use Slim\Middleware\ErrorMiddleware;
 use App\Http\Middleware;
 
 return static function (App $app): void {
-    $app->add(Middleware\SessionMiddleware::class);
+    (getenv('APP_ENV') !== 'test' ? $app->add(Middleware\SessionMiddleware::class) : null);
     $app->add(Middleware\ValidationExceptionHandler::class);
     $app->add(Middleware\DomainExceptionHandler::class);
     $app->add(Middleware\ClearEmptyInput::class);
