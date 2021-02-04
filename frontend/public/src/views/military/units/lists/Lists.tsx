@@ -128,7 +128,7 @@ const TheListsComponent: React.FC<TheListProps> = (props) => {
 		<div className="card">
 			<div className="card-header d-flex justify-content-between align-items-center">
 				<h4>Список воинских частей</h4>
-				<CButton color="success" className="m-2" to="/modules/create-units">
+				<CButton color="success" className="m-2" to="/add/unit">
 					Добавить
 				</CButton>
 			</div>

@@ -1,9 +1,12 @@
-import React, { Suspense } from 'react';
+import React, { Suspense, useEffect } from 'react';
 import { Redirect, Route, Switch } from 'react-router-dom';
 import { CContainer, CFade } from '@coreui/react';
+import { useDispatch } from 'react-redux';
 
 // routes config
 import routes from '../routes';
+import { useHistory } from 'react-router-dom';
+import { actions } from '@/views/military/add/unit/reducer';
 
 const loading = (
 	<div className="pt-3 text-center">
@@ -12,6 +15,14 @@ const loading = (
 );
 
 const TheContent = () => {
+	const dispatch = useDispatch();
+	const { reset } = actions;
+	const history = useHistory();
+	useEffect(() => {
+		return history.listen(() => {
+			dispatch(reset());
+		});
+	}, [history]);
 	return (
 		<main className="c-main">
 			<CContainer fluid>
@@ -24,6 +35,8 @@ const TheContent = () => {
 										key={idx}
 										path={route.path}
 										exact={route.exact}
+										// eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+										// @ts-ignore
 										name={route.name}
 										render={(props) => (
 											<CFade>
