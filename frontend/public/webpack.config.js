@@ -8,11 +8,7 @@ const getPublicUrlOrPath = require('react-dev-utils/getPublicUrlOrPath');
 const appDirectory = fs.realpathSync(process.cwd());
 const resolveApp = (relativePath) => path.resolve(appDirectory, relativePath);
 
-const publicUrlOrPath = getPublicUrlOrPath(
-	process.env.NODE_ENV === 'development',
-	require(resolveApp('package.json')).homepage,
-	process.env.PUBLIC_URL,
-);
+const publicUrlOrPath = getPublicUrlOrPath(process.env.NODE_ENV === 'development', require(resolveApp('package.json')).homepage, process.env.PUBLIC_URL);
 
 module.exports = {
 	entry: './src/index.tsx',
@@ -77,11 +73,7 @@ module.exports = {
 	devServer: {
 		historyApiFallback: true,
 		hot: true,
-		contentBase: [
-			path.join(__dirname, '/public'),
-			path.join(__dirname, '/dist'),
-			path.join(__dirname, '/public/avatars'),
-		],
+		contentBase: [path.join(__dirname, '/public'), path.join(__dirname, '/dist'), path.join(__dirname, '/public/avatars')],
 		port: 5000,
 		host: process.env.HOST || '0.0.0.0',
 		transportMode: 'ws',

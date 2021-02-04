@@ -14,10 +14,7 @@ export const registerSlice = createSlice({
 	name: 'user',
 	initialState,
 	reducers: {
-		requesting: (
-			state,
-			{ payload }: PayloadAction<{ email: string; password: string }>,
-		) => ({
+		requesting: (state, { payload }: PayloadAction<{ email: string; password: string }>) => ({
 			...state,
 			requesting: true,
 		}),

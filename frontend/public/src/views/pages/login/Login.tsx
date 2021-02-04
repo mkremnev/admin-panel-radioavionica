@@ -1,20 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import {
-	CButton,
-	CCard,
-	CCardBody,
-	CCardGroup,
-	CCol,
-	CContainer,
-	CForm,
-	CInput,
-	CInputGroup,
-	CInputGroupPrepend,
-	CInputGroupText,
-	CRow,
-	CSpinner,
-} from '@coreui/react';
+import { CButton, CCard, CCardBody, CCardGroup, CCol, CContainer, CForm, CInput, CInputGroup, CInputGroupPrepend, CInputGroupText, CRow, CSpinner } from '@coreui/react';
 import CIcon from '@coreui/icons-react';
 
 import { actions } from './reducer';
@@ -28,9 +14,7 @@ const Login = () => {
 	const [password, setPassword] = useState('');
 	const dispatch = useDispatch();
 	const history = useHistory();
-	const { requesting, successful, errors, user } = useSelector(
-		(state: StoreState) => state.login,
-	);
+	const { requesting, successful, errors, user } = useSelector((state: StoreState) => state.login);
 
 	useEffect(() => {
 		if (successful) {
@@ -64,28 +48,14 @@ const Login = () => {
 								<CCardBody>
 									<CForm onSubmit={onSubmit}>
 										<h1>Авторизация.</h1>
-										<p className="text-muted">
-											Введите данные для входа в ваш
-											аккаунт.
-										</p>
+										<p className="text-muted">Введите данные для входа в ваш аккаунт.</p>
 										<CInputGroup className="mb-3">
 											<CInputGroupPrepend>
 												<CInputGroupText>
 													<CIcon name="cil-user" />
 												</CInputGroupText>
 											</CInputGroupPrepend>
-											<CInput
-												type="text"
-												placeholder="Email"
-												autoComplete="email"
-												value={email}
-												onChange={(ev) =>
-													setEmail(
-														(ev.target as HTMLInputElement)
-															.value,
-													)
-												}
-											/>
+											<CInput type="text" placeholder="Email" autoComplete="email" value={email} onChange={(ev) => setEmail((ev.target as HTMLInputElement).value)} />
 										</CInputGroup>
 										<CInputGroup className="mb-4">
 											<CInputGroupPrepend>
@@ -101,44 +71,25 @@ const Login = () => {
 												min={10}
 												name="password"
 												value={password}
-												onChange={(ev) =>
-													setPassword(
-														(ev.target as HTMLInputElement)
-															.value,
-													)
-												}
+												onChange={(ev) => setPassword((ev.target as HTMLInputElement).value)}
 											/>
 										</CInputGroup>
 										<CRow>
 											<CCol xs="6">
-												<CButton
-													color="primary"
-													className="px-4"
-													type="submit"
-													disabled={isEmptyData(
-														email,
-														password,
-													)}
-												>
+												<CButton color="primary" className="px-4" type="submit" disabled={isEmptyData(email, password)}>
 													<>
 														Войти
 														{requesting && (
 															<>
 																{' '}
-																<CSpinner
-																	color="info"
-																	size="sm"
-																/>
+																<CSpinner color="info" size="sm" />
 															</>
 														)}
 													</>
 												</CButton>
 											</CCol>
 											<CCol xs="6" className="text-right">
-												<CButton
-													color="link"
-													className="px-0"
-												>
+												<CButton color="link" className="px-0">
 													Забыли свой пароль?
 												</CButton>
 											</CCol>
@@ -146,21 +97,13 @@ const Login = () => {
 									</CForm>
 								</CCardBody>
 							</CCard>
-							<CCard
-								className="text-white bg-primary py-5 d-md-down-none"
-								style={{ width: '44%' }}
-							>
+							<CCard className="text-white bg-primary py-5 d-md-down-none" style={{ width: '44%' }}>
 								<CCardBody className="text-center">
 									<div>
 										<h2>Зарегистрироваться</h2>
 										<p>Личный кабинет пользователя.</p>
 										<Link to="/register">
-											<CButton
-												color="primary"
-												className="mt-3"
-												active
-												tabIndex={-1}
-											>
+											<CButton color="primary" className="mt-3" active tabIndex={-1}>
 												Зарегистрироваться!
 											</CButton>
 										</Link>
