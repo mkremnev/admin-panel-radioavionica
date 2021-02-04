@@ -10,6 +10,7 @@ const ax: AxiosInstance = axios.create({
 	headers: {
 		'Accept-Language': 'ru',
 	},
+	withCredentials: true,
 });
 
 export { ax as axios };
