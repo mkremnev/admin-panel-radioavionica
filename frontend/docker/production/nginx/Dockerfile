@@ -2,10 +2,10 @@ FROM node:14-alpine as builder
 
 WORKDIR /app
 
-COPY ./package.json ./package-lock.json ./
-RUN npm install && npm cache clear
+COPY ./public/package.json ./
+RUN npm install
 
-COPY ./ ./
+COPY ./public ./
 RUN npm run build
 
 FROM nginx:1.17-alpine

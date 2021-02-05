@@ -61,6 +61,7 @@ push-gateway:
 push-backend:
 	docker push ${REGISTRY}/radioavionica-backend-nginx:${IMAGE_TAG}
 	docker push ${REGISTRY}/radioavionica-backend-php-fpm:${IMAGE_TAG}
+	docker push ${REGISTRY}/radioavionica-backend-php-cli:${IMAGE_TAG}
 
 push-frontend:
 	docker push ${REGISTRY}/radioavionica-frontend:${IMAGE_TAG}
@@ -75,7 +76,7 @@ deploy:
 
 	ssh -o StrictHostKeyChecking=no deploy@${HOST} -p ${PORT} 'cd admin-panel_${BUILD_NUMBER} && docker-compose -f docker-compose.yml pull'
 	ssh -o StrictHostKeyChecking=no deploy@${HOST} -p ${PORT} 'cd admin-panel_${BUILD_NUMBER} && docker-compose -f docker-compose.yml down'
-	ssh -o StrictHostKeyChecking=no deploy@${HOST} -p ${PORT} 'cd admin-panel_${BUILD_NUMBER} && docker-compose -f docker-compose.yml up --build -d backend-postgres backend-php-cli  '
+	ssh -o StrictHostKeyChecking=no deploy@${HOST} -p ${PORT} 'cd admin-panel_${BUILD_NUMBER} && docker-compose -f docker-compose.yml up --build -d backend-postgres backend-php-cli'
 	ssh -o StrictHostKeyChecking=no deploy@${HOST} -p ${PORT} 'cd admin-panel_${BUILD_NUMBER} && docker-compose run backend-php-cli wait-for-it backend-postgres:5432 -t 60'
 	ssh -o StrictHostKeyChecking=no deploy@${HOST} -p ${PORT} 'cd admin-panel_${BUILD_NUMBER} && docker-compose run backend-php-cli php bin/app.php migrations:migrate --no-interaction'
 	ssh -o StrictHostKeyChecking=no deploy@${HOST} -p ${PORT} 'cd admin-panel_${BUILD_NUMBER} && docker-compose -f docker-compose.yml up --build --remove-orphans -d'
