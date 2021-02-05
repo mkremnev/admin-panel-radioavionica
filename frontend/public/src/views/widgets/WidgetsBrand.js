@@ -62,7 +62,7 @@ const WidgetsBrand = ({ withCharts }) => {
 					<CIcon name="cil-calendar" height="56" className="my-4" />
 				</CWidgetBrand>
 			</CCol>
-		</CRow>;
+		</CRow>
 	);
 };
 
