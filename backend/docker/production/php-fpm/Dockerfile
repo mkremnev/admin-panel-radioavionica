@@ -31,6 +31,6 @@ WORKDIR /app
 
 COPY --from=builder /app /app/public/
 
-COPY ./ ./
+COPY ./public ./
 
 RUN chown -R www-data:www-data ./var
