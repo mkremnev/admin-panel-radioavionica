@@ -158,3 +158,14 @@ frontend-test:
 
 frontend-lint:
 	docker-compose run --rm frontend-node-cli npm run lint
+
+testing-build: testing-build-gateway testing-build-testing-api-php-cli
+
+testing-build-gateway:
+	docker --log-level=debug build --pull --file=gateway/docker/testing/nginx/Dockerfile --tag=${REGISTRY}/radioavionica-testing-gateway:${IMAGE_TAG} gateway/docker
+
+testing-build-testing-api-php-cli:
+	docker --log-level=debug build --pull --file=gateway/docker/testing/nginx/Dockerfile --tag=${REGISTRY}/radioavionica-testing-backend-php-cli:${IMAGE_TAG} api
+
+testing-init:
+	

@@ -1,0 +1,75 @@
+version: "3.7"
+services:
+  gateway:
+    image: ${REGISTRY}/radioavionica-gateway:${IMAGE_TAG}
+
+  frontend:
+    image: ${REGISTRY}/radioavionica-frontend:${IMAGE_TAG}
+
+  backend-nginx:
+    image: ${REGISTRY}/radioavionica-backend-nginx:${IMAGE_TAG}
+
+  backend-php-fpm:
+    image: ${REGISTRY}/radioavionica-backend-php-fpm:${IMAGE_TAG}
+    restart: always
+    environment:
+      APP_DEBUG: 1
+      APP_ENV: prod
+      DB_HOST: backend-postgres
+      DB_USER: app
+      DB_PASSWORD: secret
+      DB_NAME: app
+      MAILER_HOST: mailer
+      MAILER_PORT: 1025
+      MAILER_USER: app
+      MAILER_PASS: secrect
+      MAILER_ENCRYPT: tls
+      MAILER_FROM_EMAIL: mail@app.test
+      FRONTEND_URL: http://gateway:8080
+
+  backend-php-cli:
+    image: ${REGISTRY}/radioavionica-backend-php-cli:${IMAGE_TAG}
+    environment:
+      APP_DEBUG: 0
+      APP_ENV: prod
+      DB_HOST: backend-postgres
+      DB_USER: app
+      DB_PASSWORD: secret
+      DB_NAME: app
+      MAILER_HOST: mailer
+      MAILER_PORT: 1025
+      MAILER_USER: app
+      MAILER_PASS: secret
+      MAILER_ENCRYPT: tls
+      MAILER_FROM_EMAIL: mail@app.test
+      FRONTEND_URL: http://gateway:8080
+
+  testing-backend-php-cli:
+    image: ${REGISTRY}/radioavionica-testing-backend-php-cli:${IMAGE_TAG}
+    environment:
+      APP_DEBUG: 1
+      APP_ENV: dev
+      DB_HOST: backend-postgres
+      DB_USER: app
+      DB_PASSWORD: secret
+      DB_NAME: app
+      MAILER_HOST: mailer
+      MAILER_PORT: 1025
+      MAILER_USER: app
+      MAILER_PASS: secret
+      MAILER_ENCRYPT: tls
+      MAILER_FROM_EMAIL: mail@app.test
+      FRONTEND_URL: http://gateway:8080
+
+  backend-postgres:
+    image: postgres:13.1-alpine
+    environment:
+      POSTGRES_USER: app
+      POSTGRES_PASSWORD: secret
+      POSTGRESS_DB: app
+
+  mailer:
+    image: mailhog/mailhog
+
+volumes:
+  backend-postgres:
