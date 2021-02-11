@@ -6,7 +6,7 @@ services:
     volumes:
       - /var/www/html:/var/www/html:ro
     ports:
-      - "80:80"
+      - "4444:80"
     depends_on:
       - frontend
       - backend-nginx
@@ -61,7 +61,7 @@ services:
     restart: always
     environment:
       POSTGRES_USER: app
-      POSTGRES_PASSWORD: $P{RADIOAVIONICA_DB_PASS}
+      POSTGRES_PASSWORD: ${RADIOAVIONICA_DB_PASS}
       POSTGRESS_DB: app
     volumes:
       - backend-postgres:/var/lib/postgresql/data
