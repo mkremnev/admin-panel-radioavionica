@@ -10,7 +10,7 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20210129074613 extends AbstractMigration
+final class Version20210212110707 extends AbstractMigration
 {
     public function getDescription() : string
     {
@@ -43,7 +43,7 @@ final class Version20210129074613 extends AbstractMigration
         $this->addSql('CREATE INDEX IDX_DA6AD53CF8BD700D ON military_unit_officials (unit_id)');
         $this->addSql('CREATE UNIQUE INDEX UNIQ_DA6AD53C22EE6FA79FC812A2DC6DC6398718923B ON military_unit_officials (official_subunit, official_rank, official_fio, official_telephone)');
         $this->addSql('COMMENT ON COLUMN military_unit_officials.unit_id IS \'(DC2Type:military_unit_id)\'');
-        $this->addSql('CREATE TABLE military_units (id UUID NOT NULL, name VARCHAR(255) NOT NULL, address VARCHAR(255) NOT NULL, amount VARCHAR(255) NOT NULL, commander_lastname VARCHAR(255) NOT NULL, commander_firstname VARCHAR(255) DEFAULT NULL, commander_surname VARCHAR(255) DEFAULT NULL, PRIMARY KEY(id))');
+        $this->addSql('CREATE TABLE military_units (id UUID NOT NULL, name VARCHAR(255) NOT NULL, address VARCHAR(255) NOT NULL, amount VARCHAR(255) NOT NULL, procuration VARCHAR(255) DEFAULT NULL, commander_lastname VARCHAR(255) NOT NULL, commander_firstname VARCHAR(255) DEFAULT NULL, commander_surname VARCHAR(255) DEFAULT NULL, PRIMARY KEY(id))');
         $this->addSql('COMMENT ON COLUMN military_units.id IS \'(DC2Type:military_unit_id)\'');
         $this->addSql('COMMENT ON COLUMN military_units.name IS \'(DC2Type:military_unit_name)\'');
         $this->addSql('COMMENT ON COLUMN military_units.address IS \'(DC2Type:military_unit_address)\'');
