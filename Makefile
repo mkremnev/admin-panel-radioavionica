@@ -158,3 +158,31 @@ frontend-test:
 
 frontend-lint:
 	docker-compose run --rm frontend-node-cli npm run lint
+
+testing-build: testing-build-gateway testing-build-testing-api-php-cli
+
+testing-build-gateway:
+	docker --log-level=debug build --pull --file=gateway/testing/nginx/Dockerfile --tag=${REGISTRY}/radioavionica-testing-gateway:${IMAGE_TAG} gateway
+
+testing-build-testing-api-php-cli:
+	docker --log-level=debug build --pull --file=backend/docker/testing/php-cli/Dockerfile --tag=${REGISTRY}/radioavionica-testing-backend-php-cli:${IMAGE_TAG} backend
+
+testing-init:
+	COMPOSE_PROJECT_NAME=testing docker-compose -f docker-compose-testing.yml up -d
+	COMPOSE_PROJECT_NAME=testing docker-compose -f docker-compose-testing.yml run --rm backend-php-cli wait-for-it backend-postgres:5432 -t 60
+	COMPOSE_PROJECT_NAME=testing docker-compose -f docker-compose-testing.yml run --rm backend-php-cli php bin/app.php migrations:migrate --no-interaction
+	COMPOSE_PROJECT_NAME=testing docker-compose -f docker-compose-testing.yml run --rm testing-backend-php-cli php bin/app.php fixtures:load --no-interaction
+
+testing-down-clear:
+	COMPOSE_PROJECT_NAME=testing docker-compose -f docker-compose-testing.yml down -v --remove-orphans
+
+try-testing: try-build try-testing-build try-testing-init try-testing-down-clear
+
+try-testing-build:
+	REGISTRY=localhost IMAGE_TAG=0 make testing-build
+
+try-testing-init:
+	REGISTRY=localhost IMAGE_TAG=0 make testing-init
+
+try-testing-down-clear:
+	REGISTRY=localhost IMAGE_TAG=0 make testing-down-clear
