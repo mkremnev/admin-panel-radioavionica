@@ -1,4 +1,4 @@
-!(Coreui)[https://i.ytimg.com/vi/Gi7jW5YA3Ho/maxresdefault.jpg]
+!(https://i.ytimg.com/vi/Gi7jW5YA3Ho/maxresdefault.jpg)[CoreUI]
 ### Проект CRM для сотрудников
 
 ### В проекте применяется:
